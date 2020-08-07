@@ -1,3 +1,8 @@
+
+.back{
+  padding: 30px;
+}
+
 .header{
     margin: 25px;
   }
@@ -21,11 +26,10 @@
     text-decoration: none;
     color: white;
     padding: 5px 10px;
-    margin: 0 3px;
-    background:  #21D6E5;
-    border-radius: 15px;
+    background:  #0bc9cf;
     font-size: large;
     font-weight: 700;
+    border-left:2px solid rgb(59, 59, 59);
   }
   
   .header .head a:hover{
