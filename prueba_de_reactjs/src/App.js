@@ -1,11 +1,10 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Header from './components/Header';
 import Nav from './components/Nav';
-import BodyHead from './components/Body-head';
+import Body from './components/Body';
 
-const bodyHead =[{
+const bodyArr =[{
   "img":"https://depor.com/resizer/az8pLMm5SRkujv8aKsh_q6tezVc=/580x330/smart/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/MMZVLW64LJHTNHAUGVVHIJNHP4.jpg",
   "title": "Comparten malas noticias sobre el precio que tendra PS5",
   "text": "PlayStation 5 llegará a nuestras manos a finales de año. Sin embargo, por el momento sigue siendo un gran misterio cuándo exactamente sucederá esto, y el precio de la consola.",
@@ -50,19 +49,37 @@ const bodyHead =[{
 }
 ]
 
+const navArr =[{
+"img":"https://i11a.3djuegos.com/juegos/3405/_articulos_/fotos/articulos/_articulos_-5216104.jpg",
+"title":"Todas las generaciones de pokémon, ordenadas de mejor a peor"
+},
+{"img":"https://i11a.3djuegos.com/juegos/3405/_articulos_/fotos/articulos/_articulos_-5213452.jpg",
+"title":"The Initiative, ¿quién hay en el Dream Team de Xbox Series X?"
+},{"img":"https://i11a.3djuegos.com/juegos/3405/_articulos_/fotos/articulos/_articulos_-5210552.jpg",
+"title":"Profesiones de Videojuego: ¿Qué hace un diseñador (Game Designer) y por qué es tan importante?"
+},
+{"img":"https://i11a.3djuegos.com/juegos/16372/call_of_duty_2019/fotos/noticias/call_of_duty_2019-5223848.jpg",
+"title": "El Call of Duty de 2020 podría anunciarse muy pronto, según una misteriosa caja enviada por Activision"},
+{"img":"https://i11d.3djuegos.com/juegos/15953/doom_eternal/fotos/noticias/doom_eternal-5224667.jpg",
+"title":"DOOM Eternal muestra un adelanto en vídeo de The Ancient Gods, primera expansión de su brutal campaña"},
+{"img":"https://i11a.3djuegos.com/juegos/9610/blizzard_allstars/fotos/noticias/blizzard_allstars-5224436.jpg",
+"title":"Aluvión de videojuego gratis para disfrutar el fin de semana, con Borderlands 3 y Gears 5 entre ellos"},
+{"img":"https://i11b.3djuegos.com/juegos/12156/final_fantasy_vii_remake/fotos/noticias/final_fantasy_vii_remake-5224421.jpg",
+"title": "Final Fantasy VII Remake supera los 5 millones de juegos vendidos en todo el mundo"}
+]
+
 function App() {
   return (
     <div className="App">
-      <header>
         <Header/>
-        <Nav/>
-        {bodyHead.map(c => <BodyHead img={c.img}
+        <nav className="app-nav"> <p className="trending">Trending</p> {navArr.map( c => <Nav img={c.img} title={c.title}/>)}
+        </nav>
+        {bodyArr.map(c => <Body img={c.img}
         title={c.title}
         text={c.text}
         url={c.url}
         date={c.date}
         autor={c.autor}/>)}
-      </header>
     </div>
   );
 }

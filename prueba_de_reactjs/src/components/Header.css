@@ -1,64 +1,54 @@
-
-.back{
-  padding: 30px;
-}
-
 .header{
-    margin: 25px;
+    padding-top: 25px;
   }
 
   .header .img-head a img{
-    position: absolute;
-    left: 40px;
-    top: 10px;
+   position: relative;
+   bottom: 13px;
+   left: 25%;
    height: 55px; 
    float: left;
+   transform: translateX(-75%);
   }
-  
+
   .header .head{
-    margin-top: 25px;
-    position: absolute;
-    right: 15px;
-    top: 0;
+    margin: 15px 0 15px 0;
   }
   
   .header .head a{
     text-decoration: none;
     color: white;
-    padding: 5px 10px;
-    background:  #0bc9cf;
-    font-size: large;
+    padding: 5px 2vw;
+    background: linear-gradient(to bottom, #0bc9cf, #00afd6 );
+    font-size: large; 
     font-weight: 700;
     border-left:2px solid rgb(59, 59, 59);
   }
   
   .header .head a:hover{
-    background: #d11414;
+    background: linear-gradient(to bottom, #d11414, #aa0909 );
   }
   
   .header .head .active{
-    background: #d11414;
+    background: linear-gradient(to bottom, #d11414, #aa0909 );
   }
   
   .header nav hr{
-    position: absolute;
-    top: 73px;
-    left:0;
     height: 3px;
     width: 100vw;
     background: gray;
   }
   
   .search{
-    position: absolute;
-    left : 130px;
-    top: 23px;
     display: flex;
     justify-content: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
   }
   
   .search form input{
-    width: 700px;
+    width: 400px;
     height: 22px;
     border-radius: 12px;
     text-align: justify;
@@ -66,8 +56,7 @@
   }
   
   .search .fa-search{
-    position: relative;
-    top: 3px;
     size: 9px;
+    cursor: pointer;
   }
   

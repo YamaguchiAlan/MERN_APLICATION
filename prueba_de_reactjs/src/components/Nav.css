@@ -1,3 +1,41 @@
-.primer{
+.Nav{
+    margin:10px 10px 0 0;
+    display: flex;
+    float: right;
+    width: 21vw;
+    max-height: 90px;
+}
 
+.Nav .image .nav-img{
+float: left;
+height: 90px;
+}
+
+.Nav  .text{
+    width: calc(21vw - 150px);
+    height: 90px;
+    max-height: 90px;
+    display: table;
+    background: #181717e8;
+}
+
+
+.Nav .text  a{
+    padding: 0 3px ;
+    text-decoration: none;
+    color: white;
+    word-wrap: break-word;
+    font-size: 15px;
+    font-weight: 700;
+    max-width: calc(21vw - 150px);
+    max-height: 90px;
+    overflow:hidden;
+
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.Nav .text a:hover{
+    transition: 0.5s;
+    color: #26cce2;
 }

@@ -1,0 +1,53 @@
+.user{
+    position: absolute;
+    top: 5px;
+    left: 70%;
+    transform: translateX(-30%);
+}
+
+.user img{
+    height: 55px;
+}
+
+.user .text{
+ width: 130px;
+}
+
+.user .text a{
+    text-decoration: none;
+}
+
+.user .text .user-name{
+    position: relative;
+    left: 115px;
+    bottom: 55px;
+    color: white;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.user .text .log-in{
+    position: relative;
+    left: 95px;
+    bottom: 45px;
+    color: red;
+    font-size: 15px;
+    opacity: 0.6;
+}
+
+.user .text .log-in:hover{
+    opacity: 1;
+}
+
+.user .text .sign-up{
+    position: relative;
+    left: 190px;
+    bottom: 64px;
+    color: red;
+    font-size: 15px;
+    opacity: 0.6;
+}
+
+.user .text .sign-up:hover{
+    opacity: 1;
+}

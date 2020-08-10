@@ -1,24 +1,27 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './Header.css';
+import logo from '../img/logo.png';
+import User from './User';
 
-let Header = () =>{
-    return(
-<div className="back">
-    <div className="header">
-
+class Header extends Component{
+    render(){
+        return(
+  <div className="header">
     <nav>
-     <div className="img-head">
-        <a href="#"><img src="https://cdn.pixabay.com/photo/2018/09/05/06/19/signal-3655575_960_720.png" alt="logo"></img></a>
+     <div className="img-head">  
+        <a href="#"><img src={logo} alt="logo"></img></a>
      </div>
-
      <div className="search">
         <form>
             <input type="text" placeholder="Buscar"/>
         </form>
         <i class="fas fa-search"></i>
      </div>
-
-     <div className="head">
+     <div className="user">
+         <User/>
+     </div>
+      <hr></hr>
+      <div className="head">
       <a href="#" className="active">Inicio</a>
       <a href="#">Noticias</a>
       <a href="#">PC</a>
@@ -30,12 +33,25 @@ let Header = () =>{
       <a href="#">Foros</a>
       <a href="#">Comunidad</a>
      </div>
-      <hr></hr>
     </nav>
     </div>
-</div>
-
     )
+  }
+
+  componentDidMount(){
+    var enlaces = document.querySelectorAll('.header .head a');
+
+    enlaces.forEach(element => {
+        
+        element.addEventListener('click', (event) =>{
+            
+            enlaces.forEach(link =>{
+                link.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        });
+    });
+  }
 }
 
 export default Header;

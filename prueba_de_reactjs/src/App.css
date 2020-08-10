@@ -3,7 +3,31 @@
   overflow-x: hidden;
   text-align: center;
   font-family: 'Roboto', sans-serif;
-  background: -webkit-linear-gradient(to bottom, #485563 ,#29323c );  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to bottom,#485563 ,#29323c); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  
+  width:100vw;
+  background: #232526;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom, #414345, #232526);  /*   background: -webkit-linear-gradient(to bottom, #485563 ,#29323c );
+  background: linear-gradient(to bottom,#485563 ,#29323c); */
+  background: linear-gradient(to bottom, #414345, #232526); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.App .app-nav{
+  float: right;
+  display: flex;
+  flex-direction: column;
+  margin: 10px 10px 0 0;
+  padding: 0 0 3px 10px;
+  border: 1px solid red;
+  border-top: 30px solid #19a6b9;
+  background: #1f1f1fe8;
+  position: relative;
+}
+
+.App .app-nav .trending{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 680px;
+  color: rgb(246, 240, 240);
+  font-size: 24px;
+  font-weight: 700;
 }
