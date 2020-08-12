@@ -1,28 +1,61 @@
-import React from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import './Body.css'
 import instagram from '../img/instagram.png';
 import twitter from '../img/twitter.png';
 
-function Body(props){
-        return(
+class Body extends Component{
+        constructor(props){
+            super(props);
+        }
+
+        render(){
+            return(
         <div className="body-back">
             <div className="body-image">
-              <a className="img" href={props.url}><img src={props.img} alt="imagen default"/></a>
+              <a className="img" href={this.props.url}><img src={this.props.img} alt="imagen default"/></a>
             </div>
             <div className="body-text">
-              <a href={props.url} className="titulo">{props.title}</a>
-              <p>{props.text}</p>
-              <span className="body-autor">{props.autor}</span> 
-              <span className="body-date">{props.date}</span>
+              <a href={this.props.url} className="titulo">{this.props.title}</a>
+              <p>{this.props.text}</p>
+              <span className="body-autor">{this.props.autor}</span> 
+              <span className="body-date">{this.props.date}</span>
               <div className="redes-sociales">
-                  <a href={props.ig} className="ig"><img src={instagram} alt="instagram"/></a>
-                  <a href={props.twitter} className="twitter"><img src={twitter} alt="twitter"/></a>
+                  <a href={this.props.ig} className="ig"><img src={instagram} alt="instagram"/></a>
+                  <a href={this.props.twitter} className="twitter"><img src={twitter} alt="twitter"/></a>
                 </div>
             </div>
         </div>
         )
     }
+
+    componentDidMount(){
+        let title = document.querySelectorAll('.body-back .body-text .titulo');
+
+        let titulo = Array.from(title);
+
+        let i = 0;
+
+        console.log(titulo[0]);
+
+        console.log(i);
+
+        titulo.forEach( c =>{
+            let st = String(c);
+
+            console.log(st);
+
+            let le = st.length;
+
+            
+
+            if(le > 70){
+                c.style.fontSize="12px";
+            }
+    });
+    i++;
+}
+}
 
 export default Body;
 

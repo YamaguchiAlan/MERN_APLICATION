@@ -1,53 +1,32 @@
-.user{
-    position: absolute;
-    top: 5px;
-    left: 70%;
-    transform: translateX(-30%);
-}
-
 .user img{
     height: 55px;
 }
 
-.user .text{
- width: 130px;
-}
-
 .user .text a{
     text-decoration: none;
+    position: relative;
+    left: 135px;
+    bottom: 58px;
+}
+
+.user .text .tr-1 td{
+    position: relative;
+    right: 20px;
 }
 
 .user .text .user-name{
-    position: relative;
-    left: 115px;
-    bottom: 55px;
     color: white;
-    font-size: 17px;
+    font-size: 17.5px;
     font-weight: 600;
 }
 
-.user .text .log-in{
-    position: relative;
-    left: 95px;
-    bottom: 45px;
+.user .text .tr-2 a{ 
     color: red;
-    font-size: 15px;
+    font-size: 15.5px;
     opacity: 0.6;
+    padding-left: 6px;
 }
 
-.user .text .log-in:hover{
-    opacity: 1;
-}
-
-.user .text .sign-up{
-    position: relative;
-    left: 190px;
-    bottom: 64px;
-    color: red;
-    font-size: 15px;
-    opacity: 0.6;
-}
-
-.user .text .sign-up:hover{
+.user .text .tr-2 a:hover{
     opacity: 1;
 }

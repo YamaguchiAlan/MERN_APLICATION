@@ -3,23 +3,21 @@ import './Header.css';
 import logo from '../img/logo.png';
 import User from './User';
 
-class Header extends Component{
+class Header extends Component{ 
     render(){
         return(
   <div className="header">
     <nav>
      <div className="img-head">  
-        <a href="#"><img src={logo} alt="logo"></img></a>
+        <a href="#"><i>Astro-Gaming</i></a>
      </div>
+     <div className="back-search">
      <div className="search">
-        <form>
-            <input type="text" placeholder="Buscar"/>
-        </form>
-        <i class="fas fa-search"></i>
+            <input placeholder="Buscar" spellcheck="false" type="search" />
+            <button className="icon"><i className="fas fa-search"></i></button>
      </div>
-     <div className="user">
-         <User/>
      </div>
+         <User className="user"/>
       <hr></hr>
       <div className="head">
       <a href="#" className="active">Inicio</a>

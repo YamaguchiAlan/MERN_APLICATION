@@ -5,16 +5,72 @@
   font-family: 'Roboto', sans-serif;
   width:100vw;
   background: #232526;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to bottom, #414345, #232526);  /*   background: -webkit-linear-gradient(to bottom, #485563 ,#29323c );
-  background: linear-gradient(to bottom,#485563 ,#29323c); */
+  background: -webkit-linear-gradient(to bottom, #414345, #232526); 
   background: linear-gradient(to bottom, #414345, #232526); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.App .body-head{
+  position: relative;
+  width: 100vw;
+  height: calc(50vh + 15px);
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.App .body-head-1{
+  top: 5px;
+  left: 49.98%;
+  transform: translateX(-51.02%);
+}
+
+.App .body-head-1 .a-img img{
+height: 25vh;
+}
+
+.App .body-head-2{
+  bottom: -6px;
+  left: 33.7%;
+  transform:translateX(-66.3%);
+}
+
+.App .body-head-2 .a-img img{
+  height: 25vh;
+}
+
+.App .body-head-3{
+  top: calc(-25vh + 2px);
+  left: 54.3%;
+  transform: translateX(-45.7%);
+}
+
+.App .body-head-3 .a-img img{
+  height: 25vh;
+}
+
+.App .body-head-4{
+  top: calc(-75vh - 6px);
+  left: 72%;
+  transform: translateX(-28%);
+}
+
+.App .body-head-4 .a-img img{
+  height: 50vh;
+}
+
+.App .body-head-5{
+  top: calc(-125vh - 10px);
+  left: 28%;
+  transform: translateX(-73%);
+}
+
+.App .body-head-5 .a-img img{
+  height: 25vh;
 }
 
 .App .app-nav{
   float: right;
   display: flex;
-  flex-direction: column;
-  margin: 10px 10px 0 0;
+  flex-direction: column; 
+  margin: calc(50vh + 25px) 10px 100px 0;
   padding: 0 0 3px 10px;
   border: 1px solid red;
   border-top: 30px solid #19a6b9;

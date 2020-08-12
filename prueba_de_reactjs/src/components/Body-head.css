@@ -1,0 +1,24 @@
+#body-head{
+    position: relative;
+    width: fit-content;
+  }
+
+#body-head .title{
+    position: absolute;
+    bottom: 0;
+    padding-bottom: 12px;
+    margin-bottom: 3px;
+    left: 0;
+    overflow: hidden;
+    word-wrap: break-word;
+    color: white;
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: bold;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+#body-head .title:hover{
+  transition: 0.5s;
+  color:#26cce2;
+}

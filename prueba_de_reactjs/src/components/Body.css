@@ -15,14 +15,14 @@
 }
 
 .body-text{
-    display: flex;
-    flex-direction: column;
+ position: relative;
+ height: 237px;
 }
 
 
 .body-text a{
    text-decoration: none;
-    font-size: 40px;
+    font-size: 39px;
    font-weight: 700;
    color: white;
    padding-top: 10px;
@@ -34,52 +34,40 @@
 }
 
 .body-text p{
-font-size: 20px;
+font-size: 21px;
 color: white;
 }
 
 .body-text .body-autor{
-    position: relative;
-    left: 15px;
-    bottom: 10px;
-    text-align: left;
     font-size: large;
     font-weight: 600;
     color: white;
+    position: absolute;
+    bottom: 30px;
+    left: 410px;
 }
 
 .body-text .body-date{
-    position: relative;
-    left: 15px;
-    bottom: 10px;
-    text-align: left;
     font-size: large;
     font-weight: 600;
     color: #e9e9e9;
+    position: absolute;
+    bottom: 10px;
+    left: 410px;
 }
 
 .body-text .redes-sociales .ig{
-    position: relative;
-    left: 370px;
-    bottom: 55px;
+    position: absolute;
+    right: 70px;
+    bottom: 8px;
 }
 
 .body-text .redes-sociales .twitter{
-    position: relative;
-    margin-left: 5px;
-    left: 370px;
-    bottom: 55px;
+    position: absolute;
+    right: 30px;
+    bottom: 8px;
 }
 
 .body-text .redes-sociales a img{
     height: 30px;
-}
-
-.body-text .compartir{
-    position: relative;
-    color: rgb(12, 216, 223);
-    bottom: 92px;
-    left: 275px;
-    font-size: 18px;
-    font-weight: bold;
 }

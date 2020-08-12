@@ -3,6 +3,8 @@ import './App.css';
 import Header from './components/Header';
 import Nav from './components/Nav';
 import Body from './components/Body';
+import BodyHead from './components/Body-head';
+import Footer from './components/footer';
 
 const bodyArr =[{
   "img":"https://depor.com/resizer/az8pLMm5SRkujv8aKsh_q6tezVc=/580x330/smart/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/MMZVLW64LJHTNHAUGVVHIJNHP4.jpg",
@@ -46,6 +48,13 @@ const bodyArr =[{
 "url": "#",
 "date": "Hace 4 días",
 "autor": "Federico Rodriguez"
+},
+{ "img":"https://i11c.3djuegos.com/juegos/11182/dishonored_2/fotos/noticias/dishonored_2-5224782.jpg",
+"title": "Dishonored 2 y otros juegazos reunidos en un pack para celebrar los 20 años de Arkane Studios",
+"text": "En Xbox y PC se puede comprar con un gran descuento de precio, pero solo por tiempo limitado.",
+"url": "#",
+"date": "Hace 4 días",
+"autor": "Gustavo Fernandez"
 }
 ]
 
@@ -68,18 +77,49 @@ const navArr =[{
 "title": "Final Fantasy VII Remake supera los 5 millones de juegos vendidos en todo el mundo"}
 ]
 
+const BodyHeadArr =[{
+"img":"https://i11d.3djuegos.com/juegos/15263/playstation_5/fotos/ficha/playstation_5-5224171.jpg",
+"title":"Todos los anuncios, vídeos y noticias del State of Play de PS5, PlayStation 4 y PS VR",
+"class":"body-head-1"
+},
+{
+  "img":"https://i11a.3djuegos.com/juegos/15953/doom_eternal/fotos/noticias/doom_eternal-5223620.jpg",
+  "title":"Doom Eternal y TESO online llegarán a la nueva generación",
+  "class":"body-head-2"
+  },
+  {
+    "img":"https://i11c.3djuegos.com/juegos/2265/_otros_/fotos/noticias/_otros_-5223418.jpg",
+    "title":"Radeon RX 5500 XT de PowerColor con una rebaja de casi 50 euros",
+    "class":"body-head-3"
+  },
+  {
+    "img":"https://vns9.3djuegos.com/videos/mp4/skins/82_cross/300x600.jpg",
+    "title":"",
+    "class":"body-head-4"
+  },
+  {
+    "img":"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRJX430FKCYaGMEmTXVUUk_PoGwR_V_ZoQskg&usqp=CAU",
+    "title":"Dead Cells para Android ya se puede descargar",
+    "class":"body-head-5"
+  }
+] 
+
 function App() {
   return (
     <div className="App">
         <Header/>
         <nav className="app-nav"> <p className="trending">Trending</p> {navArr.map( c => <Nav img={c.img} title={c.title}/>)}
         </nav>
+        <div className="body-head">
+        {BodyHeadArr.map( c => <BodyHead img={c.img} title={c.title} class={c.class}/> )}
+        </div>
         {bodyArr.map(c => <Body img={c.img}
         title={c.title}
         text={c.text}
         url={c.url}
         date={c.date}
         autor={c.autor}/>)}
+        <Footer/>
     </div>
   );
 }
