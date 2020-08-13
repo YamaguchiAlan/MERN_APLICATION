@@ -1,14 +1,29 @@
 .header{
-    padding-top: 25px;
+    padding: 25px 0 1px 0;
+    background:rgba(0, 0, 0,0.5) ;
   }
 
-  .header .img-head a{
+  .header .menu-bar{
+    position: absolute;
+    background: grey;
+    height: 35px;
+    width: 38px;
+    display: none;
+  }
+  
+  .header .menu-bar .fa-bars{
+    margin-top: 10px;
+    transform: scale(1.8);
+    color: rgb(24, 224, 198);
+  }
+
+  .header .logo a{
    position: relative;
    bottom: 15px;
-   left: 25%;
+   left: 20%;
    height: 55px; 
    float: left;
-   transform: translateX(-75%);
+   transform: translateX(-50%);
    text-decoration: none;
    color: red;
    font-size: 50px;
@@ -26,18 +41,18 @@
     text-decoration: none;
     color: white;
     padding: 5px 2vw;
-    background: linear-gradient(to bottom, #0bc9cf, #00afd6 );
+    background: linear-gradient(to bottom, rgba(63, 191, 195, 0.596), #30798aab );
     font-size: large; 
     font-weight: 700;
     border-left:2px solid rgb(59, 59, 59);
   }
   
   .header .head a:hover{
-    background: linear-gradient(to bottom, #d11414, #aa0909 );
+    background: linear-gradient(to bottom, rgba(211, 41, 41, 0.87), #7e2727a9 );
   }
   
   .header .head .active{
-    background: linear-gradient(to bottom, #d11414, #aa0909 );
+    background:linear-gradient(to bottom, #e00a0a, #881c1c );
   }
   
   .header nav hr{
@@ -139,6 +154,6 @@
   .header .user{
       position: absolute;
       top: 5px;
-      left: 70%;
-      transform: translateX(-30%);
+      left: 75%;
+      transform: translateX(-50%);
   }

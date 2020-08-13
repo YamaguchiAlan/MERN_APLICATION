@@ -12,65 +12,81 @@
 .App .body-head{
   position: relative;
   width: 100vw;
-  height: calc(50vh + 15px);
-  background: rgba(0, 0, 0, 0.5);
+  height: calc(75vh + 40px);
+  background: rgba(0, 0, 0, 0.8);
 }
 
-.App .body-head-1{
-  top: 5px;
-  left: 49.98%;
-  transform: translateX(-51.02%);
+.App .body-head-1-large{
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-.App .body-head-1 .a-img img{
-height: 25vh;
+.App .body-head-1-large .a-img img{
+height: 37.5vh;
+}
+
+.App .body-head-1-large .title{
+  width: 803px;
 }
 
 .App .body-head-2{
-  bottom: -6px;
-  left: 33.7%;
-  transform:translateX(-66.3%);
+  bottom: -26px;
+  left: 21%;
+  transform:translateX(-50%);
+}
+
+.App .body-head-2 .title{
+  width: 623px;
 }
 
 .App .body-head-2 .a-img img{
-  height: 25vh;
+  height: 37.5vh;
 }
 
 .App .body-head-3{
-  top: calc(-25vh + 2px);
-  left: 54.3%;
-  transform: translateX(-45.7%);
+  top: calc(-37.5vh + 20px);
+  left: 57%;
+  transform: translateX(-50%);
+}
+
+.App .body-head-3 .title{
+  width: 557px;
 }
 
 .App .body-head-3 .a-img img{
-  height: 25vh;
+  height: 37.5vh;
 }
 
-.App .body-head-4{
-  top: calc(-75vh - 6px);
-  left: 72%;
-  transform: translateX(-28%);
+.App .body-head-4-advertising{
+  top: calc(-112.5vh + 10px);
+  left: 85%;
+  transform: translateX(-50%);
 }
 
-.App .body-head-4 .a-img img{
-  height: 50vh;
+.App .body-head-4-advertising .a-img img{
+  height: 75vh;
 }
 
-.App .body-head-5{
-  top: calc(-125vh - 10px);
-  left: 28%;
-  transform: translateX(-73%);
+.App .body-head-5-small{
+  top: calc(-187.5vh + 4px);
+  left: 15%;
+  transform: translateX(-50%);
 }
 
-.App .body-head-5 .a-img img{
-  height: 25vh;
+.App .body-head-5-small .title{
+  width: 352px;
+}
+
+.App .body-head-5-small .a-img img{
+  height: 37.5vh;
 }
 
 .App .app-nav{
   float: right;
   display: flex;
   flex-direction: column; 
-  margin: calc(50vh + 25px) 10px 100px 0;
+  margin: calc(75vh + 50px) 10px 100px 0;
   padding: 0 0 3px 10px;
   border: 1px solid red;
   border-top: 30px solid #19a6b9;

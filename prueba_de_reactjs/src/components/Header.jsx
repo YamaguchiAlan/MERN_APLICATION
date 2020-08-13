@@ -8,7 +8,10 @@ class Header extends Component{
         return(
   <div className="header">
     <nav>
-     <div className="img-head">  
+    <div className="menu-bar">
+        <i class="fas fa-bars"></i>
+      </div>
+     <div className="logo">  
         <a href="#"><i>Astro-Gaming</i></a>
      </div>
      <div className="back-search">

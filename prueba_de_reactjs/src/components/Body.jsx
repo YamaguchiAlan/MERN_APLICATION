@@ -16,7 +16,7 @@ class Body extends Component{
               <a className="img" href={this.props.url}><img src={this.props.img} alt="imagen default"/></a>
             </div>
             <div className="body-text">
-              <a href={this.props.url} className="titulo">{this.props.title}</a>
+              <a href={this.props.url} id={this.props.id} className="titulo">{this.props.title}</a>
               <p>{this.props.text}</p>
               <span className="body-autor">{this.props.autor}</span> 
               <span className="body-date">{this.props.date}</span>
@@ -28,33 +28,6 @@ class Body extends Component{
         </div>
         )
     }
-
-    componentDidMount(){
-        let title = document.querySelectorAll('.body-back .body-text .titulo');
-
-        let titulo = Array.from(title);
-
-        let i = 0;
-
-        console.log(titulo[0]);
-
-        console.log(i);
-
-        titulo.forEach( c =>{
-            let st = String(c);
-
-            console.log(st);
-
-            let le = st.length;
-
-            
-
-            if(le > 70){
-                c.style.fontSize="12px";
-            }
-    });
-    i++;
-}
 }
 
 export default Body;
@@ -67,7 +40,8 @@ Body.propTypes ={
     date: PropTypes.string,
     autor: PropTypes.string,
     ig: PropTypes.string,
-    twitter: PropTypes.string
+    twitter: PropTypes.string,
+    id: PropTypes.string
 }
 
 Body.defaultProps ={
@@ -78,5 +52,6 @@ Body.defaultProps ={
     date: "2 horas",
     autor: "___",
     ig:"#",
-    twitter:"#"
+    twitter:"#",
+    id: "title"
 }
