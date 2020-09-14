@@ -1,105 +1,118 @@
 .App {
-  box-sizing: border-box;
   overflow-x: hidden;
   text-align: center;
   font-family: 'Roboto', sans-serif;
-  width:100vw;
-  background: #232526;  /* fallback for old browsers */
+  width:100%;
   background: -webkit-linear-gradient(to bottom, #414345, #232526); 
-  background: linear-gradient(to bottom, #414345, #232526); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to bottom, #414345, #232526); 
 }
 
 .App .body-head{
-  position: relative;
   width: 100vw;
   height: calc(75vh + 40px);
   background: rgba(0, 0, 0, 0.8);
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
 }
 
-.App .body-head-1-large{
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
+/* Definiendo el tamaño y ubicacion de los elementos del body-head */
+
+/* El pequeño arriba a la izquierda */
+.App .body-head-1-small {
+  margin-left: 3%;
 }
 
-.App .body-head-1-large .a-img img{
-height: 37.5vh;
-}
-
-.App .body-head-1-large .title{
-  width: 803px;
-}
-
-.App .body-head-2{
-  bottom: -26px;
-  left: 21%;
-  transform:translateX(-50%);
-}
-
-.App .body-head-2 .title{
-  width: 623px;
-}
-
-.App .body-head-2 .a-img img{
+.App .body-head-1-small .img-back img{
   height: 37.5vh;
 }
 
-.App .body-head-3{
-  top: calc(-37.5vh + 20px);
-  left: 57%;
-  transform: translateX(-50%);
-}
-
-.App .body-head-3 .title{
-  width: 557px;
-}
-
-.App .body-head-3 .a-img img{
+/* El largo del centro */
+.App .body-head-2-large .img-back img{
   height: 37.5vh;
+  }
+
+/* El anuncio a la derecha */
+.App .body-head-3-advertising{
+  margin-right: 3%;
 }
 
-.App .body-head-4-advertising{
-  top: calc(-112.5vh + 10px);
-  left: 85%;
-  transform: translateX(-50%);
-}
-
-.App .body-head-4-advertising .a-img img{
+.App .body-head-3-advertising .img-back img{
   height: 75vh;
 }
 
-.App .body-head-5-small{
-  top: calc(-187.5vh + 4px);
-  left: 15%;
-  transform: translateX(-50%);
+/* El de abajo a la izquierda */
+.App .body-head-4{
+position: relative;
+bottom: 37.5vh;
+margin-left: 3%;
 }
 
-.App .body-head-5-small .title{
-  width: 352px;
-}
-
-.App .body-head-5-small .a-img img{
+.App .body-head-4 .img-back img{
   height: 37.5vh;
 }
 
+/* El de abajo al centro */
+.App .body-head-5{
+position: relative;
+bottom: 37.5vh;
+}
+
+.App .body-head-5 .img-back img{
+  height: 37.5vh;
+}
+
+/* Elemento oculto para acomododar la fila de abajo */
+.App .body-head-6-white-space{
+  margin-right: 3%;
+  visibility: hidden;
+}
+
+.App .body-head-6-white-space .img-back img{
+  height: 75vh;
+}
+
+/* Definiendo tamaño y posicion del Nav */
 .App .app-nav{
+  position: relative;
   float: right;
   display: flex;
   flex-direction: column; 
-  margin: calc(75vh + 50px) 10px 100px 0;
-  padding: 0 0 3px 10px;
+
+  height: calc(100vh - 37px);
+  right:10px;
+  margin-top: 10px;
+  padding: 35px 0 0 10px;
   border: 1px solid red;
-  border-top: 30px solid #19a6b9;
   background: #1f1f1fe8;
-  position: relative;
+
+  overflow: scroll;
+  overflow-x: hidden;
 }
 
+/* Ocultando la barra de navegacion del Nav */
+.App .app-nav::-webkit-scrollbar {
+  display: none;
+}
+
+/* Posicionando el titulo del Nav */
 .App .app-nav .trending{
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  bottom: 680px;
+  bottom: calc(100vh - 36px); 
+  padding: 2px 100vw 3px 100vw;
+
   color: rgb(246, 240, 240);
+  background: #26cce2;
   font-size: 24px;
   font-weight: 700;
+}
+
+/* Posicionando el div que utilizo como limite para el Nav */
+.App #foot-limit{
+  position: relative;;
+  bottom: calc(100vh + 450px);
 }

@@ -1,6 +1,9 @@
-#body-head{
+ #body-head{
+   margin-top: 10px;
+ }
+ 
+ #body-head .img-back{
     position: relative;
-    width: fit-content;
   }
 
 #body-head .title{
@@ -8,7 +11,8 @@
     bottom: 0;
     padding-bottom: 12px;
     margin-bottom: 3px;
-    left: 0;
+    width: 100%;
+    
     overflow: hidden;
     word-wrap: break-word;
     color: white;

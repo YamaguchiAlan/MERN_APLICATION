@@ -32,7 +32,7 @@
     margin-top: 30px;
 }
 
-.footer .legal tr .td-b{
+.footer .legal tr .blue-line{
     border-right: 1px solid #26cce2;
 }
 
@@ -49,13 +49,12 @@
 
 .footer .follow-us{
 position: relative;
+bottom: 55px;
 float: left;
 width: 50vw;
-bottom: 55px;
 }
 
 .footer .follow-us p{
-
     color: red;
     font-size: 36px;
     font-weight: bold;
@@ -70,6 +69,19 @@ bottom: 55px;
     border-color: #26cce2;
 }
 
-.footer .follow-us .redes a img{
+.footer .follow-us .social a img{
     padding-right: 5px;
 }
+
+.App .fa-angle-double-up{
+    position: absolute;
+    right: 65px;
+    top: 60px;
+    transform: scale(3, 2.5);
+    color:  red;
+  }
+
+  .App .fa-angle-double-up:hover{
+    color: #26cce2;
+    cursor: pointer;
+  }

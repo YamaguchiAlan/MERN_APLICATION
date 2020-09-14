@@ -1,34 +1,36 @@
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import './Body.css'
-import instagram from '../img/instagram.png';
-import twitter from '../img/twitter.png';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import instagram from '../../img/instagram.png';
+import twitter from '../../img/twitter.png';
 
-class Body extends Component{
-        constructor(props){
-            super(props);
-        }
-
-        render(){
-            return(
+const Body = (props) => 
+    (
         <div className="body-back">
-            <div className="body-image">
-              <a className="img" href={this.props.url}><img src={this.props.img} alt="imagen default"/></a>
-            </div>
-            <div className="body-text">
-              <a href={this.props.url} id={this.props.id} className="titulo">{this.props.title}</a>
-              <p>{this.props.text}</p>
-              <span className="body-autor">{this.props.autor}</span> 
-              <span className="body-date">{this.props.date}</span>
-              <div className="redes-sociales">
-                  <a href={this.props.ig} className="ig"><img src={instagram} alt="instagram"/></a>
-                  <a href={this.props.twitter} className="twitter"><img src={twitter} alt="twitter"/></a>
+            <div className="body-container">
+
+                <div className="body-image">
+                    <img src={props.img} alt="imagen default"/>
                 </div>
+
+               <div className="body-text">
+                      <Link to={`/article/${props.url}`} id={props.id} className="title" >
+                        {props.title}
+                      </Link>
+                      <p className="text">{props.text}</p>
+                      <p className="body-author">Por: {props.author}</p> 
+                      <p className="body-date">{props.date}</p>
+        
+                <div className="social">
+                    <a href={props.twitter} className="twitter"><img src={twitter} alt="twitter"/></a>
+                    <a href={props.ig} className="ig"><img src={instagram} alt="instagram"/></a>
+                </div>
+              </div>
             </div>
         </div>
-        )
-    }
-}
+    )
+
 
 export default Body;
 
@@ -38,7 +40,7 @@ Body.propTypes ={
     text: PropTypes.string, 
     url: PropTypes.string,
     date: PropTypes.string,
-    autor: PropTypes.string,
+    author: PropTypes.string,
     ig: PropTypes.string,
     twitter: PropTypes.string,
     id: PropTypes.string
@@ -50,7 +52,7 @@ Body.defaultProps ={
     text: "Texto por defecto",
     url: "#",
     date: "2 horas",
-    autor: "___",
+    author: "___",
     ig:"#",
     twitter:"#",
     id: "title"

@@ -1,0 +1,80 @@
+.body-back{
+    width: 76%;
+    height: 300px;
+    margin-top: 10px;
+
+    background: #181717e8;
+}
+
+.body-back .body-container{
+    width: 68vw;
+}
+
+.body-image{
+    position: relative;
+    float: left;
+    height: 300px;
+    left: 5.5%;
+    padding-right: 15px;
+}
+
+.body-image img{
+    position: relative;
+    top: 150px;
+    transform: translateY(-50%);
+    width: 300px;
+}
+
+.body-text{
+ position: relative;
+ height: 300px;
+ left: 5.5%;
+ padding-top: 25px;
+}
+
+
+.body-text .title{
+   text-decoration: none;
+   font-size: 42px;
+   font-weight: bolder;
+   color: white;
+}
+
+.body-text .title:hover{
+    transition: 0.5s;
+    color: #26cce2;
+}
+
+.body-text .text{
+font-size: 21px;
+color: white;
+}
+
+.body-text .body-author, .body-text .body-date{
+    position: relative;
+    float: left;
+    left: 15px;
+    bottom: 25px;
+    padding: 4px 10px 5px 8px;
+    border-radius: 5px;
+
+    background: rgb(161, 39, 39);
+    font-size: 22px;
+    font-weight: 700;
+    color: white;
+}
+
+.body-text .body-date{
+    margin-left: 5px;
+    background: rgb(29, 129, 168);
+}
+
+.body-text .social .ig, .body-text .social .twitter{
+position: relative;
+float: right;
+right: 30px;
+}
+
+.body-text .social a img{
+    height: 30px;
+}

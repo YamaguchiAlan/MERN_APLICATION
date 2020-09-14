@@ -1,0 +1,20 @@
+.cover{
+    width: 100%;
+    position: relative;
+}
+
+.cover .atc-img{
+    width: 100%;
+    opacity: 0.5;
+}
+
+.cover .atc-title{
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+
+font-size: 38px;
+text-shadow: rgb(20, 20, 20) 5px 4px 2px;
+color: rgb(243, 243, 243);
+}

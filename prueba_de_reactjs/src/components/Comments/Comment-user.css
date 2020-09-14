@@ -1,0 +1,66 @@
+.profile-back{
+    position: relative;
+    height: 60px;
+
+    overflow: hidden;
+    border: 2px solid grey;
+    border-top-left-radius: 30px;
+    }
+    
+    .user-pic{
+        float: left;;
+        height: 60px;
+        border-radius: 50%;
+    }
+    
+    .name{
+        float: left;
+        font-size: 18px;
+        margin-left: 35px;
+        position: relative;
+    }
+
+.date-and-menu{
+    float: right;
+    margin-right: 20px;
+
+    font-size: 14px;
+    display: flex;
+}
+
+.date-and-menu .fa-ellipsis-v{
+    margin-left: 5px;
+    transform: scale(1.2);
+    color: rgb(58, 58, 58);
+    cursor: pointer;
+}
+
+.date-and-menu .fa-ellipsis-v:hover{
+    transform: scale(1.4);
+}
+
+.date-and-menu .menu{
+    position: absolute;
+    bottom: 74px;
+    left: 5px;
+    width: 75px;
+    height: 60px;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    
+    color: rgb(0, 141, 177);
+    
+    border-radius: 8px;
+    border-top-right-radius: 0;
+    font-size: 16px;
+}
+
+.date-and-menu .menu .report , .date-and-menu .menu .view-profile{
+margin-top: 5px;
+cursor: pointer;
+}
+
+.date-and-menu .menu .report:hover, .date-and-menu .menu .view-profile:hover{
+    text-decoration: underline;
+}
