@@ -1,0 +1,27 @@
+.legal-back{
+    position: relative;
+    width: 50vw;
+    float: right;
+}
+.legal{
+    text-align: left;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 30px;
+}
+
+.legal tr .blue-line{
+    border-right: 1px solid #26cce2;
+}
+
+.legal tr td a{
+    text-decoration: none;
+    color: white;
+    font-size: 21px;
+    padding-right: 7px;
+}
+
+.legal tr td a:hover{
+    text-decoration: underline;
+}

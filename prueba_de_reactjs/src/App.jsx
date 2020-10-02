@@ -3,7 +3,8 @@ import './App.css';
 import Main from './components/Main';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Article from './components/Article/Article';
-import Header from '../src/components/Header/Header';
+import Header from './components/Header/Header';
+import News from './components/News/News';
 
 function App(){
 return(
@@ -12,6 +13,7 @@ return(
       <Switch>
           <Route path="/" exact component={ Main } />
           <Route path="/article/:articleId" component={ Article } />
+          <Route path="/news" component={ News } />
           <Route component={() =>(
             <div>
                 <h1>Error 404</h1>

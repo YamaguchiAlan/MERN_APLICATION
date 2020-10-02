@@ -1,6 +1,10 @@
 .user-profile{
     display: flex;
     margin-top: 5px;
+    position: absolute;
+    top: 5px;
+    left: 75%;
+    transform: translateX(-50%);
 }
 
 .user-profile img{

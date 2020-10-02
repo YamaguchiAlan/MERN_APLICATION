@@ -18,62 +18,7 @@
     text-shadow: 5px 3px 2px rgb(117, 3, 3);
 }
 
-.footer .legal-back{
-    position: relative;
-    width: 50vw;
-    float: right;
-}
-
-.footer .legal{
-    text-align: left;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-top: 30px;
-}
-
-.footer .legal tr .blue-line{
-    border-right: 1px solid #26cce2;
-}
-
-.footer .legal tr td a{
-    text-decoration: none;
-    color: white;
-    font-size: 21px;
-    padding-right: 7px;
-}
-
-.footer .legal tr td a:hover{
-    text-decoration: underline;
-}
-
-.footer .follow-us{
-position: relative;
-bottom: 55px;
-float: left;
-width: 50vw;
-}
-
-.footer .follow-us p{
-    color: red;
-    font-size: 36px;
-    font-weight: bold;
-}
-
-.footer .follow-us hr{
-    position: absolute;
-    bottom: 75px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 650px;
-    border-color: #26cce2;
-}
-
-.footer .follow-us .social a img{
-    padding-right: 5px;
-}
-
-.App .fa-angle-double-up{
+.fa-angle-double-up{
     position: absolute;
     right: 65px;
     top: 60px;
@@ -81,7 +26,7 @@ width: 50vw;
     color:  red;
   }
 
-  .App .fa-angle-double-up:hover{
+ .fa-angle-double-up:hover{
     color: #26cce2;
     cursor: pointer;
   }

@@ -1,38 +1,28 @@
-.Nav{
-    margin-bottom:10px;
-    display: flex;
+.app-nav{
+    position: relative;
     float: right;
-    width: 21%;
+    display: flex;
+    flex-direction: column; 
+
+    height: calc(100vh - 2px);
+    right:10px;
+    border: 1px solid red;
+    background: #1f1f1fe8;
+
+    overflow: scroll;
+    overflow-x: hidden;
 }
 
-.Nav .image .nav-img{
-float: left;
-height: 90px;
+/* Ocultando la barra de navegacion del Nav */
+.app-nav::-webkit-scrollbar {
+    display: none;
 }
 
-.Nav  .text{
-    width: calc(21vw - 150px);
-    height: 90px;
-    display: table;
-    background: #181717e8;
-}
-
-
-.Nav .text  a{
-    padding: 0 5px ;
-    text-decoration: none;
-    color: white;
-    word-wrap: break-word;
-    font-size: 15px;
+/* Posicionando el titulo del Nav */
+.app-nav .trending{
+    padding: 3px 0;
+    color: rgb(246, 240, 240);
+    background: #26cce2;
+    font-size: 24px;
     font-weight: 700;
-    overflow:hidden;
-
-    /* Table cell para alinear el texto */
-    display: table-cell;
-    vertical-align: middle;
-}
-
-.Nav .text a:hover{
-    transition: 0.5s;
-    color: #26cce2;
 }

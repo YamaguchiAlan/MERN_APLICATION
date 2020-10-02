@@ -1,13 +1,13 @@
 .body-back{
     width: 76%;
     height: 300px;
-    margin-top: 10px;
+    margin-bottom: 10px;
 
     background: #181717e8;
 }
 
 .body-back .body-container{
-    width: 68vw;
+    width: 90%;
 }
 
 .body-image{
