@@ -1,0 +1,21 @@
+html {
+  font-size: 10pt;
+}
+
+body {
+  margin:0;
+  background: -webkit-linear-gradient(to bottom, #414345, #232526); 
+  background: linear-gradient(to bottom, #414345, #232526);
+  font-family: 'Roboto', sans-serif;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Posicionando el div que utilizo como limite para el Nav */
+#foot-limit{
+  position: relative;
+  bottom: calc(100vh + 450px);
+}

@@ -1,0 +1,29 @@
+.like-dislike{
+    margin-left: 35px;
+    text-align: left;
+    font-size: 1.8rem;
+}
+
+.fa-thumbs-up{
+cursor: pointer;
+color: rgb(0, 65, 126);
+}
+
+.fa-thumbs-up:hover{
+    transform: scale(1.2);
+    color: rgb(3, 96, 182);
+}
+
+.fa-thumbs-down{
+    cursor: pointer;
+    color: rgb(167, 0, 0);
+}
+
+.fa-thumbs-down:hover{
+    transform: scale(1.2);
+    color: rgb(204, 0, 0);
+}
+
+.like-dislike span{
+    margin: 0 5px;
+}

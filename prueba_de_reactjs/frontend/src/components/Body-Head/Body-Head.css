@@ -1,0 +1,48 @@
+.body-head-back{
+  width: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.body-head{
+    width: 1300px;
+    height: 600px;
+  
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  /* Definiendo el tamaño de los elementos del body-head */
+  
+  /* Los 4 del centro */
+.normal{
+  height: calc(50% - 20px);
+  margin: 0 10px 10px 0;
+  }
+  
+.normal .img-back img{
+    height: 100%;
+  }
+  
+  /* El anuncio a la derecha */
+.advertising{
+  height: calc(50% - 20px);
+  }
+  
+.advertising .img-back img{
+    height: 200%;
+  }
+  
+  /* Elemento oculto para acomododar la fila de abajo */
+.white-space{
+    height: 100%;
+    visibility: hidden;
+  }
+  
+.white-space .img-back img{
+    height: 100%;
+  }

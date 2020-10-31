@@ -1,0 +1,43 @@
+.Nav{
+    margin-bottom:10px;
+    padding: 0 10px 0 10px;
+    display: flex;
+    width: 18vw;
+    position: relative;
+}
+
+.Nav .nav-img {
+width: 100%;
+z-index: 99;
+}
+
+.Nav  .text{
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    position: absolute;
+    display: table;
+    background: #1817178a;
+    z-index: 999;
+}
+
+
+.Nav .text  a{
+    padding: 0 25px 0 5px ;
+    text-decoration: none;
+    color: white;
+    word-wrap: break-word;
+    font-size: 1.3rem;
+    font-weight: 700;
+    overflow:hidden;
+
+    /* Table cell para alinear el texto */
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.Nav .text a:hover{
+    transition: 0.5s;
+    color: #26cce2;
+    background: rgba(19, 18, 18, 0.507);
+}

@@ -1,0 +1,38 @@
+.user-profile{
+    display: flex;
+    margin-top: 5px;
+    position: absolute;
+    top: 5px;
+    left: 80%;
+    transform: translateX(-50%);
+}
+
+.user-profile img{
+    height: 55px;
+}
+
+.user-profile .text a{
+    text-decoration: none;
+}
+
+.user-profile .text .user-name{
+    /* Defino la altura para separar las filas */
+    height: 25px;
+}
+
+.user-profile .text .user-name{
+    color: white;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.user-profile .text .log a{ 
+    color: red;
+    font-size: 1.2rem;
+    opacity: 0.6;
+    padding-left: 6px;
+}
+
+.user-profile .text .log a:hover{
+    opacity: 1;
+}

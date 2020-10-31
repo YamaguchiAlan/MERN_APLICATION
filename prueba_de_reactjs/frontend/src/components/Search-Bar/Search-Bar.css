@@ -1,0 +1,81 @@
+.back-search{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .search{
+    width: 400px;
+    vertical-align: middle;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  
+  .search input{
+    width: 400px;
+    height: 40px;
+    float: left;
+
+    background: #5f7075;
+    border: none;
+    font-size: 1.2rem;
+    color:#36cabe;
+    padding:0 10px 0 15px;
+    outline: none;
+
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+  }
+
+  .search input[type="search"]::-webkit-search-cancel-button{
+    -webkit-appearance:none;
+  }
+
+  .search input::-webkit-input-placeholder {
+    color: #36cabe;
+ }
+  
+ .search input:-moz-placeholder { /* Firefox  */
+    color: #36cabe;  
+ }
+  
+  .search .icon{
+    -webkit-border-top-right-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+
+    -moz-border-radius-topright: 5px;
+    -moz-border-radius-bottomright: 5px;
+    
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+
+    border: none;
+    background: #37534e;
+    height: 40px;
+    width: 50px;
+    color: #36cabe;
+    opacity: 0;
+    font-size: 1rem;
+   
+    -webkit-transition: all .55s ease;
+    -moz-transition: all .55s ease;
+    transition: all .55s ease;  
+  }
+
+  .search:hover button.icon, .search:active button.icon, .search:focus button.icon-{
+    outline: none;
+    opacity: 1;
+    margin-left: -50px;
+  }
+ 
+  .search:hover .icon:hover{
+    background: rgb(24, 224, 198);
+    cursor: pointer;
+    margin-top: 1px;
+    color: #37534e;
+   
+    -webkit-transform:scale(1.05); /* Safari and Chrome */
+    -moz-transform:scale(1.05); /* Firefox */
+     transform:scale(1.05);
+  }

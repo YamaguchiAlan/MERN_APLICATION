@@ -1,0 +1,29 @@
+.app-nav{
+    position: relative;
+    float: right;
+    display: flex;
+    flex-direction: column; 
+
+    height: calc(100vh - 2px);
+    min-width: 18vw;
+    right:10px;
+    border: 1px solid red;
+    background: #1f1f1fcc;
+
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+/* Ocultando la barra de navegacion del Nav */
+.app-nav::-webkit-scrollbar {
+    display: none;
+}
+
+/* Posicionando el titulo del Nav */
+.app-nav .trending{
+    padding: 3px 0;
+    color: rgb(246, 240, 240);
+    background: #26cce2;
+    font-size: 2rem;
+    font-weight: 700;
+}
