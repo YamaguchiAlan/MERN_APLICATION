@@ -1,9 +1,3 @@
-.back-search{
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
   .search{
     width: 400px;
     vertical-align: middle;

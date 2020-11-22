@@ -6,13 +6,12 @@ const newsSchema = new Schema({
         required: true
     },
     text: {
-        type: String,
-        required: true,
+        type: String
     },
     image: {
         type: Buffer
     },
-    author: String,
+    author: String
 }, { timestamps: true });
 
 module.exports = model('News', newsSchema);

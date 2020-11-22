@@ -1,14 +1,5 @@
-.legal-back{
-    position: relative;
-    width: 50vw;
-    float: right;
-}
 .legal{
-    text-align: left;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-top: 30px;
+    margin-top: 40px;
 }
 
 .legal tr .blue-line{

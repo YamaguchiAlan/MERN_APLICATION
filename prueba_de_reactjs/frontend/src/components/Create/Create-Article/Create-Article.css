@@ -1,0 +1,127 @@
+.new-article{
+    background: #232526;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #414345, #232526);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #414345, #232526); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.body-card-form{
+    background: #485563;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #29323c, #485563);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #29323c, #485563); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+.body-title-label, .body-text-label, .body-img-label{
+    font-size: 1.5rem;
+}
+
+.body-form-title{
+    font-size: 1.4rem !important;
+    height: 70px !important;
+    word-wrap: break-word !important;
+}
+
+.body-form-text{
+    font-size: 1.4rem !important;
+    height: 130px !important;
+}
+
+.preview-body-img{
+    height: 100px !important;
+    width: 205px;
+}
+
+.preview-body-img:hover{
+    transform: scale(1.01);
+}
+
+.body-card-input-img{
+    display: none;
+}
+
+/* Article Form */
+.ck{
+
+}
+
+.ck-content .text-tiny, .text-tiny {
+    font-size: 1.1rem;
+}
+
+.ck-content .text-small, .text-small{
+    font-size: 1.4rem;
+}
+
+.ck-content p, .preview p{
+    font-size: 1.7rem;
+}
+
+.ck-content .text-big , .text-big{
+    font-size: 2.2rem;
+}
+
+.ck-content .text-huge, .text-huge {
+    font-size: 2.5rem;
+}
+
+.preview{
+    background: white;
+}
+
+.preview p{
+    margin: 0;
+    width: 100%;
+    word-wrap: break-word;
+    padding: 0 15px 0 15px;
+    color: black;
+}
+
+.preview blockquote {
+    padding-left: 25px !important;
+    font-style: italic;
+    border-left: solid rgb(206, 206, 206) 5px;
+}
+
+.preview hr{
+    border: solid rgb(206, 206, 206) 2px;
+}
+
+.preview figure {
+    width: 100% !important;
+}
+
+.preview .image {
+    text-align: center;
+}
+
+.preview .image_resized {
+
+
+}
+
+.preview figure figcaption {
+    width: inherit;
+}
+
+.preview .image-style-side {
+    text-align: right;
+}
+
+
+.editor .ck{
+    background: rgb(116, 116, 116) !important;
+}
+
+
+.editor .ck-toolbar__items{
+    background: violet !important;
+}
+
+
+.editor .ck-toolbar__separator{
+    background-color: red !important;
+}
+
+.editor .ck .ck-toolbar__items svg {
+    color: darkblue !important;
+}

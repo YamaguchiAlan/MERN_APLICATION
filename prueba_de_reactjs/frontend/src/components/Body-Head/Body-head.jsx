@@ -5,7 +5,7 @@ import BodyHeadGrid from './Body-Head-Grid/Body-Head-Grid';
 
 const BodyHead = () =>{
     useEffect(() => {
-        fetch("http://my-json-server.typicode.com/YamaguchiAlan/JSON-db/BodyHeadArr", {method: 'GET'})
+        fetch("http://localhost:4000/api/featured", {method: 'GET'})
         .then(response => response.json())
         .then(data => setNews(data))
     },[])
@@ -16,10 +16,9 @@ const BodyHead = () =>{
         <div className="body-head-back">
             <div className="body-head">
                 {News.map( c => 
-                <BodyHeadGrid img={c.img} 
+                <BodyHeadGrid image={c.image} 
                     title={c.title} 
-                    class={c.class} 
-                    url={c.url} 
+                    className={c.className}
                 /> )}
             </div>
         </div>

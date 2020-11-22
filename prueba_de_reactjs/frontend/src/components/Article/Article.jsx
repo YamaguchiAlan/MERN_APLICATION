@@ -12,7 +12,7 @@ const Article = ({match}) =>{
         .then(data => setArticles(data))
     },[]);
 
-    
+
     const [Articles, setArticles] = useState([]);
     /* Filtrando el articulo mediante la url */
     const actualArticle = Articles.filter( c => c.title === match.params.title)[0];
@@ -22,15 +22,17 @@ const Article = ({match}) =>{
         actualArticle ? (
         <>
 
-            <div className="cover">
-            <img src={actualArticle.img} alt="Article img" className="atc-img"/>
-            <h1 className="atc-title"><i>{actualArticle.title}</i></h1>
+            <div className="cover card border-0">
+                <img src={actualArticle.img} alt="Article img" className="atc-img card-img"/>
+                <div className="card-img-overlay">
+                    <h1 className="atc-title card-text"><i>{actualArticle.title}</i></h1>
+                </div>
             </div>
 
             <Nav />
 
             <ArticleBody article={actualArticle} />
-            
+
             <Comments articleId={actualArticle.articleId} />
 
             <Footer />

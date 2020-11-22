@@ -2,7 +2,7 @@ import React from 'react';
 import './Legal.css';
 
 const Legal = () =>(
-    <div className="legal-back">
+    <div className="legal-back w-50 float-right d-flex justify-content-center align-items-center">
         <table className="legal">
             <tbody>
                 <tr>

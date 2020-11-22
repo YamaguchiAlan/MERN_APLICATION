@@ -1,25 +1,22 @@
- #body-head{
-   margin-top: 10px;
- }
- 
- #body-head .img-back{
-    position: relative;
+#body-head .img-back{
+   position: relative;
   }
 
 #body-head .title{
-    position: absolute;
-    bottom: 0;
-    padding-bottom: 12px;
-    margin-bottom: 3px;
-    width: 100%;
-    
-    overflow: hidden;
-    word-wrap: break-word;
-    color: white;
-    text-decoration: none;
-    font-size: 1.8rem;
-    font-weight: bold;
-    background: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  transform: translateY(-100%);
+
+  padding-bottom: 5px;
+  width: 100%;
+  
+  text-align: center;
+  overflow: hidden;
+  word-wrap: break-word;
+  color: white;
+  text-decoration: none;
+  font-size: 1.8rem;
+  font-weight: bold;
+  background: rgba(0, 0, 0, 0.5);
 }
 
 #body-head .title:hover{

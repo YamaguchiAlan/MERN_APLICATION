@@ -2,10 +2,10 @@ import React from 'react';
 import './Follow-us.css';
 
 const FollowUs = () =>(
-    <div className="follow-us">
-        <p className="siguenos">Síguenos</p>
-        <hr/>
-        <div className="social">
+    <div className="follow-us w-50 float-left">
+        <p className="siguenos text-center">Síguenos</p>
+        <hr className=""/>
+        <div className="social text-center">
             <a href="https://www.facebook.com" target="_blank" className="facebook" rel="noopener noreferrer">
                  <img src="https://www.vandalimg.com/socialblanco/fblogo.png" alt="facebook" />
             </a>

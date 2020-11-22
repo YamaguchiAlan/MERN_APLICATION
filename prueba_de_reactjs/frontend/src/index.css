@@ -1,11 +1,11 @@
 html {
   font-size: 10pt;
+  margin: 0;
 }
 
 body {
   margin:0;
-  background: -webkit-linear-gradient(to bottom, #414345, #232526); 
-  background: linear-gradient(to bottom, #414345, #232526);
+  background: #252627;  /* fallback for old browsers */
   font-family: 'Roboto', sans-serif;
 }
 

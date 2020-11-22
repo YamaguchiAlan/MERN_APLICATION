@@ -1,21 +1,11 @@
-.follow-us{
-position: relative;
-bottom: 55px;
-float: left;
-width: 50vw;
-}
-
 .follow-us p{
+    margin-top: 10px;
     color: red;
     font-size: 3rem;
     font-weight: bold;
 }
 
 .follow-us hr{
-    position: absolute;
-    bottom: 75px;
-    left: 50%;
-    transform: translateX(-50%);
     width: 70%;
     border-color: #26cce2;
 }

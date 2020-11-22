@@ -1,9 +1,10 @@
 const newsCtrl = {};
+const fs = require('fs');
 
 const News = require('../models/News');
 
 newsCtrl.getNews = async (req, res) => {
-    const news = await News.find();
+    const news = await News.find({}, {image:0});
     res.json(news);
 };
 
@@ -41,6 +42,10 @@ newsCtrl.getNewsImg = async (req, res) => {
     } catch(e) {
         res.status(404).send('Image Not Found');
     }
+}
+
+newsCtrl.formImg = (req, res) => {
+    console.log(req.files.upload)
 }
 
 module.exports = newsCtrl;

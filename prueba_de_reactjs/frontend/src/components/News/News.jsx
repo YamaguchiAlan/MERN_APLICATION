@@ -5,7 +5,7 @@ import './News.css'
 
 const News = () =>  {
     useEffect(() => {
-        fetch("http://my-json-server.typicode.com/YamaguchiAlan/JSON-db/bodyArr", {method: 'GET'})
+        fetch("http://localhost:4000/api/news", {method: 'GET'})
         .then(response => response.json())
         .then(data => setNews(data))
       },[]);

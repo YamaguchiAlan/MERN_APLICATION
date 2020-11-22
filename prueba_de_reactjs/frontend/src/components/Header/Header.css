@@ -1,26 +1,23 @@
-.header{
-    padding: 25px 0 1px 0;
-    background:rgba(0, 0, 0,0.5) ;
-  }
+.navbar{
+  background:rgba(0, 0, 0, 0.192) ;
+}
 
-  .header .logo a{
-   position: relative;
-   bottom: 15px;
-   left: 18%;
-   height: 55px; 
-   float: left;
+.logo{
+  color: red;
+  text-decoration: none;
+  font-size: 3.5rem;
+  letter-spacing: 2px;
+  text-shadow: 4px 2px 2px rgb(117, 3, 3);
+  font-family: 'Fjalla One', sans-serif;
+ }
 
-   transform: translateX(-50%);
-   text-decoration: none;
-   color: red;
-   font-size: 3.5rem;
-   letter-spacing: 2px;
-   text-shadow: 4px 2px 2px rgb(117, 3, 3);
-   font-family: 'Fjalla One', sans-serif;
-  }
-  
-  .header nav hr{
-    height: 3px;
-    width: 100vw;
-    background: gray;
-  }
+.logo:hover{
+  text-decoration: none;
+  color: red;
+}
+
+.navbar hr{
+  height: 3px;
+  width: 100%;
+  background: gray;
+}

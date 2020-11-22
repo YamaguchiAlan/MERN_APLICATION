@@ -1,42 +1,27 @@
 .comments-back{
     width: 70%;
-    margin: 0 0 -50px 5%;
-    background: rgb(231, 231, 231);
+    margin: 0 0 10px 3%;
+    background: #1b1b1bb6;
+    border-radius: 2%;
+    overflow: hidden;
 }
 
 .coments-counter{
 font-size: 1.6rem;
 font-weight: bold;
 padding: 6px 0;
-color: white;
-background: linear-gradient(to bottom, rgba(1, 209, 216, 0.87), #038686a9 );
+text-align: center;
+color: #00FFFF;
+background: #000000de;
 }
 
 .comments{
     width: 85%;
     margin: auto;
     padding-bottom: 5px;
-}
-
-.connect{
-    list-style-position: inside;
-    color: green;
-}
-
-.disconnect{
-    list-style-position: inside;
-    color: red;
-}
-
-.connect li, .disconnect li{
-    transform: scale(2);
-    position: absolute;
-    top: -2px;
-    left: -5px;
+    color: white;
 }
 
 .comment-text{
-    padding: 25px 30px;
-    text-align: left;
     font-size: 1.4rem;
 }

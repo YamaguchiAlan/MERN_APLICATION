@@ -1,18 +1,47 @@
 .article-body{
     width: 70%;
     color: rgb(241, 241, 241);
-    margin-left: 5%;
+    margin: 10px 0 0 3%;
+}
+
+.article-author{
+    display: flex;
+}
+
+.article-author img{
+    height: 32px;
+    width: 32px;
+    border-radius: 16px;
+}
+
+.article-author span {
+    font-size: 1.5rem;
+    margin-left: 5px;
 }
 
 .article-body .atc-content{
 font-size: 2rem;
-text-align: left;
+margin-top: 10px;
 }
 
 .article-body .atc-content img{
     max-width: 100%;
 }
 
-.article-body .sub-title h3{
-    font-size: 2.5rem;
+.article-author-bottom{
+    text-align: right;
+    width: 100%;
+}
+
+.article-author-bottom p{
+    color: red;
+    font-size: 1.5rem;
+    display: inline-block;
+}
+
+.article-author-bottom img{
+    height: 30px;
+    display: inline-block ;
+    margin-left: 5px;
+    margin-bottom: 7px
 }

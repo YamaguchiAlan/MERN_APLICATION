@@ -17,7 +17,7 @@ const Footer = () =>{
 
     return(<>
         <div className="footer" id="footer">
-            <p className="about-us"><strong><i>Astro-Gaming</i></strong><br/>
+            <p className="about-us text-center"><strong><i>Astro-Gaming</i></strong><br/>
             Todas las noticias sobre el mundo del gaming
             </p>
 

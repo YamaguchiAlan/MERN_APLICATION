@@ -1,29 +1,44 @@
-.app-nav{
-    position: relative;
-    float: right;
-    display: flex;
-    flex-direction: column; 
+.nav-container{
+    width: 23% !important;
 
-    height: calc(100vh - 2px);
-    min-width: 18vw;
-    right:10px;
-    border: 1px solid red;
-    background: #1f1f1fcc;
+    background: #1b1b1bda;
 
-    overflow: scroll;
     overflow-x: hidden;
+    overflow: scroll;
 }
 
-/* Ocultando la barra de navegacion del Nav */
-.app-nav::-webkit-scrollbar {
+.nav-container::-webkit-scrollbar {
     display: none;
 }
 
-/* Posicionando el titulo del Nav */
-.app-nav .trending{
-    padding: 3px 0;
-    color: rgb(246, 240, 240);
-    background: #26cce2;
-    font-size: 2rem;
-    font-weight: 700;
+.trending{
+    background: rgb(4, 189, 196);
+}
+
+.nav-card{
+    background: rgba(0, 0, 139, 0) !important;
+}
+
+.nav-img{
+    filter: opacity(0.5);
+}
+
+.nav-img-overlay{
+    background: #18171777;
+}
+
+.nav-text:hover{
+    transition: 0.5s;
+    background: rgba(19, 18, 18, 0.555);
+}
+
+.nav-text .card-text{
+    text-decoration: none;
+    color: white;
+    font-size: 1.4rem;
+}
+
+.nav-text .card-text:hover{
+    transition: 0.5s;
+    color: #26cce2;
 }

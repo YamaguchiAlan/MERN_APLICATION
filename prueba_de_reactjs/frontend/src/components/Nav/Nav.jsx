@@ -13,32 +13,33 @@ const Nav = () => {
         let currentPos = window.pageYOffset;
         let footerPos = document.getElementById("foot-limit").offsetTop;
         let footer = document.getElementById("footer").offsetTop;
-    
+
         /* Al centro de la pagina */
         if(currentPos >= navPos){
-        nav.style.position="fixed";
-        nav.style.top="0";
+          nav.className= " float-right position-fixed mh-100 border border-danger mr-1 nav-container"
+          nav.style.top = "0"
+          nav.style.right = "0"
         }
         /* Al principio de la pagina */
         else{
-        nav.style.position="relative";
-        nav.style.top="0";
+          nav.className= " float-right  position-relative mh-100 border border-danger mr-1  nav-container"
+          nav.style.top = "0"
         }
         /* Al final de la pagina */
         if(currentPos >= footerPos){
-        nav.style.position="absolute";
-        nav.style.top=`calc( ${ footer }px - 100vh - 10px )`;
+          nav.className= " float-right position-absolute mh-100 border border-danger mr-1 nav-container"
+          nav.style.top=`calc( ${ footer }px - 100vh - 10px )`;
         }}
               }
   })
 
-  return(     
+  return(
       //Contenedor del Nav
       <>
           <div id="nav-pos"></div>
-          <nav id="app-nav" className="app-nav">
-              <span className="trending">Trending</span>
-              <NavGrid /> 
+          <nav id="app-nav" className="float-right border border-danger mr-1 nav-container">
+              <h3 className="text-white text-center py-1 font-weight-bold trending">Trending</h3>
+              <NavGrid />
           </nav>
       </>
   )

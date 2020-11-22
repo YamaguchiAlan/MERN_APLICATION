@@ -19,23 +19,23 @@ const Comments = ({articleId}) =>{
             setComments([])
         })
     },[articleId]);
-    
+
     const [comments, setComments] = useState([])
-    
+
     return(
         comments.length > 0 ?(
             <div className="comments-back">
-        
+
                 <p className="coments-counter"> Comentarios({comments.length}) </p>
-        
+
                 <div className="comments">
                     {comments.map((c, i) => {
-    
+
                     return<div key={i}>
                         <CommentUser user={c} />
-    
-                        <p className="comment-text" >{c.comment}</p>
-    
+
+                        <p className="comment-text px-5 py-4" >{c.comment}</p>
+
                         <LikeDislike cmt={c} index={i} />
                     </div>
                     })}

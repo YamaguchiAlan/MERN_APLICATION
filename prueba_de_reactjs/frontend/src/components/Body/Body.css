@@ -1,0 +1,62 @@
+.body-card{
+    background: #181717da !important;
+    height: 230px !important;
+}
+
+.body-img-back{
+    background: #181717da;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.background-img{
+    position: absolute;
+    opacity: 0.5;
+    filter: blur(5px);
+    -webkit-filter: blur(5px);
+    z-index: 9;
+}
+
+.body-img{
+    height: 150px;
+    z-index: 99;
+    width: 265px;
+}
+
+.body-card-text{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.body-title a{
+    text-decoration: none !important;
+    color: rgb(240, 240, 240);
+}
+
+.body-title a:hover{
+    transition: 0.5s;
+    color: #26cce2;
+}
+
+.body-text{
+    font-size: 1.3rem;
+}
+
+.body-author, .body-date{
+    padding: 5px 8px;
+
+    background: rgb(161, 39, 39);
+    font-size: 1.2rem;
+}
+
+.body-date{
+    margin-left: 5px;
+    background: rgb(29, 129, 168);
+}
+
+ .social a img{
+    height: 30px;
+}
