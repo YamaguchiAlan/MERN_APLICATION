@@ -4,18 +4,24 @@ import './Article-body.css';
 const ArticleBody =({article}) =>{
     useEffect(() => {
         /* Imprimiendo el subtitulo y el contenido */
-        document.getElementById("content").innerHTML = article.content;
+        if(article) {
+            document.getElementById("content").innerHTML = article.content;
+            const images = document.querySelectorAll('#content img')
+            images.forEach((e, i) => {
+                e.src = article.imagesUrl[i]
+            })
+        }
     });
 
     return(
-    <div className="article-body" id="nav-pos">
+    <div className="article-body" id="article-body">
         <div className="article-author">
             <img src="/img/katana_zero.jpg" alt="Profile-pic"/>
             <span>Por: <strong>Alan Yamaguchi</strong> 14/11/20</span>
         </div>
 
-        <p className="atc-content" id="content">
-        </p>
+        <div className="atc-content" id="content">
+        </div>
 
         <div className="row">
             <div className="article-author-bottom text-right">

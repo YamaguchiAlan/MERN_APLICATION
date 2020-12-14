@@ -1,7 +1,9 @@
 .article-body{
-    width: 70%;
+    max-width: 70% !important;
     color: rgb(241, 241, 241);
     margin: 10px 0 0 3%;
+    padding: 0 10px;
+    word-wrap: break-word;
 }
 
 .article-author{
@@ -20,8 +22,72 @@
 }
 
 .article-body .atc-content{
-font-size: 2rem;
+font-size: 1.7rem;
 margin-top: 10px;
+
+}
+
+.article-body .atc-content p {
+    margin: 0;
+}
+
+.atc-content .text-tiny {
+    font-size: 1.1rem;
+}
+
+.atc-content .text-small{
+    font-size: 1.4rem;
+}
+
+.atc-content .text-big{
+    font-size: 2.2rem;
+}
+
+.atc-content .text-huge {
+    font-size: 2.5rem;
+}
+
+.atc-content blockquote {
+    padding-left: 20px !important;
+    font-style: italic;
+    border-left: solid rgb(206, 206, 206) 5px;
+}
+
+.atc-content hr{
+    border: solid rgb(206, 206, 206) 2px;
+}
+
+.atc-content .table table{
+    width: inherit ;
+    height: inherit ;
+    color: white;
+    border: 1px solid white;
+}
+
+.atc-content .table table td{
+    border: 1px solid white;
+}
+
+.atc-content .table table th{
+    border: 1px solid white;
+}
+
+.article-body .atc-content figure {
+    margin: 25px auto;
+}
+
+.article-body .atc-content .image {
+    max-width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.article-body .atc-content figure figcaption {
+    font-size: 1.4rem;
+    word-wrap: break-word;
+    padding: 4px 10px;
 }
 
 .article-body .atc-content img{

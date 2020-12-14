@@ -1,11 +1,19 @@
 const { Schema, model } = require('mongoose');
 
 const articleSchema = new Schema({
+    title: {
+        type: String,
+        required: true
+    },
+    coverImg: {
+        type: Buffer
+    },
     content: {
         type: String,
         required: true
     },
-    img: Array
+    contentImages: [{type: Buffer}],
+    imagesUrl: [{type: String}]
 }, {
     timestamps: true
 });

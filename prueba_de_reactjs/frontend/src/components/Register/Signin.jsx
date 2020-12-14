@@ -6,13 +6,7 @@ import './Signup.css'
 const Signin = () => {
 
     useEffect(()=> {
-        let header = document.getElementById("header");
-        header.style.display="none"
         document.getElementById('form-alert').style.display = "none"
-
-        return(()=> {
-            header.style.display="flex"
-        })
     })
 
     const [User, setUser] = useState({

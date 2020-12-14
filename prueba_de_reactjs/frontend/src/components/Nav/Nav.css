@@ -30,6 +30,7 @@
 .nav-text:hover{
     transition: 0.5s;
     background: rgba(19, 18, 18, 0.555);
+    cursor: pointer;
 }
 
 .nav-text .card-text{
@@ -41,4 +42,10 @@
 .nav-text .card-text:hover{
     transition: 0.5s;
     color: #26cce2;
+}
+
+#nav-pos{
+    position: absolute;
+    height: 100vh;
+    visibility: hidden;
 }

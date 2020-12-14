@@ -11,19 +11,19 @@ const User = () =>(
                 <tr className="user-name">
                     <td colSpan="2">
                         <Link to="/" className="user-name">
-                            Usuario Anónimo
+                            Yamaguchi_
                         </Link></td>
                 </tr>
 
                 <tr className="sign">
                     <td>
                         <Link to="/signin" className="sign-in">
-                            Iniciar seción
+                            Ver Perfil
                         </Link>
                     </td>
                     <td>
-                        <Link to="/signup" className="sign-up">
-                            Regístrarse
+                        <Link to="/edit-news" className="sign-up">
+                            Modo Editor
                         </Link>
                     </td>
                 </tr>

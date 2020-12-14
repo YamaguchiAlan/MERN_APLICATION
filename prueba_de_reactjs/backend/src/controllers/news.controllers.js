@@ -1,30 +1,32 @@
 const newsCtrl = {};
-const fs = require('fs');
 
 const News = require('../models/News');
+const Articles = require('../models/Article')
 
 newsCtrl.getNews = async (req, res) => {
     const news = await News.find({}, {image:0});
     res.json(news);
 };
 
-newsCtrl.createNews = async (req, res) => {
-    const {title, text, author} = req.body;
-    const news = await new News({
-        title,
-        text,
-        author
-    })
-    await news.save();
-    res.send('News Created')
-}
-
 newsCtrl.newsImage = async (req, res) => {
     try {
-        const news = await News.findById(req.body.id);
+        console.log(req.params.id)
+        const news = await News.findById(req.params.id);
         news.image = req.file.buffer
         await news.save();
-        res.send('Img received')
+        res.send(news.article)
+    } catch (e) {
+        res.status(400).send(e)
+    }
+}
+
+newsCtrl.updateNewsImage = async (req, res) => {
+    try {
+        console.log(req.params.id)
+        const news = await News.findById(req.params.id);
+        news.image = req.file.buffer
+        await news.save();
+        res.send('image updated')
     } catch (e) {
         res.status(400).send(e)
     }
@@ -44,8 +46,16 @@ newsCtrl.getNewsImg = async (req, res) => {
     }
 }
 
-newsCtrl.formImg = (req, res) => {
-    console.log(req.files.upload)
+newsCtrl.deleteNews = async (req, res) => {
+    await News.findByIdAndDelete(req.params.id, async (err, news) => {
+        if(err) {
+            console.log(err)
+        } else {
+            await Articles.findByIdAndDelete(news.article[0])
+        }
+    })
+    const news = await News.find({}, {image: 0})
+    res.json(news)
 }
 
 module.exports = newsCtrl;

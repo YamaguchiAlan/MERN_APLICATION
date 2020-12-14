@@ -6,17 +6,10 @@ import './Signup.css'
 const Signup = () => {
 
     useEffect(()=> {
-        let header = document.getElementById("header");
-        header.style.display="none"
-
         document.getElementById("username-alert").style.display="none"
         document.getElementById("email-alert").style.display="none"
         document.getElementById("password-alert").style.display="none"
         document.getElementById("confirmPassword-alert").style.display="none"
-
-        return(()=> {
-            header.style.display="flex";
-        })
     }, [])
 
     const [User, setUser] = useState({

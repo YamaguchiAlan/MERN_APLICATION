@@ -1,39 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import './Article.css';
+import axios from 'axios'
+
+import Header from '../Header/Header'
 import Nav from '../Nav/Nav';
 import ArticleBody from './Article-Body/Article-body';
 import Footer from '../Footer/Footer';
 import Comments from '../Comments/Comments';
+import MostViewed from '../Most-Viewed/Most-Viewed';
+import ArticleCover from './Article-cover/Article-cover';
 
 const Article = ({match}) =>{
     useEffect(() => {
-        fetch('/JSON/Articles.json')
-        .then(response => response.json())
-        .then(data => setArticles(data))
+        axios.get(`http://localhost:4000/api/article/${match.params.id}`)
+        .then(res => {
+            setArticle(res.data.article[0])
+        })
     },[]);
 
 
-    const [Articles, setArticles] = useState([]);
-    /* Filtrando el articulo mediante la url */
-    const actualArticle = Articles.filter( c => c.title === match.params.title)[0];
+    const [Article, setArticle] = useState({});
 
     return(
         /* Verificando si existe */
-        actualArticle ? (
+        Article ? (
         <>
+            <Header />
 
-            <div className="cover card border-0">
-                <img src={actualArticle.img} alt="Article img" className="atc-img card-img"/>
-                <div className="card-img-overlay">
-                    <h1 className="atc-title card-text"><i>{actualArticle.title}</i></h1>
-                </div>
-            </div>
+            <ArticleCover article={Article}/>
 
             <Nav />
 
-            <ArticleBody article={actualArticle} />
+            <ArticleBody article={Article} />
 
-            <Comments articleId={actualArticle.articleId} />
+            <Comments />
+
+            <MostViewed/>
 
             <Footer />
         </>

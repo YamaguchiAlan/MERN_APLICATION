@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import Header from './Header/Header'
 import Nav from './Nav/Nav';
 import Body from './Body/Body';
 import BodyHead from './Body-Head/Body-head';
@@ -23,11 +24,15 @@ const Main = () => {
 
   return(
       <>
+          <Header />
+
           <BodyHead/>
 
           <Nav/>
 
-          <Body news={News} />
+          <div id="body">
+            <Body news={News} />
+          </div>
 
           {/* Selector de pagina */}
           <div className="page-selector">

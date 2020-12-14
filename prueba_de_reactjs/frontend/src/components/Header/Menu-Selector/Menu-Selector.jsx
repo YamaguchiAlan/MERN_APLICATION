@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Menu-Selector.css'
 
-const MenuSelector = () => {
+const MenuSelector = ({editMode}) => {
     useEffect(() => {
         /* Cambiar el elemento activo cuando se le hace click */
         var enlaces = document.querySelectorAll('.selector a');
@@ -20,11 +20,28 @@ const MenuSelector = () => {
     });
 
     return (
-        <ul className="nav nav-pills nav-justified selector ">
+        editMode ? (
+            <ul className="nav nav-pills nav-justified selector ">
+                <li className="nav-item">
+                    <Link className="nav-link" to="/create-article">Crear Articulo</Link>
+                </li>
+                <li className="nav-item">
+                    <Link className="nav-link actual" to="/edit-news">Editar Noticias</Link>
+                </li>
+                <li className="nav-item">
+                    <Link className="nav-link" to="#">Editar Articulos</Link>
+                </li>
+                <li className="nav-item">
+                    <Link className="nav-link" to="#">Editar Reseñas</Link>
+                </li>
+            </ul>
+        )
+        :
+        (<ul className="nav nav-pills nav-justified selector ">
             <li className="nav-item">
                 <Link className="nav-link actual" to="/">Inicio</Link>
             </li>
-            <li className="nav-item secondary">
+            <li className="nav-item">
                 <Link className="nav-link" to="/news">Noticias</Link>
             </li>
             <li className="nav-item">
@@ -40,6 +57,7 @@ const MenuSelector = () => {
                 <Link className="nav-link" to="#">Comunidad</Link>
             </li>
         </ul>
+        )
     )
 }
 

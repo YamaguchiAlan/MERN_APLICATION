@@ -23,30 +23,31 @@ const Comments = ({articleId}) =>{
     const [comments, setComments] = useState([])
 
     return(
-        comments.length > 0 ?(
-            <div className="comments-back">
+        <div className="comments-back" id="comments">
+            {comments.length > 0 ?(
+                <>
+                    <p className="coments-counter"> Comentarios({comments.length}) </p>
 
-                <p className="coments-counter"> Comentarios({comments.length}) </p>
+                    <div className="comments">
+                        {comments.map((c, i) => {
 
-                <div className="comments">
-                    {comments.map((c, i) => {
+                        return<div key={i}>
+                            <CommentUser user={c} />
 
-                    return<div key={i}>
-                        <CommentUser user={c} />
+                            <p className="comment-text px-5 py-4" >{c.comment}</p>
 
-                        <p className="comment-text px-5 py-4" >{c.comment}</p>
-
-                        <LikeDislike cmt={c} index={i} />
+                            <LikeDislike cmt={c} index={i} />
+                        </div>
+                        })}
                     </div>
-                    })}
-                </div>
-            </div>
-            )
-            :(
-                <div className="comments-back">
-                <p className="coments-counter"> Haz un comentario </p>
-                </div>
-            )
+                </>
+                )
+                :(
+                    <p className="coments-counter"> Haz un comentario </p>
+                )}
+        </div>
+
+
     )
     }
 

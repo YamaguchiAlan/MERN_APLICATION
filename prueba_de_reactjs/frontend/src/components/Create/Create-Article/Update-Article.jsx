@@ -7,21 +7,47 @@ import ArticleForm from './Article-form/Article-form';
 import Preview from './Preview/Preview';
 import Header from '../../Header/Header';
 
-const CreateArticle = () => {
+const UpdateArticle = ({match}) => {
 
-    useEffect(() => {
-        document.getElementById('article-form').style.display="none"
-        document.getElementById('preview').style.display="none"
-    }, [])
+    const [cardBody, setCardBody] = useState([])
+    const [articleData, setArticleData] = useState({})
 
     // BodyCard
-    const [cardBody, setCardBody] = useState([{
-        title: "Titulo",
-        text: "Subtitulo",
-        author: "Alan Yamaguchi",
-        createdAt: Date.now() ,
-        defaultImg: "./img/preview.png"
-    }])
+    useEffect(() => {
+
+        document.getElementById('preview').style.display="none"
+
+        axios.get(`http://localhost:4000/api/article/${match.params.id}`)
+        .then(res => {
+            setCardBody([{
+                ...res.data,
+                imgInput: true
+            }])
+            document.getElementById('body-input-title').value = res.data.title
+            document.getElementById('body-input-text').value = res.data.text
+            document.getElementById('preview-body-img').src = document.getElementById('card-body-img').src
+
+            setArticleData({
+                ...res.data.article[0]
+            })
+            document.getElementById('article-title').value = res.data.article[0].title
+            document.getElementById('preview-article-img').src = document.getElementById('article-cover-img').src
+            document.getElementById("content").innerHTML = res.data.article[0].content;
+            const images = document.querySelectorAll('#content img')
+            images.forEach((e, i) => {
+                e.src = res.data.article[0].imagesUrl[i]
+            })
+            let newContent = document.getElementById('content').innerHTML
+            setArticleData({
+                ...res.data.article[0],
+                content: newContent,
+                imgInput: true
+            })
+
+        })
+    }, [])
+
+
 
     const bodyCardTextForm = (e) => {
         e.preventDefault()
@@ -36,7 +62,8 @@ const CreateArticle = () => {
                 const url = window.URL.createObjectURL(file);
                 setCardBody([{
                     ...cardBody[0],
-                    defaultImg: url
+                    defaultImg: url,
+                    imgInput: false
                 }])
                 document.getElementById("preview-body-img").src=url
             }
@@ -44,13 +71,6 @@ const CreateArticle = () => {
     }
 
     // Article
-     const [articleData, setArticleData] = useState({
-        img:"/img/default-image.jpg",
-        title:"Dishonored 2, Prey y otros juegazos reunidos en un pack para celebrar los 20 años de Arkane Studios",
-        content: "",
-        imagesName: []
-    })
-
     const articleChange = (e) => {
         if(e.target.name == "article-title") {
             setArticleData({
@@ -63,7 +83,8 @@ const CreateArticle = () => {
 
             setArticleData({
                 ...articleData,
-                img: url
+                img: url,
+                imgInput: false
             })
         }
     }
@@ -82,13 +103,25 @@ const CreateArticle = () => {
 
             if(imgSrc[0]) {
                 img.forEach( (e, i) => {
+
                     e.src=imgSrc[i].src
-                    e.style.width = `${imgSrc[i].offsetWidth}px`
-                    if(img[i].parentElement.getElementsByTagName('figcaption')[0]) {
-                        img[i].parentElement.getElementsByTagName('figcaption')[0].style.width = `${imgSrc[i].offsetWidth}px`
+                    if(imgSrc[i].offsetWidth != 0) {
+                        e.style.width = `${imgSrc[i].offsetWidth}px`
+                        if(img[i].parentElement.getElementsByTagName('figcaption')[0]) {
+                            img[i].parentElement.getElementsByTagName('figcaption')[0].style.width = `${imgSrc[i].offsetWidth}px`
+                        }
                     }
-                    let filename = imgSrc[i].src.slice(35)
-                    imgNames.push(filename)
+
+                    if(imgSrc[i].src.startsWith('form', 26)) {
+                        let filename = imgSrc[i].src.slice(35)
+                        imgNames.push(filename)
+                    } else{
+                        if(imgSrc[i].src.slice(-2).startsWith('/')){
+                            imgNames.push( parseInt(imgSrc[i].src.slice(-1)) )
+                        } else {
+                            imgNames.push( parseInt(imgSrc[i].src.slice(-2)) )
+                        }
+                    }
                 })
                 editorTextArea.value="img"
             }
@@ -120,27 +153,25 @@ const CreateArticle = () => {
         if (e.target.checkValidity() === false) {
             e.stopPropagation();
         } else{
-            axios.post('http://localhost:4000/api/create-article', {
+            axios.put(`http://localhost:4000/api/update-article/${cardBody[0]._id}`, {
                 BodyData: cardBody[0],
                 ArticleData: articleData
             })
 
-            .then( bodyId => {
+            if(cardBody[0].imgInput == false){
                 let file = document.getElementById('body-input-img').files[0]
                 let data = new FormData()
                 data.append('body-img', file)
-                axios.post(`http://localhost:4000/api/news-img/${bodyId.data}`, data, {headers: {'Content-Type': 'multipart/form-data'}})
-
-                .then( articleId => {
+                axios.put(`http://localhost:4000/api/update-news-img/${cardBody[0]._id}`, data, {headers: {'Content-Type': 'multipart/form-data'}})
+                }
+            if(articleData.imgInput == false){
                     let file = document.getElementById('article-input-img').files[0]
                     let data = new FormData()
                     data.append('article-img', file)
-                    axios.post(`http://localhost:4000/api/article-img/${articleId.data}`, data, {headers: {'Content-Type': 'multipart/form-data'}})
-                })
-            })
-
+                    axios.put(`http://localhost:4000/api/update-article-img/${articleData._id}`, data, {headers: {'Content-Type': 'multipart/form-data'}})
+                }
+            }
         }
-    }
 
     return(
         <>
@@ -148,7 +179,9 @@ const CreateArticle = () => {
             <div className="w-100 text-white new-article">
                 <BodyForm bodyCardTextForm={bodyCardTextForm} cardBody={cardBody} />
 
-                <ArticleForm articleChange={articleChange} editorChange={editorChange} articleSubmit={articleSubmit} articleData={articleData}/>
+                {articleData.content &&
+                    <ArticleForm articleChange={articleChange} editorChange={editorChange} articleSubmit={articleSubmit} articleData={articleData} editorInitialValue={articleData.content}/>
+                }
 
                 <Preview articleData={articleData}/>
             </div>
@@ -156,4 +189,4 @@ const CreateArticle = () => {
     )
 }
 
-export default CreateArticle;
+export default UpdateArticle;

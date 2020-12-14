@@ -1,7 +1,6 @@
 const {Router} = require('express');
 const router = Router();
 const multer = require('multer');
-const Multiparty = require('connect-multiparty');
 
 const upload = multer({
     fileFilter(req, file, cb) {
@@ -12,22 +11,21 @@ const upload = multer({
     }
 })
 
-const multiparty = Multiparty({uploadDir: './img/'})
 
-const { getNews, createNews, newsImage, getNewsImg, formImg } = require('../controllers/news.controllers');
+const { getNews, newsImage, updateNewsImage, getNewsImg, deleteNews} = require('../controllers/news.controllers');
 
 router.get('/api/news', getNews);
 
-router.post('/api/create-news', createNews);
-
-router.post('/api/news-img', upload.single("news-img") , newsImage,
+router.post('/api/news-img/:id', upload.single("body-img") , newsImage,
     (error, req, res, next) => {
         res.status(400).send({error: error.message})
     }
 );
 
-router.get('/api/:id/news-img', getNewsImg)
+router.put('/api/update-news-img/:id', upload.single("body-img"), updateNewsImage)
 
-router.post('/api/form-img', multiparty, formImg);
+router.get('/api/news-img/:id', getNewsImg)
+
+router.delete('/api/news/delete/:id', deleteNews)
 
 module.exports = router

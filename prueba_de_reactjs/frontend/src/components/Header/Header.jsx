@@ -5,7 +5,7 @@ import SearchBar from '../Search-Bar/Search-Bar'
 import User from './User/User';
 import MenuSelector from './Menu-Selector/Menu-Selector'
 
-const Header = () =>(
+const Header = ({editMode}) =>(
     <nav className="navbar justify-content-around" id="header">
       <Link className="logo" to="/"><i>Astro-Gaming</i></Link>
 
@@ -15,7 +15,7 @@ const Header = () =>(
 
       <hr></hr>
 
-      <MenuSelector/>
+      <MenuSelector editMode={editMode}/>
 
     </nav>
 )

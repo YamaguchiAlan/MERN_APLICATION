@@ -1,0 +1,39 @@
+.article-form-back{
+    width: 71%;
+    margin: auto;
+    background: #232526 !important;
+}
+
+.preview-article-img{
+    max-height: 300px;
+}
+
+.choose-article-img{
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.article-img-btn{
+    font-size: 1.5rem !important;
+}
+
+.article-form-title{
+    min-height: 95px !important;
+
+    margin-bottom: 5px;
+    overflow: hidden;
+
+    border: solid 1.7px rgb(88, 88, 88) !important;
+    background: #353535f5 !important;
+
+
+    font-size: 1.4rem !important;
+
+}
+
+.preview-btn{
+    font-size: 1.3rem !important;
+}

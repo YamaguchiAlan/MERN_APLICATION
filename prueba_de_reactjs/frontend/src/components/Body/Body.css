@@ -1,6 +1,6 @@
 .body-card{
     background: #181717da !important;
-    height: 230px !important;
+    min-height: 200px;
 }
 
 .body-img-back{
@@ -25,6 +25,10 @@
     width: 265px;
 }
 
+.body-img:hover{
+    cursor: pointer;
+}
+
 .body-card-text{
     display: flex;
     flex-direction: column;
@@ -34,6 +38,7 @@
 .body-title a{
     text-decoration: none !important;
     color: rgb(240, 240, 240);
+    font-size: calc(0.7em + 0.5vw);
 }
 
 .body-title a:hover{
@@ -42,7 +47,7 @@
 }
 
 .body-text{
-    font-size: 1.3rem;
+    font-size: calc(0.7em + 0.5vw);
 }
 
 .body-author, .body-date{
@@ -59,4 +64,37 @@
 
  .social a img{
     height: 30px;
+}
+
+.card-body-edit .span-container{
+    overflow: hidden;
+}
+
+.card-body-edit span{
+    position: relative;
+    right: 100%;
+    font-size: 1.1rem;
+    transition: all 0.5s;
+}
+
+.card-body-edit .remove-div{
+    display: flex !important;
+}
+
+.card-body-edit .remove-div span{
+    order: 1 !important;
+    right: -100%;
+}
+
+.card-body-edit .remove-div img{
+    order: 2 !important;
+}
+
+.card-body-edit img:hover{
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.card-body-edit img:hover + .span-container span, .card-body-edit a:hover + .span-container span {
+    right: 0;
 }
