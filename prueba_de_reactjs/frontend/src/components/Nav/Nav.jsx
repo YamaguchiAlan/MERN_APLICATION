@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import NavGrid from './Nav-Grid/Nav-Grid';
-import './Nav.css'
+import NavGrid from './Nav-Grid';
 
 const Nav = () => {
   useEffect(()=>{

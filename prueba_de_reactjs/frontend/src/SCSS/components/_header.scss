@@ -1,0 +1,82 @@
+.navbar{
+    background:rgba(0, 0, 0, 0.192) ;
+  }
+
+  .logo{
+    color: red;
+    text-decoration: none;
+    font-size: 3.5rem;
+    letter-spacing: 2px;
+    text-shadow: 4px 2px 2px rgb(117, 3, 3);
+    font-family: 'Fjalla One', sans-serif;
+   }
+
+  .logo:hover{
+    text-decoration: none;
+    color: red;
+  }
+
+  .navbar hr{
+    height: 3px;
+    width: 100%;
+    background: gray;
+  }
+
+  .user-profile{
+    display: flex;
+  }
+
+  .user-profile img{
+    height: 55px;
+  }
+
+  .user-profile .user-text a{
+    text-decoration: none;
+    padding-left: 6px;
+  }
+
+  .user-profile .user-text .user-name{
+    color: white;
+    font-size: 1.4rem;
+    font-weight: 600;
+  }
+
+  .user-profile .user-text .sign a{
+    color: red;
+    font-size: 1.2rem;
+    opacity: 0.6;
+  }
+
+  .user-profile .user-text .sign a:hover{
+    opacity: 1;
+  }
+
+  .selector {
+    float: left !important;
+  }
+
+  /*
+  .selector{
+    width: 95%;
+  }
+
+  .selector a{
+     background: linear-gradient(to bottom, rgba(63, 191, 195, 0.596), #30798aab );
+
+    color: white;
+    border-left: 2px solid rgb(59, 59, 59);
+    padding: 5px;
+    text-decoration: none;
+    font-size: 1.6rem;
+    font-weight: 700;
+  }
+
+  .selector a:hover{
+    background: linear-gradient(to bottom, rgba(211, 41, 41, 0.87), #7e2727a9 );
+    color: white;
+  }
+
+  .selector .actual{
+    background:linear-gradient(to bottom, #e00a0a, #881c1c );
+  }
+  */

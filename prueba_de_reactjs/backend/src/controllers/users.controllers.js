@@ -20,9 +20,9 @@ usersCtrl.signup = async (req, res) => {
             err.keyValue.username ?
             res.status(400).send({ errors: {username:{type:"error", name:"Database Error", message: 'Nombre de usuario no disponible'}} })
             : res.status(400).send({ errors: {email:{type:"error", name:"Database Error", message: 'Este email ya esta en uso'}} })
-        } 
+        }
         else{
-            res.status(400).send(err) 
+            res.status(400).send(err)
         }
     }
 };
@@ -37,5 +37,16 @@ usersCtrl.signin = function(req, res, next) {
       });
     })(req, res, next);
   }
+
+usersCtrl.authenticate = async (req, res) => {
+    const user = await Users.findById(req.session.passport.user, {password: 0})
+    console.log(user)
+    res.send(user)
+}
+
+usersCtrl.getUser = async (req, res) => {
+    const user = await Users.findById(req.params.id)
+    res.send(user)
+}
 
 module.exports = usersCtrl;

@@ -6,8 +6,6 @@ import {format} from 'timeago.js'
 import instagram from '../../img/instagram.png';
 import twitter from '../../img/twitter.png';
 
-import './Body.css';
-
 const Body = ({news}) => {
     return(
         news.map(props =>

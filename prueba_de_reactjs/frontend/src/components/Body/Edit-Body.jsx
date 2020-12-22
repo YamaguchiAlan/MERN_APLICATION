@@ -9,8 +9,6 @@ import twitter from '../../img/twitter.png';
 import edit from '../../img/edit.svg';
 import remove from '../../img/trash-2.svg'
 
-import './Body.css';
-
 const EditBody = ({news}) => {
     const [News, setNews] = useState(news)
 

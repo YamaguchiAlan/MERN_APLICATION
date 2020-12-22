@@ -1,0 +1,61 @@
+@import "./comment-user";
+@import "./like-dislike";
+
+.comments-back{
+    width: 70% !important;
+    margin: 0 0 10px 3%;
+    background: #1b1b1bb6;
+    border-radius: 2%;
+    overflow: hidden;
+}
+
+.coments-counter{
+font-size: 1.6rem;
+font-weight: bold;
+padding: 6px 0;
+text-align: center;
+color: #00FFFF;
+background: #000000de;
+}
+
+.comments{
+    width: 85%;
+    margin: auto;
+    padding-bottom: 5px;
+    color: rgb(255, 255, 255);
+}
+
+.comment-text{
+    font-size: 1.4rem;
+}
+
+.make-comment{
+    background: #2b2b2b;
+    border-top-left-radius: 30px !important;
+    border: 2px solid rgb(82, 82, 82);
+}
+
+.make-comment-user{
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    border-bottom-left-radius: 0;
+}
+
+.make-comment textarea, .make-comment textarea:focus, .make-comment textarea:hover, .make-comment textarea:active{
+    min-height: 80px;
+
+    overflow: hidden;
+    background:#2b2b2b;
+    border: 0;
+    color: rgb(255, 255, 255);
+    font-size: 1.4rem;
+}
+
+.make-comment textarea::placeholder{
+    color: rgb(187, 187, 187);
+}
+
+.make-comment button {
+    font-size: 1.1rem;
+}

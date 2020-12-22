@@ -1,0 +1,46 @@
+@import "components/header";
+@import "components/body-head", "components/search-bar";
+@import "components/body";
+@import "components/nav" ;
+@import "components/footer";
+@import "components/signup";
+@import "components/create-article/create-article" , "components/article";
+@import "components/comments/comments";
+@import "components/most-viewed";
+@import "components/loader";
+
+html {
+    font-size: 10pt;
+    margin: 0;
+  }
+
+  body {
+    margin:0;
+    background: #252627;  /* fallback for old browsers */
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 1px;
+    color: rgb(241, 241, 241);
+  }
+
+  textarea:hover,
+  input:hover,
+  textarea:active,
+  input:active,
+  textarea:focus,
+  input:focus,
+  button:focus,
+  button:active,
+  button:hover,
+  label:focus,
+  .btn:active,
+  .btn.active
+  {
+      outline:0px !important;
+      -webkit-appearance:none;
+      box-shadow: none !important;
+  }
+
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+      monospace;
+  }

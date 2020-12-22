@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import './Article.css';
 import axios from 'axios'
 
 import Header from '../Header/Header'
 import Nav from '../Nav/Nav';
-import ArticleBody from './Article-Body/Article-body';
+import ArticleBody from './Article-body';
 import Footer from '../Footer/Footer';
 import Comments from '../Comments/Comments';
 import MostViewed from '../Most-Viewed/Most-Viewed';
-import ArticleCover from './Article-cover/Article-cover';
+import ArticleCover from './Article-cover';
 
 const Article = ({match}) =>{
     useEffect(() => {
@@ -33,7 +32,7 @@ const Article = ({match}) =>{
 
             <ArticleBody article={Article} />
 
-            <Comments />
+            <Comments articleId={match.params.id}/>
 
             <MostViewed/>
 

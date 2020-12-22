@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import './Body-Head.css'
-import BodyHeadGrid from './Body-Head-Grid/Body-Head-Grid';
+import BodyHeadGrid from './Body-Head-Grid';
 
 
 const BodyHead = () =>{
@@ -15,9 +14,9 @@ const BodyHead = () =>{
     return(
         <div className="body-head-back">
             <div className="body-head">
-                {News.map( c => 
-                <BodyHeadGrid image={c.image} 
-                    title={c.title} 
+                {News.map( c =>
+                <BodyHeadGrid image={c.image}
+                    title={c.title}
                     className={c.className}
                 /> )}
             </div>

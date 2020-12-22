@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from 'react'
+import {connect} from 'react-redux'
+import {verifyUser} from '../../Redux/actions/UserActions'
 import {Link} from 'react-router-dom'
 import axios from 'axios'
-import './Signup.css'
 
-const Signin = () => {
+function mapDispatchToProps(dispatch) {
+    return {
+        verifyUser: user => dispatch(verifyUser(user))
+    }
+}
+
+const Signin = ({verifyUser}) => {
 
     useEffect(()=> {
         document.getElementById('form-alert').style.display = "none"
@@ -24,7 +31,12 @@ const Signin = () => {
         })
         .then(res => {
             if(res.data.success) {
-                console.log(res.data.success.message)
+                axios.get("http://localhost:4000/api/authenticate", {
+                            withCredentials: true
+                        })
+                .then(res => {
+                    verifyUser(res.data)
+                })
             }
         })
         .catch(err => {
@@ -77,4 +89,4 @@ const Signin = () => {
     )
 }
 
-export default Signin;
+export default connect(null, mapDispatchToProps)(Signin);

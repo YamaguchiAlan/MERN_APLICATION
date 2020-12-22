@@ -1,0 +1,73 @@
+.body-head-back{
+width: 100%;
+background: rgba(0, 0, 0, 0.63);
+margin-bottom: 10px;
+justify-content: center;
+display: flex;
+}
+
+.body-head{
+    width: 1300px;
+    height: 600px;
+
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Definiendo el tamaño de los elementos del body-head
+
+/* Los 4 del centro */
+#body-head{
+height: calc(50% - 20px);
+margin: 10px 10px 10px 0;
+}
+
+.img-back img{
+    height: 100%;
+}
+
+/* El anuncio a la derecha // VISITA NUESTRO FORO */
+.advertising{
+height: calc(100% - 20px);
+}
+
+.advertising .img-back img{
+    height: 200%;
+}
+
+/* Elemento oculto para acomododar la fila de abajo */
+.white-space{
+    height: 100%;
+    visibility: hidden;
+}
+
+.white-space .img-back img{
+    height: 200%;
+}
+
+#body-head .img-back{
+    position: relative;
+    }
+
+#body-head .title{
+    position: absolute;
+    transform: translateY(-100%);
+
+    padding-bottom: 5px;
+    width: 100%;
+
+    text-align: center;
+    overflow: hidden;
+    word-wrap: break-word;
+    color: white;
+    text-decoration: none;
+    font-size: 1.8rem;
+    font-weight: bold;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+#body-head .title:hover{
+    transition: 0.5s;
+    color:#26cce2;
+}

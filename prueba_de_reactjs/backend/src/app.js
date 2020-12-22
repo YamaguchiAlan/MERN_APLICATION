@@ -33,5 +33,6 @@ app.use(require('./routes/news.routes'));
 app.use(require('./routes/users.routes'));
 app.use(require('./routes/featured.routes'));
 app.use(require('./routes/Article.routes'));
+app.use(require('./routes/Comments.routes'));
 
 module.exports = app;

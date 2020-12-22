@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
-import Legal from './Legal/Legal'
-import './Footer.css';
-import FollowUs from './Follow-us/Follow-us';
+import Legal from './Legal'
+import FollowUs from './Follow-us';
 
 const Footer = () =>{
 

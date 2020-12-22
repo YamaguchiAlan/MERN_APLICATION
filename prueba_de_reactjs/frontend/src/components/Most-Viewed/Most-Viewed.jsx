@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import './Most-Viewed.css'
 
 const MostViewed = () => (
     <div className="card bg-dark text-white most-viewed">
