@@ -1,10 +1,10 @@
 const {Schema, model} = require('mongoose');
-const bcrypt = require('bcryptjs'); 
+const bcrypt = require('bcryptjs');
 
 const usersSchema = new Schema({
     username:{
         type: String,
-        required: [true, 'Enter a Username'], 
+        required: [true, 'Enter a Username'],
         unique: true
     },
     email: {
@@ -15,7 +15,11 @@ const usersSchema = new Schema({
     password: {
         type: String,
         required: [true, 'Enter a Password']
-    }
+    },
+    image: {
+        type: Buffer
+    },
+    activity: [{type: Schema.Types.ObjectId, ref: 'Activity'}]
 }, { timestamps: true });
 
 usersSchema.methods.encryptPassword = async (password) => {

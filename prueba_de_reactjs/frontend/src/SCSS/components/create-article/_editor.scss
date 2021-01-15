@@ -1,40 +1,39 @@
-
-.ck-content .text-tiny{
-    font-size: 1.1rem;
-}
-
-.ck-content .text-small{
-    font-size: 1.4rem;
-}
-
-.ck-content {
-    font-size: 1.7rem !important;
-}
-
-.ck-content .text-big {
-    font-size: 2.2rem;
-}
-
-.ck-content .text-huge{
-    font-size: 2.5rem;
-}
-
-.ck-content figure figcaption {
-    font-size: 1.4rem !important;
-    background: rgba(0, 0, 0, 0) !important;
-    color: white !important;
-    padding: 0 5px !important;
-}
-
-.ck-content figure figcaption:before {
-    color: rgb(189, 189, 189) !important;
-}
-
-.editor .table table{
-    color: white;
-}
+@import "../colors";
 
 .editor .ck-content{
     padding: 0 10px !important;
     background: rgb(43, 43, 43) !important;
+
+    & .text-tiny{
+        font-size: 1.1rem;
+    }
+
+    & .text-small{
+        font-size: 1.4rem;
+    }
+
+    font-size: 1.7rem !important;
+
+    & .text-big {
+        font-size: 2.2rem;
+    }
+
+    & .text-huge{
+        font-size: 2.5rem;
+    }
+
+    & figure figcaption {
+        font-size: 1.4rem !important;
+        background: rgba(0, 0, 0, 0) !important;
+        color: $text-color !important;
+        padding: 0 5px !important;
+
+        &:before {
+            color: rgb(189, 189, 189) !important;
+        }
+    }
+
+    & .table table{
+        color: $text-color;
+    }
 }

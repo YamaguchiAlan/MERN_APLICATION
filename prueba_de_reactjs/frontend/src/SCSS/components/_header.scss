@@ -1,82 +1,96 @@
+@import "./colors";
+
+@mixin header-element {
+  width: calc(100% / 3);
+  display: flex;
+}
+
 .navbar{
-    background:rgba(0, 0, 0, 0.192) ;
-  }
+  background:rgba(0, 0, 0, 0.192) ;
+}
 
-  .logo{
-    color: red;
+.logo{
+  @include header-element;
+  justify-content: center;
+
+  color: rgb(255, 0, 0);
+  text-decoration: none;
+  font-size: 3.5rem;
+  letter-spacing: 2px;
+  text-shadow: 4px 2px 2px $dark-red;
+  font-family: 'Fjalla One', sans-serif;
+
+  &:hover{
     text-decoration: none;
-    font-size: 3.5rem;
-    letter-spacing: 2px;
-    text-shadow: 4px 2px 2px rgb(117, 3, 3);
-    font-family: 'Fjalla One', sans-serif;
-   }
-
-  .logo:hover{
-    text-decoration: none;
-    color: red;
+    color: $red;
+  }
   }
 
-  .navbar hr{
-    height: 3px;
-    width: 100%;
-    background: gray;
-  }
+.navbar hr{
+  height: 3px;
+  width: 100%;
+  background: rgb(128, 128, 128);
+}
 
-  .user-profile{
-    display: flex;
-  }
+.user-profile{
+  @include header-element;
+  justify-content: flex-end;
+  padding-right: 3%;
 
-  .user-profile img{
+  & img{
     height: 55px;
   }
+}
 
-  .user-profile .user-text a{
+.user-profile .user-text{
+  & a{
     text-decoration: none;
     padding-left: 6px;
   }
 
-  .user-profile .user-text .user-name{
-    color: white;
+  & .user-name{
+    color: $text-color;
     font-size: 1.4rem;
     font-weight: 600;
   }
 
-  .user-profile .user-text .sign a{
-    color: red;
+  & .sign a{
+    color: $red;
     font-size: 1.2rem;
     opacity: 0.6;
-  }
 
-  .user-profile .user-text .sign a:hover{
-    opacity: 1;
+    &:hover{
+      opacity: 1;
+    }
   }
+}
 
-  .selector {
-    float: left !important;
-  }
+.selector {
+  @include header-element;
+}
 
-  /*
-  .selector{
-    width: 95%;
-  }
+/*
+.selector{
+  width: 95%;
+}
 
-  .selector a{
-     background: linear-gradient(to bottom, rgba(63, 191, 195, 0.596), #30798aab );
+.selector a{
+    background: linear-gradient(to bottom, rgba(63, 191, 195, 0.596), #30798aab );
 
-    color: white;
-    border-left: 2px solid rgb(59, 59, 59);
-    padding: 5px;
-    text-decoration: none;
-    font-size: 1.6rem;
-    font-weight: 700;
-  }
+  color: white;
+  border-left: 2px solid rgb(59, 59, 59);
+  padding: 5px;
+  text-decoration: none;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
 
-  .selector a:hover{
-    background: linear-gradient(to bottom, rgba(211, 41, 41, 0.87), #7e2727a9 );
-    color: white;
-  }
+.selector a:hover{
+  background: linear-gradient(to bottom, rgba(211, 41, 41, 0.87), #7e2727a9 );
+  color: white;
+}
 
-  .selector .actual{
-    background:linear-gradient(to bottom, #e00a0a, #881c1c );
-  }
-  */
+.selector .actual{
+  background:linear-gradient(to bottom, #e00a0a, #881c1c );
+}
+*/

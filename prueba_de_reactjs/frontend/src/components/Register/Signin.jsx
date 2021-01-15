@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import {connect} from 'react-redux'
 import {verifyUser} from '../../Redux/actions/UserActions'
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 import axios from 'axios'
 
 function mapDispatchToProps(dispatch) {
@@ -11,6 +11,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 const Signin = ({verifyUser}) => {
+    const history = useHistory()
 
     useEffect(()=> {
         document.getElementById('form-alert').style.display = "none"
@@ -36,6 +37,7 @@ const Signin = ({verifyUser}) => {
                         })
                 .then(res => {
                     verifyUser(res.data)
+                    history.goBack()
                 })
             }
         })

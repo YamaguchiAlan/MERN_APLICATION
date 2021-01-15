@@ -1,56 +1,59 @@
+@import "./colors";
+$bg-color: #181717da;
+
 .body-card{
-    background: #181717da !important;
+    background: $bg-color !important;
     min-height: 200px;
 }
 
 .body-img-back{
-    background: #181717da;
+    background: $bg-color;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
-}
 
-.background-img{
-    position: absolute;
-    opacity: 0.5;
-    filter: blur(5px);
-    -webkit-filter: blur(5px);
-    z-index: 9;
-}
+    & .background-img{
+        position: absolute;
+        opacity: 0.5;
+        filter: blur(5px);
+        -webkit-filter: blur(5px);
+        z-index: 9;
+        min-height: 100%;
+    }
 
-.body-img{
-    height: 150px;
-    z-index: 99;
-    width: 265px;
-}
+    & a {
+        z-index: 99;
+    }
 
-.body-img:hover{
-    cursor: pointer;
+    & .body-img{
+        height: 160px;
+        width: 280px;
+    }
 }
 
 .body-card-text{
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+
+    & .body-title a{
+        text-decoration: none !important;
+        color: $text-color;
+        font-size: calc(0.7em + 0.5vw);
+
+        &:hover{
+            transition: 0.5s;
+            color: $light-blue;
+        }
+    }
+
+    & .body-text{
+        font-size: calc(0.7em + 0.5vw);
+    }
 }
 
-.body-title a{
-    text-decoration: none !important;
-    color: rgb(240, 240, 240);
-    font-size: calc(0.7em + 0.5vw);
-}
-
-.body-title a:hover{
-    transition: 0.5s;
-    color: #26cce2;
-}
-
-.body-text{
-    font-size: calc(0.7em + 0.5vw);
-}
-
-.body-author, .body-date{
+.body-author{
     padding: 5px 8px;
 
     background: rgb(161, 39, 39);
@@ -58,6 +61,7 @@
 }
 
 .body-date{
+    @extend .body-author;
     margin-left: 5px;
     background: rgb(29, 129, 168);
 }
@@ -66,35 +70,39 @@
     height: 30px;
 }
 
-.card-body-edit .span-container{
-    overflow: hidden;
-}
+//----------------- Edit mode ---------------------
 
-.card-body-edit span{
-    position: relative;
-    right: 100%;
-    font-size: 1.1rem;
-    transition: all 0.5s;
-}
+.card-body-edit {
+    & .span-container{
+        overflow: hidden;
+    }
 
-.card-body-edit .remove-div{
-    display: flex !important;
-}
+    & span{
+        position: relative;
+        right: 100%;
+        font-size: 1.1rem;
+        transition: all 0.5s;
+    }
 
-.card-body-edit .remove-div span{
-    order: 1 !important;
-    right: -100%;
-}
+    & .remove-div{
+        display: flex !important;
 
-.card-body-edit .remove-div img{
-    order: 2 !important;
-}
+        & span{
+            order: 1 !important;
+            right: -100%;
+        }
 
-.card-body-edit img:hover{
-    transform: scale(1.1);
-    cursor: pointer;
-}
+        & img{
+            order: 2 !important;
+        }
+    }
 
-.card-body-edit img:hover + .span-container span, .card-body-edit a:hover + .span-container span {
-    right: 0;
+    & img:hover{
+        transform: scale(1.1);
+        cursor: pointer;
+    }
+
+    & img:hover + .span-container span, & a:hover + .span-container span {
+        right: 0;
+    }
 }

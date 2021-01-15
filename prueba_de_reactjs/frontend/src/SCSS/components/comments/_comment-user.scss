@@ -6,23 +6,23 @@
     overflow: hidden;
     border: 2px solid rgb(128, 128, 128);
     border-top-left-radius: 30px;
+
+    & .comment-user-pic{
+        float: left;;
+        height: 60px;
+        width: 60px;
+        border-radius: 50%;
+        border-bottom-left-radius: 0;
     }
 
-.comment-user-pic{
-    float: left;;
-    height: 60px;
-    width: 60px;
-    border-radius: 50%;
-    border-bottom-left-radius: 0;
-}
+    & .comment-username{
+        height: 60px;
+        display: flex;
+        align-items: center;
+        margin-left: 70px;
 
-.comment-username{
-    height: 60px;
-    display: flex;
-    align-items: center;
-    margin-left: 70px;
-
-    font-size: 1.3rem;
+        font-size: 1.3rem;
+    }
 }
 
 .date-and-menu{
@@ -33,54 +33,53 @@
     display: flex;
     align-items: center;
 
-
     margin-right: 20px;
     font-size: 1.1rem;
-}
 
+    & .comment-menu{
+        transition: all 0.5s;
+        margin-bottom: 60px;
 
-.date-and-menu .comment-menu{
-    transition: all 0.5s;
+        & .row{
+            height: 60px;
+            margin: 0;
+        }
 
-    color: rgb(0, 141, 177);
-    margin-bottom: 60px;
-}
-.date-and-menu .row{
-    height: 60px;
-    margin: 0;
-}
+        & .menu-row{
+            padding-top: 5px;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
 
-.date-and-menu .menu-row{
-    padding-top: 5px;
-    display: flex;
-    flex-direction: column;
-}
+            & .report , & .view-profile{
+                cursor: pointer;
+                color: rgb(0, 141, 177);
 
-.date-and-menu .date-row{
-    float: right;
-    width: fit-content;
-}
+                &:hover{
+                    text-decoration: underline;
+                }
+            }
+        }
 
-.date-and-menu .comment-date{
-    color: rgb(255, 255, 255);
-    display: flex;
-    align-items: center;
-}
+        & .date-row{
+            float: right;
+            width: fit-content;
 
-.date-and-menu .comment-menu .report , .date-and-menu .comment-menu .view-profile{
-    cursor: pointer;
-}
+            & .comment-date{
+                color: rgb(255, 255, 255);
+                display: flex;
+                align-items: center;
+            }
+        }
+    }
 
-.date-and-menu .comment-menu .report:hover, .date-and-menu .comment-menu .view-profile:hover{
-    text-decoration: underline;
-}
+    & .comment-menu-btn{
+        margin-left: 5px;
+        height: 30px;
+        cursor: pointer;
 
-.date-and-menu .comment-menu-btn{
-    margin-left: 5px;
-    height: 30px;
-    cursor: pointer;
-}
-
-.date-and-menu .comment-menu-btn:hover{
-    transform: scale(1.2);
+        &:hover{
+            transform: scale(1.1);
+        }
+    }
 }

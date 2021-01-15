@@ -4,13 +4,12 @@ const multer = require('multer');
 
 const upload = multer({
     fileFilter(req, file, cb) {
-        if (!file.originalname.match(/\.(png|jpg|jpeg)$/)){
+        if (!file.mimetype.match(/\/(png|jpg|jpeg)$/)){
             cb (new Error('Please upload an image.'))
         }
         cb(undefined, true)
     }
 })
-
 
 const { getNews, newsImage, updateNewsImage, getNewsImg, deleteNews} = require('../controllers/news.controllers');
 
@@ -18,6 +17,7 @@ router.get('/api/news', getNews);
 
 router.post('/api/news-img/:id', upload.single("body-img") , newsImage,
     (error, req, res, next) => {
+        console.log(error)
         res.status(400).send({error: error.message})
     }
 );

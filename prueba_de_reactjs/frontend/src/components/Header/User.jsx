@@ -1,67 +1,81 @@
 import React from 'react';
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 const mapStateToPops = state => {
-    return {user: state.user.user}
+    return {
+        username: state.userReducer.user.username,
+        verified: state.userReducer.user.verified,
+        id: state.userReducer.user._id
+    }
 }
 
-const User = ({user}) =>(
+const User = ({ username, verified, id }) => (
     <div className="user-profile">
-        <img src="/img/profile-pic.png" alt="imagen de usuario" />
+        {
+            verified === false ?
+                <>
+                    <img src="/img/profile-pic.png" alt="imagen de usuario" />
 
-        <table className="user-text">
-            <tbody>
-                {
-                    user == undefined || user.error ?
-                        <>
-                        <tr className="user-name">
-                            <td colSpan="2">
-                                <Link to="/" className="user-name">
-                                    Anonymous
-                                </Link>
-                            </td>
-                        </tr>
+                    <table className="user-text">
+                        <tbody>
 
-                        <tr className="sign">
-                            <td>
-                                <Link to="/signin" className="sign-in">
-                                    Sign-In
+                            <tr className="user-name">
+                                <td colSpan="2">
+                                    <Link to="/" className="user-name">
+                                        Anonymous
                                 </Link>
-                            </td>
-                            <td>
-                                <Link to="/signup" className="sign-up">
-                                    Sing-Up
+                                </td>
+                            </tr>
+
+                            <tr className="sign">
+                                <td>
+                                    <Link to="/signin" className="sign-in">
+                                        Sign-In
                                 </Link>
-                            </td>
-                        </tr>
-                        </>
-                        :
-                        <>
-                        <tr className="user-name">
-                            <td colSpan="2">
-                                <Link to={`/user/${user._id}`} className="user-name">
-                                    {user.username}
+                                </td>
+                                <td>
+                                    <Link to="/signup" className="sign-up">
+                                        Sing-Up
                                 </Link>
-                            </td>
-                        </tr>
-                        <tr className="sign">
-                            <td>
-                                <Link to="/signin" className="sign-in">
-                                    View Profile
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </>
+                :
+                <>
+                    <img src={`http://localhost:4000/api/user-image/${id}`} alt="imagen de usuario" />
+
+                    <table className="user-text">
+                        <tbody>
+
+                            <tr className="user-name">
+                                <td colSpan="2">
+                                    <Link to="/my-profile" className="user-name">
+                                        {username}
+                                    </Link>
+                                </td>
+                            </tr>
+                            <tr className="sign">
+                                <td>
+                                    <Link to="/signin" className="sign-in">
+                                        View Profile
                                 </Link>
-                            </td>
-                            <td>
-                                <Link to="/edit-news" className="sign-up">
-                                    Editor Mode
+                                </td>
+                                <td>
+                                    <Link to="/edit-news" className="sign-up">
+                                        Editor Mode
                                 </Link>
-                            </td>
-                        </tr>
-                        </>
-                        }
-            </tbody>
-        </table>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </>
+        }
     </div>
-    )
+)
 
 export default connect(mapStateToPops)(User);

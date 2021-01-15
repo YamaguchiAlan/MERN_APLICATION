@@ -1,24 +1,121 @@
-import React, {useEffect} from "react";
+import React, {useState, useRef, useEffect} from "react";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import customEditor from 'yamaguchi_ckeditor-custom/build/ckeditor'
+import {connect} from 'react-redux'
+import {setArticleData, setArticleBlob} from '../../../Redux/actions/articleActions'
+import ImageCropper from "../../Image-cropper/Image-cropper";
 
-const ArticleForm = ({articleChange, articleSubmit, editorChange, articleData}) => {
+const mapStateToPops = state => {
+    return { articleData: state.articleReducer.articleData }
+}
 
-    useEffect(() => {
+const mapDispatchToProps = dispatch => {
+    return {
+        setArticleData: articleData => dispatch(setArticleData(articleData)),
+        setArticleBlob: blob => dispatch(setArticleBlob(blob))
+    }
+}
 
+const ArticleForm = ({articleSubmit, articleData, setArticleData, setArticleBlob}) => {
+    const [inputImg, setInputImg] = useState("")
 
-    })
+    const inputRef = useRef(null)
 
     const articleImgClick = (e) => {
         e.preventDefault()
         document.getElementById("article-input-img").click();
     }
 
-    const articleInputImg = (e) => {
-        e.preventDefault()
-        const file = new File([e.target.files[0]], 'preview-article.png', {'type': 'image/png'})
-        const url = window.URL.createObjectURL(file);
+    const inputOnChange = (e) => {
+        const file = e.target.files[0]
+        const reader = new FileReader()
+
+        reader.addEventListener('load', () => {
+            setInputImg(reader.result)
+        }, false)
+
+        if(file) {
+            reader.readAsDataURL(file)
+        }
+    }
+
+    const cropperCallback = (blob) => {
+        setInputImg("")
+
+        const url = window.URL.createObjectURL(blob)
+        setArticleData({
+            ...articleData,
+            img: url,
+            imgInput: false
+        })
+        setArticleBlob(blob)
         document.getElementById('preview-article-img').src=url;
+    }
+
+    const articleChange = (e) => {
+        if(e.target.name === "article-title") {
+            setArticleData({
+                ...articleData,
+                title: e.target.value
+            })
+        }
+    }
+
+    const editorChange = (event, editor) => {
+        setTimeout(() => {
+            const data = editor.getData()
+            const content = document.getElementById("content")
+            const editorTextArea = document.getElementById('editorTextArea')
+            content.innerHTML=data;
+            editorTextArea.value=content.textContent
+
+            const imgSrc = document.querySelectorAll('.editor .ck figure img')
+            const img =  document.querySelectorAll('.preview #content img')
+            let imgNames = []
+
+            if(imgSrc[0]) {
+                img.forEach( (e, i) => {
+
+                    e.src=imgSrc[i].src
+                    if(imgSrc[i].offsetWidth !== 0) {
+                        e.style.width = `${imgSrc[i].offsetWidth}px`
+                        if(img[i].parentElement.getElementsByTagName('figcaption')[0]) {
+                            img[i].parentElement.getElementsByTagName('figcaption')[0].style.width = `${imgSrc[i].offsetWidth}px`
+                        }
+                    }
+
+                    if(imgSrc[i].src.startsWith('form', 26)) {
+                        let filename = imgSrc[i].src.slice(35)
+                        imgNames.push(filename)
+                    } else{
+                        if(imgSrc[i].src.slice(-2).startsWith('/')){
+                            imgNames.push( parseInt(imgSrc[i].src.slice(-1)) )
+                        } else {
+                            imgNames.push( parseInt(imgSrc[i].src.slice(-2)) )
+                        }
+                    }
+                })
+                editorTextArea.value="img"
+            }
+
+            const editIframe = document.querySelectorAll('.editor .media');
+            const prevIframe = document.querySelectorAll('.preview .media')
+
+            if (editIframe[0]) {
+                editIframe.forEach( (e, i) => {
+                    let iframe = e.firstElementChild.firstElementChild
+                    let cloneIframe = iframe.cloneNode(true)
+
+                    content.replaceChild(cloneIframe, prevIframe[i])
+                } )
+                editorTextArea.value="media"
+            }
+            setArticleData({
+                ...articleData,
+                content: content.innerHTML,
+                imagesName: imgNames
+            })
+        },1)
     }
 
     const previewBtn = (e) => {
@@ -45,7 +142,7 @@ const ArticleForm = ({articleChange, articleSubmit, editorChange, articleData}) 
                     <form className="editor article-form form-group d-flex flex-column" onSubmit={articleSubmit} onChange={articleChange} noValidate>
                         <div className="form-group  mb-4">
                             <label for="article-title"  className="form-label">Titulo</label>
-                            <textarea className="article-form-title text-white form-control" id="article-title" name="article-title" maxLength="165" required></textarea>
+                            <textarea className="article-form-title text-white form-control" id="article-title" name="article-title" maxLength="165" value={articleData.title} required></textarea>
                             <div className="invalid-feedback">
                                 El articulo debe tener un titulo
                             </div>
@@ -59,9 +156,26 @@ const ArticleForm = ({articleChange, articleSubmit, editorChange, articleData}) 
                                 </div>
                             </div>
                             {!articleData.imgInput ?
-                                <input type="file" id="article-input-img" name="article-img" className="article-input-img form-control" onChange={articleInputImg} required/>
+                                <input
+                                    type="file"
+                                    id="article-input-img"
+                                    accept="image/*"
+                                    name="article-img"
+                                    className="article-input-img form-control"
+                                    ref={inputRef}
+                                    onChange={inputOnChange}
+                                    required
+                                />
                             :
-                                <input type="file" id="article-input-img" name="article-img" className="article-input-img form-control" onChange={articleInputImg}/>
+                                <input
+                                    type="file"
+                                    id="article-input-img"
+                                    accept="image/*"
+                                    name="article-img"
+                                    className="article-input-img form-control"
+                                    ref={inputRef}
+                                    onChange={inputOnChange}
+                                />
                             }
                             <div className="invalid-feedback">
                                 Por favor seleccione una imagen
@@ -140,8 +254,18 @@ const ArticleForm = ({articleChange, articleSubmit, editorChange, articleData}) 
                     </form>
                 </div>
             </div>
+            {
+                inputImg &&
+                    <ImageCropper
+                        callback={cropperCallback}
+                        inputImg={inputImg}
+                        aspect={16 / 9}
+                        width={1920}
+                        height={1080}
+                    />
+            }
         </div>
     )
 }
 
-export default ArticleForm;
+export default connect(mapStateToPops, mapDispatchToProps)(ArticleForm);

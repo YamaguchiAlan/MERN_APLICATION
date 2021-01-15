@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 import axios from 'axios'
+import defaultImage from '../../img/default-profile-pic.jpg'
+import {getCroppedImg} from '../Image-cropper/Crop-image'
 
 const Signup = () => {
+    const history = useHistory()
 
-    useEffect(()=> {
+    useEffect(async ()=> {
         document.getElementById("username-alert").style.display="none"
         document.getElementById("email-alert").style.display="none"
         document.getElementById("password-alert").style.display="none"
@@ -18,18 +21,16 @@ const Signup = () => {
         confirmPassword: ""
     });
 
-    const [Response, setResponse] = useState({});
-
     const onChangeInput = (e) => {
         setUser({
             ...User,
             [e.target.id]: e.target.value
         })
 
-        if(e.target.id == "username") {document.getElementById("username-alert").style.display="none"}
-        if(e.target.id == "email") {document.getElementById("email-alert").style.display="none"}
+        if(e.target.id === "username") {document.getElementById("username-alert").style.display="none"}
+        if(e.target.id === "email") {document.getElementById("email-alert").style.display="none"}
 
-        if(e.target.id == "password" || e.target.id == "confirmPassword"){
+        if(e.target.id === "password" || e.target.id === "confirmPassword"){
             confirmPassword(e)
         }
 
@@ -39,7 +40,7 @@ const Signup = () => {
         let confirmPassAlert = document.getElementById("confirmPassword-alert");
         let submitBtn = document.getElementById('submit-btn');
 
-        if(e.target.id == "password") {
+        if(e.target.id === "password") {
             if(e.target.value.length < 4){
                 document.getElementById("passwordHelp").className="form text text-danger";
                 submitBtn.disabled = true;
@@ -47,7 +48,7 @@ const Signup = () => {
             } else {
                 document.getElementById("passwordHelp").className="form text text-success";
 
-                if(e.target.value != User.confirmPassword){
+                if(e.target.value !== User.confirmPassword){
                     confirmPassAlert.style.display = "flex"
                     submitBtn.disabled = true;
                 } else {
@@ -57,10 +58,10 @@ const Signup = () => {
             }
         }
 
-        if(e.target.id == "confirmPassword") {
+        if(e.target.id === "confirmPassword") {
             if(User.password.length >= 4) {
 
-                if(User.password != e.target.value){
+                if(User.password !== e.target.value){
                     confirmPassAlert.style.display = "flex";
                     submitBtn.disabled = true;
                 } else {
@@ -76,7 +77,22 @@ const Signup = () => {
 
         if(validateForm(e.target)) {
             axios.post('http://localhost:4000/api/signup', User)
-            .then(res => console.log(res))
+            .then(async res => {
+                if(res.data.success){
+                    const crop = {
+                        x: 0,
+                        y: 0,
+                        width: 150,
+                        height: 150
+                    }
+                    const blob = await getCroppedImg(defaultImage, crop, 150, 150,)
+
+                    let data = new FormData()
+                    data.append("user-img" , blob)
+                    axios.put(`http://localhost:4000/api/upload-user-image/${res.data.id}`, data)
+                    .then(history.goBack())
+                }
+            })
             .catch(error => {
             let err = Object.assign({}, error.response.data.errors)
             if(err.username) {
@@ -98,13 +114,13 @@ const Signup = () => {
         let email = document.getElementById("email-alert");
         let validate = true;
 
-        if(e.email.value.length == 0) {
+        if(e.email.value.length === 0) {
             email.firstChild.innerHTML = "Introdusca un email";
             email.style.display = "flex";
             e.email.focus()
             validate = false;
         }
-        if(e.username.value.length == 0) {
+        if(e.username.value.length === 0) {
             username.firstChild.innerHTML = "Introdusca un nombre de usuario";
             username.style.display = "flex";
             e.username.focus();

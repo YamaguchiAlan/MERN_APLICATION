@@ -1,10 +1,8 @@
 articleCtrl = {};
 const fs = require('fs');
-const axios = require('axios')
 
 const News = require('../models/News')
 const Article = require('../models/Article');
-const mongoose =  require('mongoose')
 
 articleCtrl.createArticle = async (req, res) => {
     const {BodyData, ArticleData} = req.body
@@ -68,17 +66,6 @@ articleCtrl.getArticle = (req, res) => {
     })
 }
 
-articleCtrl.postArticleImg = async (req, res) => {
-    try {
-        const article = await Article.findById(req.params.id);
-        article.coverImg = req.file.buffer
-        await article.save();
-        res.send('Img received')
-    } catch (e) {
-        res.status(400).send(e)
-    }
-}
-
 articleCtrl.getArticleCover = async (req, res) => {
     const article = await Article.findById(req.params.id)
     res.set('Content-Type', 'image/jpeg')
@@ -137,8 +124,8 @@ articleCtrl.updateArticleImg = async (req, res) => {
         article.coverImg = req.file.buffer
         await article.save();
         res.send('Image updated')
-    } catch (e) {
-        res.status(400).send(e)
+    } catch (err) {
+        res.status(400).send(err)
     }
 }
 

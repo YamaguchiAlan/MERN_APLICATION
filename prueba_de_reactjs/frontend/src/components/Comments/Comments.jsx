@@ -5,19 +5,19 @@ import CommentUser from './Comment-user';
 import LikeDislike from './Like-Dislike';
 
 const mapStateToProps = state => {
-    return {user: state.user.user}
+    return {user: state.userReducer.user}
 }
 
-const Comments = ({articleId, user}) =>{
+const Comments = ({newsId, user}) =>{
     useEffect( ()=>{
-        axios.get(`http://localhost:4000/api/${articleId}/comments`)
+        axios.get(`http://localhost:4000/api/${newsId}/comments`)
         .then(res => {
             setComments(res.data)
         })
         return(()=>{
             setComments([])
         })
-    },[articleId]);
+    },[newsId]);
 
     const [comments, setComments] = useState([])
 
@@ -30,9 +30,29 @@ const Comments = ({articleId, user}) =>{
 
     const commentSubmit = (e) => {
         e.preventDefault()
-        axios.post(`http://localhost:4000/api/create-comment/${articleId}`, {
+        axios.post(`http://localhost:4000/api/create-comment/${newsId}`, {
             userId: user._id,
             comment: textareaRef.current.value
+        })
+        .then(res => {
+            if(res.data.success){
+                setComments([...comments, res.data.comment])
+            }
+        })
+    }
+
+    const removeComment = (commentId) => {
+        axios.delete(`http://localhost:4000/api/delete-comment/${newsId}`, {
+            data: {
+                commentId: commentId,
+                userId: user._id
+            }
+        })
+        .then(res => {
+            if(res.data.success) {
+                let newComments = comments.filter(e => e._id !== commentId)
+                setComments(newComments)
+            }
         })
     }
 
@@ -43,22 +63,22 @@ const Comments = ({articleId, user}) =>{
                     <p className="coments-counter"> Comentarios({comments.length}) </p>
                     <div className="comments">
 
-                        <form className="mb-5 make-comment" onSubmit={commentSubmit}>
+                        <form className=" make-comment" onSubmit={commentSubmit}>
                             <div className="d-flex">
-                            <img className="make-comment-user" src="https://www.3djuegos.com/img3/piezas/iconos/avatars/usuario/74.png" alt="user-pic"/>
+                            <img className="make-comment-user" src={`http://localhost:4000/api/user-image/${user._id}`} alt="user-pic"/>
                             <textarea className="form-control px-4" placeholder="Add a comment..." ref={textareaRef} onChange={textAreaAdjust}></textarea>
                             </div>
                             <button type="submit" className="btn btn-primary float-right mt-2">Comment</button>
                         </form>
-                        <hr/>
+
                         {comments.map((c, i) => {
 
                         return<div key={i}>
-                            <CommentUser user={c} />
+                            <CommentUser comment={c} removeComment={removeComment}/>
 
                             <p className="comment-text px-5 py-4" >{c.comment}</p>
 
-                            <LikeDislike cmt={c} index={i} />
+                            <LikeDislike cmt={c} newsId={newsId}/>
                         </div>
                         })}
                     </div>
@@ -68,12 +88,12 @@ const Comments = ({articleId, user}) =>{
                 <>
                     <p className="coments-counter"> There are no comments yet </p>
                     <div className="comments">
-                        <form className="">
-                            <div className="d-flex make-comment">
-                            <img className="make-comment-user" src="https://i11a.3djuegos.com/files_comunidad/4184/img/avatars/13434336-1681.jpg" alt="user-pic"/>
-                            <textarea className="form-control" placeholder="Add a comment..."></textarea>
+                        <form className=" make-comment" onSubmit={commentSubmit}>
+                            <div className="d-flex">
+                            <img className="make-comment-user" src={`http://localhost:4000/api/user-image/${user._id}`} alt="user-pic"/>
+                            <textarea className="form-control px-4" placeholder="Add a comment..." ref={textareaRef} onChange={textAreaAdjust}></textarea>
                             </div>
-                            <button className="btn btn-primary float-right">Comment</button>
+                            <button type="submit" className="btn btn-primary float-right mt-2">Comment</button>
                         </form>
                     </div>
                 </>

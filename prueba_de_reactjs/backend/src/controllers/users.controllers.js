@@ -2,6 +2,7 @@ const usersCtrl = {}
 const passport = require('passport');
 
 const Users = require('../models/Users');
+const Activity = require('../models/Activity')
 
 usersCtrl.signup = async (req, res) => {
     const {username, email, password} = req.body;
@@ -13,7 +14,10 @@ usersCtrl.signup = async (req, res) => {
     newUser.password = await newUser.encryptPassword(password);
     try{
         await newUser.save()
-        res.status(201).send('User Created')
+        res.status(201).send({
+            success: "User Created",
+            id: newUser.id
+    })
     }
     catch (err) {
         if(err.message.includes("duplicate key error collection")){
@@ -39,14 +43,49 @@ usersCtrl.signin = function(req, res, next) {
   }
 
 usersCtrl.authenticate = async (req, res) => {
-    const user = await Users.findById(req.session.passport.user, {password: 0})
+    const user = await Users.findById(req.session.passport.user, {password: 0, image: 0})
     console.log(user)
     res.send(user)
 }
 
 usersCtrl.getUser = async (req, res) => {
-    const user = await Users.findById(req.params.id)
+    const user = await Users.findById(req.params.id, {password: 0, image: 0})
     res.send(user)
+}
+
+usersCtrl.uploadImage = async (req, res) => {
+    try{
+        const user = await Users.findById(req.params.id)
+        user.image = req.file.buffer
+        await user.save()
+        res.status(201).send({succes: "image-updated"})
+    }
+    catch (err){
+        res.status(404).send(err)
+    }
+}
+
+usersCtrl.getUserImage = async (req, res) => {
+    const user = await Users.findById(req.params.id)
+    res.set("Content-Type", "image/jpeg")
+    res.send(user.image)
+}
+
+usersCtrl.getActivity = async (req, res) => {
+    Users.findById(req.params.id, {comments: 1})
+        .populate("activity").exec((err, user) => {
+            if(err) {
+                console.log(err)
+            } else{
+                Activity.populate(user.activity, {path: "news", select: "-image -comments"}, (err, activity) => {
+                    if(err){
+                        console.log(err)
+                    } else{
+                        res.send(activity)
+                    }
+                })
+            }
+    })
 }
 
 module.exports = usersCtrl;

@@ -12,7 +12,9 @@ const Body = ({news}) => {
             <div className="row no-gutters w-75 h-auto mb-3 ml-md-3">
                 <div className="col-md-4 body-img-back">
                     <img src={props.defaultImg ? props.defaultImg : `http://localhost:4000/api/news-img/${props._id}`} alt="" className="card-img background-img"/>
-                    <img src={props.defaultImg ? props.defaultImg : `http://localhost:4000/api/news-img/${props._id}`} alt="" className="body-img" id="card-body-img"/>
+                    <Link to={`/article/${props._id}`}>
+                        <img src={props.defaultImg ? props.defaultImg : `http://localhost:4000/api/news-img/${props._id}`} alt="" className="body-img" id="card-body-img"/>
+                    </Link>
                 </div>
                 <div className="col-md-8">
                     <div className="card text-white body-card">
@@ -25,8 +27,8 @@ const Body = ({news}) => {
                             <p className="card-text body-text">{props.text}</p>
                         </div>
                         <div className="card-footer pb-0">
-                            <p className="body-author float-left rounded font-weight-bold ">Por: {props.author}</p>
-                            <p className="body-date float-left rounded font-weight-bold">{format(props.createdAt, 'es_ES')}</p>
+                            <p className="body-author float-left rounded font-weight-bold ">Por: {props.author.username}</p>
+                            <p className="body-date float-left rounded font-weight-bold">{format(props.createdAt)}</p>
 
                             <div className="social">
                                 <a href={props.twitter} className="twitter float-right"><img src={twitter} alt="twitter"/></a>

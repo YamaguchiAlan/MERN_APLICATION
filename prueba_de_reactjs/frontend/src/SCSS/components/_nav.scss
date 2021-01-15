@@ -1,3 +1,5 @@
+@import "./colors";
+
 .nav-container{
     width: 23% !important;
 
@@ -5,10 +7,10 @@
 
     overflow-x: hidden;
     overflow: scroll;
-}
 
-.nav-container::-webkit-scrollbar {
-    display: none;
+    &::-webkit-scrollbar {
+        display: none;
+    }
 }
 
 .trending{
@@ -35,14 +37,15 @@
 
 .nav-text .card-text{
     text-decoration: none;
-    color: white;
+    color: $text-color;
     font-size: 1.4rem;
+
+    &:hover{
+        transition: 0.5s;
+        color: $light-blue;
+    }
 }
 
-.nav-text .card-text:hover{
-    transition: 0.5s;
-    color: #26cce2;
-}
 
 #nav-pos{
     position: absolute;

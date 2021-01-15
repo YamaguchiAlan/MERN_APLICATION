@@ -13,7 +13,8 @@ const newsSchema = new Schema({
         type: Buffer
     },
     author: String,
-    article: [{type: Schema.Types.ObjectId, ref: 'Article'}]
+    article: [{type: Schema.Types.ObjectId, ref: 'Article'}],
+    comments: [{type: Schema.Types.ObjectId, ref: "Comments"}]
 }, { timestamps: true });
 
 module.exports = model('News', newsSchema);

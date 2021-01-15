@@ -1,1 +1,19 @@
-export const VERIFY_USER = "VERIFY_USER"
+const actionTypes = {}
+
+actionTypes.VERIFY_USER = "VERIFY_USER"
+
+actionTypes.SET_BODY_CARD = "SET_BODY_CARD"
+
+actionTypes.SET_BODY_CARD_AUTHOR = "SET_BODY_CARD_AUTHOR"
+
+actionTypes.SET_BODY_CARD_BLOB = "SET_BODY_CARD_BLOB"
+
+actionTypes.DELETE_ALL_BODY_CARD_DATA = "DELETE_ALL_BODY_CARD_DATA"
+
+actionTypes.SET_ARTICLE_DATA = "SET_ARTICLE_DATA"
+
+actionTypes.SET_ARTICLE_BLOB = "SET_ARTICLE_BLOB"
+
+actionTypes.DELETE_ALL_ARTICLE_DATA = "DELETE_ALL_ARTICLE_DATA"
+
+module.exports = actionTypes

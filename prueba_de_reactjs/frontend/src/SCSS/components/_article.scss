@@ -1,4 +1,4 @@
-$white: rgb(255, 255, 255);
+@import "./colors";
 $border: 1px solid $white;
 
 $tiny: 1.1rem;
@@ -54,66 +54,66 @@ $author: 1.5rem;
     }
 
     & .text-tiny {
-    font-size: $tiny;
+        font-size: $tiny;
     }
 
     & .text-small{
-    font-size: $small;
+        font-size: $small;
     }
 
     & .text-big{
-    font-size: $big;
+        font-size: $big;
     }
 
     & .text-huge {
-    font-size: $huge;
+        font-size: $huge;
     }
 
     & blockquote {
-    padding-left: 20px !important;
-    font-style: italic;
-    border-left: solid rgb(206, 206, 206) 5px;
+        padding-left: 20px !important;
+        font-style: italic;
+        border-left: solid rgb(206, 206, 206) 5px;
     }
 
     & hr{
-    border: solid rgb(206, 206, 206) 2px;
+        border: solid rgb(206, 206, 206) 2px;
     }
 
     & .table table{
-    width: inherit ;
-    height: inherit ;
-    color: $white;
-    border: $border;
-    }
+        width: inherit ;
+        height: inherit ;
+        color: $white;
+        border: $border;
 
-    & .table table td{
-    border: $border;
-    }
+        & td{
+            border: $border;
+        }
 
-    & .table table th{
-    border: $border;
-    }
+        & th{
+            border: $border;
+        }
+        }
 
-    & figure {
-    margin: 25px auto;
+        & figure {
+            margin: 25px auto;
+
+            & figcaption {
+                font-size: 1.4rem;
+                word-wrap: break-word;
+                padding: 4px 10px;
+            }
     }
 
     & .image {
-    max-width: 100%;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    }
-
-    & figure figcaption {
-    font-size: 1.4rem;
-    word-wrap: break-word;
-    padding: 4px 10px;
+        max-width: 100%;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     & img{
-    max-width: 100%;
+        max-width: 100%;
     }
 }
 
@@ -122,7 +122,7 @@ $author: 1.5rem;
     width: 100%;
 
     & p{
-        color: red;
+        color: $red;
         font-size: $author;
         display: inline-block;
     }

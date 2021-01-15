@@ -1,45 +1,46 @@
+@import "./colors";
+
 .most-viewed{
-    border: 1.5px solid #00FFFF !important;
+    border: 1.5px solid $light-blue-2 !important;
 }
 
 .most-viewed-header{
     background: #000000c9 !important;
+
+    & h3{
+        color: $light-blue-2;
+        font-size: 1.8rem;
+    }
 }
 
 .most-viewed-body{
     background: #00000086 !important;
 }
 
-.most-viewed-header h3{
-    color: #00FFFF;
-    font-size: 1.8rem;
-}
-
 .most-viewed-card{
-    background: rgb(0, 0, 0) !important
+    background: rgb(0, 0, 0) !important;
 
-}
+    & img{
+        filter: opacity(0.5);
+        transition: all 0.3s;
+    }
 
-.most-viewed-card:hover{
-    cursor: pointer;
-}
+    &:hover{
+        cursor: pointer;
 
-.most-viewed-card:hover img {
-    filter: opacity(0.2);
-}
-
-.most-viewed-img{
-    filter: opacity(0.5);
-    transition: all 0.3s;
+        & img {
+            filter: opacity(0.2);
+        }
+    }
 }
 
 .most-viewed-title{
     font-size: 1.5rem;
-    color: rgb(255, 255, 255);
+    color: $text-color;
     text-decoration: none !important;
-}
-
-.most-viewed-title:hover{
     transition: 0.5s;
-    color: #26cce2;
+
+    &:hover{
+        color: $light-blue;
+    }
 }

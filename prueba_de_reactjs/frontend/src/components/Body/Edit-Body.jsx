@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState} from 'react';
 import withLoader from '../HOC-With-Loader/HOC-withLoader';
 import { Link } from 'react-router-dom';
 import {format} from 'timeago.js'
@@ -22,7 +22,9 @@ const EditBody = ({news}) => {
         <div className="row no-gutters w-75 h-auto mb-3 ml-md-3">
             <div className="col-md-4 body-img-back">
                 <img src={`http://localhost:4000/api/news-img/${props._id}`} alt="" className="card-img background-img"/>
-                <img src={`http://localhost:4000/api/news-img/${props._id}`} alt="" className="body-img"/>
+                <Link to={`/update-article/${props._id}`} >
+                    <img src={`http://localhost:4000/api/news-img/${props._id}`} alt="" className="body-img"/>
+                </Link>
             </div>
             <div className="col-md-8">
                 <div className="card text-white body-card">

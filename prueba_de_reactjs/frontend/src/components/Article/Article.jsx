@@ -32,7 +32,7 @@ const Article = ({match}) =>{
 
             <ArticleBody article={Article} />
 
-            <Comments articleId={match.params.id}/>
+            <Comments newsId={match.params.id}/>
 
             <MostViewed/>
 

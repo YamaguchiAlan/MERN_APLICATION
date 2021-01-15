@@ -1,7 +1,59 @@
-import React from 'react'
+import React, {useState, useRef} from 'react'
 import Body from '../../Body/Body'
+import ImageCropper from '../../Image-cropper/Image-cropper'
+import {setBodyCard, setBodyCardBlob} from '../../../Redux/actions/bodyCardActions'
+import {connect} from 'react-redux'
 
-const BodyForm = ({bodyCardTextForm, cardBody}) => {
+const mapStateToPops = state => {
+    return{ bodyCard: state.bodyCardReducer.bodyCard }
+}
+
+const mapDispatchToProps = dispatch => {
+    return{
+        setBodyCard: bodyCard => dispatch(setBodyCard(bodyCard)),
+        setBodyCardImgBlob: blob => dispatch(setBodyCardBlob(blob))
+    }
+}
+
+const BodyForm = ({ bodyCard, setBodyCard, setBodyCardImgBlob}) => {
+    const [inputImg, setInputImg] = useState("")
+
+    const inputRef = useRef(null)
+
+    const inputOnChange = (e) => {
+        const file = e.target.files[0]
+        const reader = new FileReader()
+
+        reader.addEventListener('load', () => {
+            setInputImg(reader.result)
+        }, false)
+
+        if(file) {
+            reader.readAsDataURL(file)
+        }
+    }
+
+    const cropperCallback = (blob) => {
+        setInputImg("")
+        const url = window.URL.createObjectURL(blob);
+        setBodyCard([{
+            ...bodyCard[0],
+            defaultImg: url,
+            imgInput: false
+        }])
+        setBodyCardImgBlob(blob)
+        document.getElementById("preview-body-img").src=url
+    }
+
+    const bodyCardTextForm = (e) => {
+        e.preventDefault()
+        if(e.target.name !== "body-img") {
+            setBodyCard([{
+                ...bodyCard[0],
+                [e.target.name]: e.target.value
+            }])
+        }
+    }
 
     const bodyImgClick = (e) => {
         e.preventDefault()
@@ -21,7 +73,7 @@ const BodyForm = ({bodyCardTextForm, cardBody}) => {
     }
 
     return(
-        cardBody[0] ?
+        bodyCard[0] &&
         <div className="row" id="body-card-form">
             <div className="col-6 offset-3">
                 <div className="card mt-3 body-card-form">
@@ -43,10 +95,27 @@ const BodyForm = ({bodyCardTextForm, cardBody}) => {
                                         </button>
                                     </div>
                                 </div>
-                                {!cardBody[0].imgInput ?
-                                    <input type="file" id="body-input-img" name="body-img" accept="image/*" className="body-card-input-img form-control" required/>
+                                {!bodyCard[0].imgInput ?
+                                    <input
+                                        type="file"
+                                        id="body-input-img"
+                                        name="body-img"
+                                        accept="image/*"
+                                        className="body-card-input-img form-control"
+                                        ref={inputRef}
+                                        onChange={inputOnChange}
+                                        required
+                                    />
                                     :
-                                    <input type="file" id="body-input-img" name="body-img" accept="image/*" className="body-card-input-img form-control"/>
+                                    <input
+                                        type="file"
+                                        id="body-input-img"
+                                        name="body-img"
+                                        accept="image/*"
+                                        className="body-card-input-img form-control"
+                                        ref={inputRef}
+                                        onChange={inputOnChange}
+                                    />
                                 }
                                 <div className="invalid-feedback">
                                     Por favor seleccione una imagen
@@ -54,14 +123,14 @@ const BodyForm = ({bodyCardTextForm, cardBody}) => {
                             </div>
                             <div className="form-group mb-4">
                                 <label for="title"  className="form-label">Titulo</label>
-                                <textarea className="body-form-title text-white form-control" id="body-input-title" name="title" maxLength="105" required></textarea>
+                                <textarea className="body-form-title text-white form-control" id="body-input-title" name="title" maxLength="105" value={bodyCard[0].title} required></textarea>
                                 <div className="invalid-feedback">
                                     La noticia debe tener un titulo
                                 </div>
                             </div>
                             <div className="form-group  mb-5">
                                 <label for="text" className="form-label">Subtitulo</label>
-                                <textarea name="text" id="body-input-text" className="body-form-text text-white form-control" maxLength="245" required></textarea>
+                                <textarea name="text" id="body-input-text" className="body-form-text text-white form-control" maxLength="245" value={bodyCard[0].text} required></textarea>
                                 <div className="invalid-feedback">
                                     La noticia debe tener un subtitulo
                                 </div>
@@ -72,11 +141,20 @@ const BodyForm = ({bodyCardTextForm, cardBody}) => {
                 </div>
             </div>
             <div className="col-12 d-flex justify-content-center mt-3">
-                <Body news={cardBody}/>
+                <Body news={bodyCard}/>
             </div>
+            {
+                inputImg &&
+                    <ImageCropper
+                        callback={cropperCallback}
+                        inputImg={inputImg}
+                        aspect={16 / 9}
+                        width={912}
+                        height={513}
+                    />
+            }
         </div>
-        : <div></div>
     )
 }
 
-export default BodyForm;
+export default connect(mapStateToPops, mapDispatchToProps)(BodyForm);

@@ -12,7 +12,8 @@ import Signup from './components/Register/Signup';
 import CreateArticle from './components/Create/Create-Article';
 import EditorMode from './components/Editor-Mode/Editor-Mode';
 import UpdateArticle from './components/Create/Update-Article';
-import Profile from './components/Profile/Profile';
+import UserProfile from './components/Profile/User-profile';
+import MyProfile from './components/Profile/My-profile';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -26,7 +27,10 @@ function App({verifyUser}){
       withCredentials: true
     })
     .then(res => {
-      verifyUser(res.data)
+      verifyUser({
+        ...res.data,
+        verified: true
+      })
     })
   }, [])
 
@@ -41,7 +45,8 @@ function App({verifyUser}){
             <Route path="/edit-news" component={ EditorMode } />
             <Route path="/create-article" component={ CreateArticle } />
             <Route path="/update-article/:id" component={ UpdateArticle } />
-            <Route path="/user/:id" component={Profile} />
+            <Route path="/my-profile" component={MyProfile} />
+            <Route path="/user/:id" component={UserProfile} />
             <Route component={() =>(
               <div>
                   <h1>Error 404</h1>

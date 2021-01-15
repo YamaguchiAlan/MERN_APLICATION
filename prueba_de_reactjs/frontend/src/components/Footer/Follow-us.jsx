@@ -1,8 +1,8 @@
 import React from 'react';
 
 const FollowUs = () =>(
-    <div className="follow-us w-50 float-left">
-        <p className="siguenos text-center">Síguenos</p>
+    <div className="follow-us w-50 pb-5">
+        <p className="siguenos text-center">Follow us</p>
         <hr className=""/>
         <div className="social text-center">
             <a href="https://www.facebook.com" target="_blank" className="facebook" rel="noopener noreferrer">

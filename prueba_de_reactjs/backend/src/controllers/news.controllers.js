@@ -15,8 +15,8 @@ newsCtrl.newsImage = async (req, res) => {
         news.image = req.file.buffer
         await news.save();
         res.send(news.article)
-    } catch (e) {
-        res.status(400).send(e)
+    } catch (err) {
+        res.status(400).send(err)
     }
 }
 

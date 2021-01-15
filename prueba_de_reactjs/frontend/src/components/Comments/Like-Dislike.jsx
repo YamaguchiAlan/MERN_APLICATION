@@ -1,88 +1,77 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
+import { connect } from 'react-redux'
 
-const LikeDislike = ({ cmt, index }) =>{
-    useEffect(() => {
-        /* Agregando la funcion de dar like */
-        let likes = document.querySelectorAll(".like-dislike .fa-thumbs-up");
-        let likesCounter = document.getElementsByClassName("likes-count");
+import axios from 'axios'
 
-        likes[index].addEventListener( 'click', (c) => {
-                let likeActive = Comments.like.filter( element => element == "ja" ? true : false);
-                let dislikeActive = Comments.dislike.filter( element => element == "ja" ? true : false);
+const mapStateToProps = state => {
+    return {
+        userId: state.userReducer.user._id
+    }
+}
 
-                /* Si le diste dislike al comentario no puedes darle like */
-                if( dislikeActive == false ){
-                    /* Si no has dado like */
-                    if( likeActive == false ){
-                        let newComent = Comments;
-                        newComent.like.push("ja");
+const LikeDislike = ({ cmt, userId }) =>{
+    const [Comment, setComment] = useState(cmt);
 
-                        setComments(newComent);
-                        likesCounter[index].innerHTML = Comments.like.length
+    const likeRef = useRef(null)
+    const dislikeRef = useRef(null)
 
-                        c.target.className="fas fa-thumbs-up";
+    const verifyLike = (arr) => {
+        return arr.includes(userId)
+    }
+
+    const likeOnClick = async (e) => {
+        if(!verifyLike(Comment.dislike)){
+            if(!verifyLike(Comment.like)) {
+                const res = await axios.put(`http://localhost:4000/api/like-comment/${Comment._id}/increment`, {userId: userId})
+
+                if(res.data.success) {
+                    setComment(res.data.comment)
+                }
+            } else{
+                const res = await axios.put(`http://localhost:4000/api/like-comment/${Comment._id}/decrement`, {userId: userId})
+
+                if(res.data.success) {
+                    setComment(res.data.comment)
+                }
+            }
+        }
+    }
+
+    const dislikeOnClick = async (e) => {
+        if(!verifyLike(Comment.like)){
+            if(!verifyLike(Comment.dislike)) {
+                    const res = await axios.put(`http://localhost:4000/api/dislike-comment/${Comment._id}/increment`, {userId: userId})
+
+                    if(res.data.success) {
+                        setComment(res.data.comment)
                     }
-                    /* Si has dado like */
-                    else{
-                        let newComent = Comments;
-                        let newLikes = newComent.like.filter( element => element != "ja")
-                        newComent.like = newLikes;
+                } else{
+                    const res = await axios.put(`http://localhost:4000/api/dislike-comment/${Comment._id}/decrement`, {userId: userId})
 
-                        setComments(newComent)
-                        likesCounter[index].innerHTML = Comments.like.length
-
-                        c.target.className="far fa-thumbs-up";
-                        }
-                }
-            })
-
-        /* Agregando la funcion de dar dislike */
-        let dislikes = document.querySelectorAll(".like-dislike .fa-thumbs-down");
-        let dislikesCounter = document.getElementsByClassName("dislikes-count")
-
-        dislikes[index].addEventListener( 'click', (c) => {
-            let likeActive = Comments.like.filter( element => element == "ja" ? true : false);
-            let dislikeActive = Comments.dislike.filter( element => element == "ja" ? true : false);
-
-            /* Si le diste like al comentario no puedes darle dislike */
-            if( likeActive == false ){
-                /* Si no has dado dislike */
-                if( dislikeActive == false ){
-                    let newComent = Comments;
-                    newComent.dislike.push("ja");
-
-                    setComments(newComent);
-                    dislikesCounter[index].innerHTML = Comments.dislike.length
-
-                    c.target.className="fas fa-thumbs-down";
-                }
-                /* Si has dado dislike */
-                else{
-                    let newComent = Comments;
-                    let newdisLikes = newComent.dislike.filter( element => element != "ja")
-                    newComent.dislike = newdisLikes;
-
-                    setComments(newComent)
-                    dislikesCounter[index].innerHTML = Comments.dislike.length
-
-                    c.target.className="far fa-thumbs-down";
+                    if(res.data.success) {
+                        setComment(res.data.comment)
                     }
             }
-        })
-
-    },[]);
-
-    const [Comments, setComments] = useState(cmt);
+        }
+    }
 
     return(
         <p className="like-dislike" >
-        <i className="far fa-thumbs-up" ></i>
-        <span className="likes-count" >{Comments.like.length}</span>
+        <i
+            className={verifyLike(Comment.like) ? "fas fa-thumbs-up" : "far fa-thumbs-up"}
+            ref={likeRef}
+            onClick={likeOnClick}>
+        </i>
+        <span className="likes-count" >{Comment.like.length}</span>
 
-        <i  className="far fa-thumbs-down" ></i>
-        <span className="dislikes-count" >{Comments.dislike.length}</span>
+        <i
+            className={verifyLike(Comment.dislike) ? "fas fa-thumbs-down" : "far fa-thumbs-down"}
+            ref={dislikeRef}
+            onClick={dislikeOnClick}>
+        </i>
+        <span className="dislikes-count" >{Comment.dislike.length}</span>
         </p>
      )
 }
 
-export default LikeDislike;
+export default connect(mapStateToProps)(LikeDislike);

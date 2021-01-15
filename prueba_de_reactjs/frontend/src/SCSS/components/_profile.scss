@@ -1,0 +1,50 @@
+@import "./colors";
+
+.profile-pic-back {
+    float: left;
+    & img{
+        height: 150px;
+        width: 150px;
+    }
+}
+
+.my-profile-back{
+    height: 150px;
+    display: flex;
+    padding-left: 15px;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.profile-user-back{
+    height: 150px;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: space-around;
+    padding-left: 15px;
+}
+
+.profile-username{
+    font-size: 1.7rem;
+}
+
+.profile-followers{
+    font-size: 1.3rem;
+    color: rgb(165, 165, 165);
+}
+
+.profile-btn{
+    height: 32px;
+    padding: 0 12px;
+    font-size: 1.3rem;
+    color: #0e0e0e;
+    background: darken($color: $light-blue, $amount: 4);
+    border: 0;
+    border-radius: 16px;
+}
+
+.profile-report{
+    margin-left: 40px;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
