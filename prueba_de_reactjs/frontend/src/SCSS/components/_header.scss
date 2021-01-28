@@ -1,12 +1,14 @@
-@import "./colors";
-
 @mixin header-element {
   width: calc(100% / 3);
   display: flex;
 }
 
 .navbar{
-  background:rgba(0, 0, 0, 0.192) ;
+  background:rgb(30, 30, 30);
+  z-index: 9999;
+
+  position: sticky;
+  top: 0;
 }
 
 .logo{
@@ -30,6 +32,7 @@
   height: 3px;
   width: 100%;
   background: rgb(128, 128, 128);
+  margin-bottom: 0;
 }
 
 .user-profile{
@@ -67,30 +70,37 @@
 
 .selector {
   @include header-element;
-}
 
-/*
-.selector{
-  width: 95%;
-}
+  & .dropdown-toggle{
+    padding: 0 10px;
+  }
 
-.selector a{
-    background: linear-gradient(to bottom, rgba(63, 191, 195, 0.596), #30798aab );
+  & .dropdown-divider{
+    border-color: rgb(172, 172, 172);
+  }
 
-  color: white;
-  border-left: 2px solid rgb(59, 59, 59);
-  padding: 5px;
-  text-decoration: none;
-  font-size: 1.6rem;
-  font-weight: 700;
-}
+  & .dropdown-menu{
+    background: rgb(36, 36, 36);
 
-.selector a:hover{
-  background: linear-gradient(to bottom, rgba(211, 41, 41, 0.87), #7e2727a9 );
-  color: white;
-}
+    & a{
+      color: $text-color;
+      font-size: 1.6rem ;
+      font-weight: 600;
 
-.selector .actual{
-  background:linear-gradient(to bottom, #e00a0a, #881c1c );
+      &:hover{
+        background: rgb(36, 36, 36);
+        transition: all 0.3s;
+        color: $light-blue;
+      }
+    }
+
+    & .actual{
+      transition: all 0.3s;
+      color: $light-blue;
+
+      &:hover{
+        color: $text-color;
+      }
+    }
+  }
 }
-*/

@@ -32,7 +32,6 @@ commentsCtrl.createComment = async (req, res) => {
         if(err) {
             console.log(err)
         } else{
-            console.log(comment)
             res.send({
                 success: "Comment added",
                 comment: comment
@@ -58,17 +57,13 @@ commentsCtrl.deleteComment = async (req, res) => {
 }
 
 commentsCtrl.getComments = async (req, res) => {
-    await News.findById(req.params.newsId, {comments: 1}).populate("comments").exec((err, news) => {
+    News.findById(req.params.newsId, {comments: 1})
+    .populate({path: "comments", populate: {path: "user", select: "username"}})
+    .exec((err, news) => {
         if(err){
             console.log(err)
         } else{
-            Comments.populate(news.comments, {path: "user", select: "username"}, (err, comments) => {
-                if(err) {
-                    console.log(err)
-                } else {
-                    res.send(comments)
-                }
-            })
+            res.send(news.comments)
         }
     })
 }

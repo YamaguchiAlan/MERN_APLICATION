@@ -37,7 +37,7 @@ const Signin = ({verifyUser}) => {
                         })
                 .then(res => {
                     verifyUser(res.data)
-                    history.goBack()
+                    history.push("/")
                 })
             }
         })

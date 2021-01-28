@@ -1,3 +1,5 @@
+@import "components/colors";
+
 @import "components/header";
 @import "components/body-head", "components/search-bar";
 @import "components/body";
@@ -5,6 +7,7 @@
 @import "components/footer";
 @import "components/signup";
 @import "components/profile";
+@import "components/activity";
 @import "components/create-article/create-article" , "components/article";
 @import "components/comments/comments";
 @import "components/most-viewed";
@@ -19,8 +22,9 @@ html{
     margin:0;
     background: #252627;  /* fallback for old browsers */
     font-family: 'Poppins', sans-serif;
+    font-weight: 500;
     letter-spacing: 1px;
-    color: rgb(241, 241, 241);
+    color: $text-color;
   }
 
   textarea:hover,

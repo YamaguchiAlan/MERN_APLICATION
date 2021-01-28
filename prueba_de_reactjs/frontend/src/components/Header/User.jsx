@@ -6,11 +6,12 @@ const mapStateToPops = state => {
     return {
         username: state.userReducer.user.username,
         verified: state.userReducer.user.verified,
-        id: state.userReducer.user._id
+        id: state.userReducer.user._id,
+        date: state.userReducer.user.updatedAt
     }
 }
 
-const User = ({ username, verified, id }) => (
+const User = ({ username, verified, id, date, editMode }) => (
     <div className="user-profile">
         {
             verified === false ?
@@ -22,9 +23,9 @@ const User = ({ username, verified, id }) => (
 
                             <tr className="user-name">
                                 <td colSpan="2">
-                                    <Link to="/" className="user-name">
+                                    <span className="user-name">
                                         Anonymous
-                                </Link>
+                                </span>
                                 </td>
                             </tr>
 
@@ -46,7 +47,7 @@ const User = ({ username, verified, id }) => (
                 </>
                 :
                 <>
-                    <img src={`http://localhost:4000/api/user-image/${id}`} alt="imagen de usuario" />
+                    <img src={`http://localhost:4000/api/user-image/${id}?${date}`} alt="imagen de usuario" />
 
                     <table className="user-text">
                         <tbody>
@@ -60,14 +61,21 @@ const User = ({ username, verified, id }) => (
                             </tr>
                             <tr className="sign">
                                 <td>
-                                    <Link to="/signin" className="sign-in">
+                                    <Link to="/my-profile" className="sign-in">
                                         View Profile
                                 </Link>
                                 </td>
                                 <td>
-                                    <Link to="/edit-news" className="sign-up">
-                                        Editor Mode
-                                </Link>
+                                {
+                                    editMode ?
+                                        <Link to="/" className="sign-up">
+                                            Home
+                                        </Link>
+                                    :
+                                        <Link to="/edit-news" className="sign-up">
+                                            Editor Mode
+                                        </Link>
+                                }
                                 </td>
                             </tr>
 

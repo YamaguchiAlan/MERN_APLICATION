@@ -1,9 +1,11 @@
-import { VERIFY_USER } from '../constants/action-types'
+import { VERIFY_USER, LOGOUT } from '../constants/action-types'
 
 const initialState = {
     user: {
         username: "Anonymous",
-        verified: false
+        verified: false,
+        followers: [],
+        following: []
     }
 }
 
@@ -13,6 +15,8 @@ function userReducer(state = initialState, action) {
             return Object.assign({}, state, {
                 user: action.user
             })
+        case LOGOUT:
+            return initialState
 
         default:
             return state

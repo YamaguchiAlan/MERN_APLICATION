@@ -4,7 +4,7 @@ const News = require('../models/News');
 const Articles = require('../models/Article')
 
 newsCtrl.getNews = async (req, res) => {
-    const news = await News.find({}, {image:0});
+    const news = await News.find({}, {image:0}).sort({createdAt: -1});
     res.json(news);
 };
 

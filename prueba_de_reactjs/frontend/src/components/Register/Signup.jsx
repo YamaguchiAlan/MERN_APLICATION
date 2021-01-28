@@ -7,7 +7,7 @@ import {getCroppedImg} from '../Image-cropper/Crop-image'
 const Signup = () => {
     const history = useHistory()
 
-    useEffect(async ()=> {
+    useEffect(()=> {
         document.getElementById("username-alert").style.display="none"
         document.getElementById("email-alert").style.display="none"
         document.getElementById("password-alert").style.display="none"
@@ -90,21 +90,23 @@ const Signup = () => {
                     let data = new FormData()
                     data.append("user-img" , blob)
                     axios.put(`http://localhost:4000/api/upload-user-image/${res.data.id}`, data)
-                    .then(history.goBack())
+                    .then(history.push("/"))
                 }
             })
             .catch(error => {
-            let err = Object.assign({}, error.response.data.errors)
-            if(err.username) {
-                let username = document.getElementById('username-alert');
-                username.style.display = "flex";
-                username.firstChild.innerHTML = err.username.message;
-            }
-            if(err.email) {
-                let email = document.getElementById('email-alert');
-                email.style.display = "flex";
-                email.firstChild.innerHTML = err.email.message;
-            }
+                if(error.response){
+                    let err = Object.assign({}, error.response.data.errors)
+                    if(err.username) {
+                        let username = document.getElementById('username-alert');
+                        username.style.display = "flex";
+                        username.firstChild.innerHTML = err.username.message;
+                    }
+                    if(err.email) {
+                        let email = document.getElementById('email-alert');
+                        email.style.display = "flex";
+                        email.firstChild.innerHTML = err.email.message;
+                    }
+                }
             })
         }
     }

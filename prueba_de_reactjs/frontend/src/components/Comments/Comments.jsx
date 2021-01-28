@@ -1,25 +1,35 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import axios from 'axios'
 import {connect} from 'react-redux'
+import {setComments, deleteComments} from '../../Redux/actions/comment.Actions'
 import CommentUser from './Comment-user';
 import LikeDislike from './Like-Dislike';
+import checkMenuBtn from './checkMenuBtn'
 
 const mapStateToProps = state => {
-    return {user: state.userReducer.user}
+    return {
+        userId: state.userReducer.user._id,
+        comments: state.commentReducer.comments
+    }
 }
 
-const Comments = ({newsId, user}) =>{
+const mapDispatchToProps = dispatch => {
+    return {
+        setComments: (comments) => dispatch(setComments(comments)),
+        deleteComments: () => dispatch(deleteComments())
+    }
+}
+
+const Comments = ({newsId, userId, comments, setComments}) =>{
     useEffect( ()=>{
         axios.get(`http://localhost:4000/api/${newsId}/comments`)
         .then(res => {
-            setComments(res.data)
+            setComments(res.data.reverse())
         })
         return(()=>{
-            setComments([])
+            deleteComments()
         })
     },[newsId]);
-
-    const [comments, setComments] = useState([])
 
     const textAreaAdjust = (e) => {
         e.target.style.height = "1px";
@@ -31,12 +41,13 @@ const Comments = ({newsId, user}) =>{
     const commentSubmit = (e) => {
         e.preventDefault()
         axios.post(`http://localhost:4000/api/create-comment/${newsId}`, {
-            userId: user._id,
+            userId: userId,
             comment: textareaRef.current.value
         })
         .then(res => {
             if(res.data.success){
-                setComments([...comments, res.data.comment])
+                checkMenuBtn()
+                setComments([res.data.comment, ...comments])
             }
         })
     }
@@ -45,11 +56,12 @@ const Comments = ({newsId, user}) =>{
         axios.delete(`http://localhost:4000/api/delete-comment/${newsId}`, {
             data: {
                 commentId: commentId,
-                userId: user._id
+                userId: userId
             }
         })
         .then(res => {
             if(res.data.success) {
+                checkMenuBtn()
                 let newComments = comments.filter(e => e._id !== commentId)
                 setComments(newComments)
             }
@@ -65,7 +77,7 @@ const Comments = ({newsId, user}) =>{
 
                         <form className=" make-comment" onSubmit={commentSubmit}>
                             <div className="d-flex">
-                            <img className="make-comment-user" src={`http://localhost:4000/api/user-image/${user._id}`} alt="user-pic"/>
+                            <img className="make-comment-user" src={`http://localhost:4000/api/user-image/${userId}`} alt="user-pic"/>
                             <textarea className="form-control px-4" placeholder="Add a comment..." ref={textareaRef} onChange={textAreaAdjust}></textarea>
                             </div>
                             <button type="submit" className="btn btn-primary float-right mt-2">Comment</button>
@@ -74,11 +86,11 @@ const Comments = ({newsId, user}) =>{
                         {comments.map((c, i) => {
 
                         return<div key={i}>
-                            <CommentUser comment={c} removeComment={removeComment}/>
+                            <CommentUser comment={c} index={i} removeComment={removeComment}/>
 
                             <p className="comment-text px-5 py-4" >{c.comment}</p>
 
-                            <LikeDislike cmt={c} newsId={newsId}/>
+                            <LikeDislike Comment={c} newsId={newsId}/>
                         </div>
                         })}
                     </div>
@@ -90,7 +102,7 @@ const Comments = ({newsId, user}) =>{
                     <div className="comments">
                         <form className=" make-comment" onSubmit={commentSubmit}>
                             <div className="d-flex">
-                            <img className="make-comment-user" src={`http://localhost:4000/api/user-image/${user._id}`} alt="user-pic"/>
+                            <img className="make-comment-user" src={`http://localhost:4000/api/user-image/${userId}`} alt="user-pic"/>
                             <textarea className="form-control px-4" placeholder="Add a comment..." ref={textareaRef} onChange={textAreaAdjust}></textarea>
                             </div>
                             <button type="submit" className="btn btn-primary float-right mt-2">Comment</button>
@@ -104,4 +116,4 @@ const Comments = ({newsId, user}) =>{
     )
     }
 
-export default connect(mapStateToProps)(Comments);
+export default connect(mapStateToProps, mapDispatchToProps)(Comments);

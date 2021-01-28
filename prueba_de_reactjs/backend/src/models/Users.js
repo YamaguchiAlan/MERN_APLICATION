@@ -19,7 +19,18 @@ const usersSchema = new Schema({
     image: {
         type: Buffer
     },
-    activity: [{type: Schema.Types.ObjectId, ref: 'Activity'}]
+    activity: [{
+            type: Schema.Types.ObjectId,
+            ref: 'Activity'
+        }],
+    followers: [{
+            type: Schema.Types.ObjectId,
+            ref: 'Users'
+        }],
+    following: [{
+            type: Schema.Types.ObjectId,
+            ref: 'Users'
+        }]
 }, { timestamps: true });
 
 usersSchema.methods.encryptPassword = async (password) => {

@@ -4,6 +4,8 @@ import App from './App';
 import {Provider} from 'react-redux'
 import store from './Redux/store'
 
+import $ from 'jquery';
+import Popper from 'popper.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./CSS/styles.css"
 

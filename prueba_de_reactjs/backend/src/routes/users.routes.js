@@ -21,13 +21,27 @@ const upload = multer({
     }
 })
 
-const { signup, signin, authenticate, getUser, uploadImage, getUserImage, getActivity} = require('../controllers/users.controllers');
+const { signup,
+        signin,
+        authenticate,
+        getUser,
+        uploadImage,
+        getUserImage,
+        getActivity,
+        logout,
+        followUser,
+        unfollowUser,
+        getFollowing,
+        getFollowers
+    } = require('../controllers/users.controllers');
 
 router.post('/api/signup', signup)
 
 router.post('/api/signin', signin)
 
 router.get('/api/authenticate', isAuthenticated , authenticate)
+
+router.get('/api/logout', logout)
 
 router.get("/api/user/:id", getUser)
 
@@ -36,5 +50,13 @@ router.put('/api/upload-user-image/:id', upload.single('user-img'), uploadImage)
 router.get('/api/user-image/:id', getUserImage)
 
 router.get("/api/user-activity/:id", getActivity)
+
+router.put('/api/follow-user/:id', followUser)
+
+router.put('/api/unfollow-user/:id', unfollowUser)
+
+router.get("/api/following/:id", getFollowing)
+
+router.get("/api/followers/:id", getFollowers)
 
 module.exports = router;
