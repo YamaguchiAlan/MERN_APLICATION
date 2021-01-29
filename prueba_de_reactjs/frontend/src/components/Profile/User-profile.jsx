@@ -1,15 +1,19 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 import axios from 'axios'
 import Header from '../Header/Header'
 import Activity from './Ativity'
 import {connect} from 'react-redux'
+import ViewFollowers from './View-followers'
 
 const mapStateToProps = state => {
     return {id: state.userReducer.user._id}
 }
 
-const MyProfile = ({ match, id}) => {
+const UserProfile = ({ match, id}) => {
     const [user, setUser] = useState({following: [], followers: []})
+
+    const followRef = useRef()
+    const unfollowRef = useRef()
 
     useEffect(() => {
         axios.get(`http://localhost:4000/api/user/${match.params.id}`)
@@ -23,20 +27,24 @@ const MyProfile = ({ match, id}) => {
                 const newUser = user
                 newUser.followers.push(id)
                 setUser({...newUser})
+                unfollowRef.current.blur()
             }
         })
     }
 
-    const unfollow = () => {
+    const unfollow = (e) => {
         axios.put(`http://localhost:4000/api/unfollow-user/${id}`, {user:  user._id})
         .then(res => {
             if(res.data.success){
                 const newUser = user
                 newUser.followers = newUser.followers.filter(e => e != id)
                 setUser({...newUser})
+                followRef.current.blur()
             }
         })
     }
+
+    const [followType, setFollowType] = useState("")
 
     return(
         <>
@@ -52,16 +60,20 @@ const MyProfile = ({ match, id}) => {
                         <p>
                             <span className="profile-username">{user.username}</span>
                             <br/>
-                            <span className="profile-followers">{`Following(${user.following && user.following.length})`}</span>
-                            <span className="profile-followers ml-4">{`Followers(${user.followers && user.followers.length})`}</span>
+                            <span className="profile-followers" onClick={() => setFollowType("following")}>
+                                {`Following(${user.following && user.following.length})`}
+                            </span>
+                            <span className="profile-followers ml-4" onClick={() => setFollowType("followers")}>
+                                {`Followers(${user.followers && user.followers.length})`}
+                            </span>
                         </p>
 
                         <div>
                         {   user.followers &&
                             user.followers.includes(id) ?
-                                <button className="profile-btn" onClick={unfollow}>Unfollow</button>
+                                <button className="profile-btn" onClick={unfollow} ref={unfollowRef}>Unfollow</button>
                             :
-                                <button className="profile-btn" onClick={follow}>Follow</button>
+                                <button className="profile-btn" onClick={follow} ref={followRef}>Follow</button>
                         }
 
                             <span className="profile-report">Report Profile</span>
@@ -71,9 +83,11 @@ const MyProfile = ({ match, id}) => {
                 </div>
             </div>
 
+            <ViewFollowers followType={followType} id={user._id}/>
+
             <Activity id={match.params.id}/>
         </>
     )
 }
 
-export default connect(mapStateToProps)(MyProfile)
+export default connect(mapStateToProps)(UserProfile)

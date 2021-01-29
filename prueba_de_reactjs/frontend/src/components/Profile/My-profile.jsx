@@ -25,7 +25,7 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-const ProfileUser = ({username, id, followers, following, date, verifyUser, logout}) => {
+const MyProfile = ({username, id, followers, following, date, verifyUser, logout}) => {
     const [inputImg, setInputImg] = useState("")
 
     const inputRef = useRef(null)
@@ -60,8 +60,9 @@ const ProfileUser = ({username, id, followers, following, date, verifyUser, logo
     }
     )
 
-    const inputOnClick = () => {
+    const inputOnClick = (e) => {
         inputRef.current.click()
+        e.target.blur()
     }
 
     const cropperCallback =  (blob) =>{
@@ -139,4 +140,4 @@ const ProfileUser = ({username, id, followers, following, date, verifyUser, logo
     )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProfileUser)
+export default connect(mapStateToProps, mapDispatchToProps)(MyProfile)

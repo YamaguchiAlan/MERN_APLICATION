@@ -573,6 +573,7 @@
   height: 32px;
   padding: 0 12px;
   font-size: 1.3rem;
+  position: relative;
   color: #0e0e0e;
   background: #1dc1d7;
   border: 0;
@@ -582,19 +583,28 @@
 }
 
 .profile-btn:hover {
-  -webkit-box-shadow: -2px 3px #0d5862;
-          box-shadow: -2px 3px #0d5862;
+  -webkit-box-shadow: -2px 3px #0d5862 !important;
+          box-shadow: -2px 3px #0d5862 !important;
   background: #19a9bc;
+}
+
+.profile-btn:active, .profile-btn:focus {
+  -webkit-box-shadow: -1px 2px #0d5862 !important;
+          box-shadow: -1px 2px #0d5862 !important;
+  background: #19a9bc;
+  top: 1px;
 }
 
 .profile-report {
   margin-left: 40px;
   font-size: 1.5rem;
   font-weight: 700;
+  position: relative;
+  cursor: pointer;
 }
 
-.profile-report:hover {
-  cursor: pointer;
+.profile-report:active, .profile-report:focus {
+  top: 1px;
 }
 
 .activity {

@@ -35,15 +35,22 @@
     height: 32px;
     padding: 0 12px;
     font-size: 1.3rem;
+    position: relative;
+
     color: #0e0e0e;
     background: darken($color: $light-blue, $amount: 4);
     border: 0;
     border-radius: 16px;
     box-shadow: -2px 3px darken($color: $light-blue, $amount: 20);
-    &:hover{
-        box-shadow: -2px 3px darken($color: $light-blue, $amount: 30);
-        background: darken($color: $light-blue, $amount: 10);
 
+    &:hover{
+        box-shadow: -2px 3px darken($color: $light-blue, $amount: 30) !important;
+        background: darken($color: $light-blue, $amount: 10);
+    }
+    &:active, &:focus{
+        box-shadow: -1px 2px darken($color: $light-blue, $amount: 30) !important;
+        background: darken($color: $light-blue, $amount: 10);
+        top: 1px;
     }
 }
 
@@ -51,8 +58,10 @@
     margin-left: 40px;
     font-size: 1.5rem;
     font-weight: 700;
+    position: relative;
+    cursor: pointer;
 
-    &:hover{
-        cursor: pointer;
+    &:active, &:focus{
+        top: 1px;
     }
 }
