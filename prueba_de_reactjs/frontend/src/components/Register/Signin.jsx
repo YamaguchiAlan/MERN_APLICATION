@@ -6,7 +6,7 @@ import axios from 'axios'
 
 function mapDispatchToProps(dispatch) {
     return {
-        verifyUser: user => dispatch(verifyUser(user))
+        verifyUser: () => dispatch(verifyUser())
     }
 }
 
@@ -32,13 +32,8 @@ const Signin = ({verifyUser}) => {
         })
         .then(res => {
             if(res.data.success) {
-                axios.get("http://localhost:4000/api/authenticate", {
-                            withCredentials: true
-                        })
-                .then(res => {
-                    verifyUser(res.data)
-                    history.push("/")
-                })
+                verifyUser()
+                history.push("/")
             }
         })
         .catch(err => {

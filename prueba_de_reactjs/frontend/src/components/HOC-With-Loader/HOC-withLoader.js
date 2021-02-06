@@ -1,14 +1,22 @@
 import React, { Component } from 'react';
 
-const withLoader = (WrappedComponent, propName, coverName) => (
+const withLoader = (WrappedComponent, coverName) => (
     class withLoaderComponent extends Component{
         render(){
-            return this.props[propName].length > 0 ?
-                <WrappedComponent {...this.props}/>
-                :
-                <div className="back">
-                    <div className={coverName}><div className="loader"></div> </div>
-                </div>
+            switch (this.props.requestState) {
+                case "Sucess":
+                    return <WrappedComponent {...this.props}/>
+
+                case "inProcess":
+                    return <div className="back">
+                                <div className={coverName}><div className="loader"></div> </div>
+                           </div>
+
+                case "Failed":
+                    return <div id="back-body">fail</div>
+                default:
+                    return <div id="back-body">fail</div>
+            }
         }
     }
 )

@@ -22,9 +22,9 @@ const {
     updateArticleImg
 } = require('../controllers/article.controllers');
 
-router.post('/api/form-img', multer({dest: './img'}).single('upload'), formImg);
+router.post('/api/form-img/:id', multer({dest: './img'}).single('upload'), formImg);
 
-router.get('/api/form-img/:path', getFormImg)
+router.get('/api/form-img/:id/:path', getFormImg)
 
 router.post('/api/create-article', createArticle)
 

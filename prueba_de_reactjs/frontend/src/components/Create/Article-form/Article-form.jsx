@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from "react";
+import React, {useState, useRef} from "react";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import customEditor from 'yamaguchi_ckeditor-custom/build/ckeditor'
 import {connect} from 'react-redux'
@@ -6,7 +6,9 @@ import {setArticleData, setArticleBlob} from '../../../Redux/actions/articleActi
 import ImageCropper from "../../Image-cropper/Image-cropper";
 
 const mapStateToPops = state => {
-    return { articleData: state.articleReducer.articleData }
+    return {
+        articleData: state.articleReducer.articleData
+    }
 }
 
 const mapDispatchToProps = dispatch => {
@@ -16,7 +18,7 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-const ArticleForm = ({articleSubmit, articleData, setArticleData, setArticleBlob}) => {
+const ArticleForm = ({articleSubmit, articleData, setArticleData, setArticleBlob, userId}) => {
     const [inputImg, setInputImg] = useState("")
 
     const inputRef = useRef(null)
@@ -52,15 +54,6 @@ const ArticleForm = ({articleSubmit, articleData, setArticleData, setArticleBlob
         document.getElementById('preview-article-img').src=url;
     }
 
-    const articleChange = (e) => {
-        if(e.target.name === "article-title") {
-            setArticleData({
-                ...articleData,
-                title: e.target.value
-            })
-        }
-    }
-
     const editorChange = (event, editor) => {
         setTimeout(() => {
             const data = editor.getData()
@@ -76,7 +69,6 @@ const ArticleForm = ({articleSubmit, articleData, setArticleData, setArticleBlob
             if(imgSrc[0]) {
                 img.forEach( (e, i) => {
 
-                    e.src=imgSrc[i].src
                     if(imgSrc[i].offsetWidth !== 0) {
                         e.style.width = `${imgSrc[i].offsetWidth}px`
                         if(img[i].parentElement.getElementsByTagName('figcaption')[0]) {
@@ -85,7 +77,7 @@ const ArticleForm = ({articleSubmit, articleData, setArticleData, setArticleBlob
                     }
 
                     if(imgSrc[i].src.startsWith('form', 26)) {
-                        let filename = imgSrc[i].src.slice(35)
+                        let filename = imgSrc[i].src.slice(60)
                         imgNames.push(filename)
                     } else{
                         if(imgSrc[i].src.slice(-2).startsWith('/')){
@@ -134,25 +126,17 @@ const ArticleForm = ({articleSubmit, articleData, setArticleData, setArticleBlob
         <div className="row mt-3" id="article-form">
             <div className="card article-form-back">
                 <div className="card-header d-flex flex-row justify-content-between">
-
-                    <h2>Contenido del articulo</h2>
-                    <button className="btn btn-outline-info preview-btn" onClick={previewBtn}>Vista previa del articulo</button>
+                    <h2>Article Content</h2>
+                    <button className="btn btn-outline-info preview-btn" onClick={previewBtn}>Article Preview</button>
                 </div>
                 <div className="card-body">
-                    <form className="editor article-form form-group d-flex flex-column" onSubmit={articleSubmit} onChange={articleChange} noValidate>
+                    <form className="editor article-form form-group d-flex flex-column" onSubmit={articleSubmit} noValidate>
                         <div className="form-group  mb-4">
-                            <label for="article-title"  className="form-label">Titulo</label>
-                            <textarea className="article-form-title text-white form-control" id="article-title" name="article-title" maxLength="165" value={articleData.title} required></textarea>
-                            <div className="invalid-feedback">
-                                El articulo debe tener un titulo
-                            </div>
-                        </div>
-                        <div className="form-group  mb-4">
-                            <label for="article-img" className="form-label">Imagen</label>
+                            <label for="article-img" className="form-label">Image</label>
                             <div className="article-form-img">
                                 <img src="/img/default-image.jpg" alt="preview-article" className="preview-article-img" id="preview-article-img" />
                                 <div className="choose-article-img  d-flex align-items-center justify-content-center">
-                                    <button className="btn btn-outline-light article-img-btn" onClick={articleImgClick}>Elegir Imagen</button>
+                                    <button className="btn btn-outline-light article-img-btn" onClick={articleImgClick}>Choose Image</button>
                                 </div>
                             </div>
                             {!articleData.imgInput ?
@@ -178,12 +162,12 @@ const ArticleForm = ({articleSubmit, articleData, setArticleData, setArticleBlob
                                 />
                             }
                             <div className="invalid-feedback">
-                                Por favor seleccione una imagen
+                                Please choose an image
                             </div>
                         </div>
 
                         <div className="form-group">
-                            <label className="form-label">Contenido del articulo</label>
+                            <label className="form-label">Article content</label>
                                 <CKEditor
                                 editor={customEditor}
                                 config={{
@@ -231,25 +215,27 @@ const ArticleForm = ({articleSubmit, articleData, setArticleData, setArticleBlob
                                         ]
                                     },
                                     ckfinder: {
-                                        uploadUrl: 'http://localhost:4000/api/form-img'
+                                        uploadUrl: `http://localhost:4000/api/form-img/${userId}`
                                     }
                                 }}
 
                             onChange={editorChange}
 
                             onReady={(editor) => {
-                                editor.setData(articleData.content)
+                                if(editor){
+                                    editor.setData(articleData.content)
+                                }
                             } }
                             />
                             <textarea id="editorTextArea" className="d-none form-control" required></textarea>
                             <div className="invalid-feedback">
-                                El articulo debe contener algo
+                                The article must contain something
                             </div>
                         </div>
 
                         <div className="btn-group mt-5">
-                            <button className="btn btn-outline-secondary btn-lg" onClick={backBtn}>Atras</button>
-                            <button type="submit" className="btn btn-info btn-lg">Crear Articulo</button>
+                            <button className="btn btn-outline-secondary btn-lg" onClick={backBtn}>Back</button>
+                            <button type="submit" className="btn btn-info btn-lg">Create Article</button>
                         </div>
                     </form>
                 </div>

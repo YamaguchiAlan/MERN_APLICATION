@@ -34,6 +34,12 @@ $bg-color: #37534e;
       &:-moz-placeholder {
         color: $primary;
       }
+
+      &:active + button, &:focus + button{
+        outline: none;
+        opacity: 1;
+        margin-left: -50px;
+      }
     }
 
     & .icon{
@@ -59,7 +65,7 @@ $bg-color: #37534e;
       transition: all .55s ease;
     }
 
-    &:hover button.icon, &:active button.icon, &:focus button.icon-{
+    &:hover button.icon{
       outline: none;
       opacity: 1;
       margin-left: -50px;
@@ -68,7 +74,6 @@ $bg-color: #37534e;
     &:hover .icon:hover{
       background: rgb(24, 224, 198);
       cursor: pointer;
-      margin-top: 1px;
       color: $bg-color;
 
       -webkit-transform:scale(1.05); /* Safari and Chrome */

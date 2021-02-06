@@ -1,49 +1,34 @@
 import React, {useEffect, useState, useRef} from 'react'
 import Header from '../Header/Header'
 import {connect} from 'react-redux'
-import {verifyUser, logout} from '../../Redux/actions/UserActions'
+import {verifyUser} from '../../Redux/actions/UserActions'
 import {useHistory} from 'react-router-dom'
 
 import ImageCropper from '../Image-cropper/Image-cropper'
 import axios from 'axios'
 import Activity from './Ativity'
+import ViewFollowers from './View-followers'
 
 const mapStateToProps = state => {
-    return {
-        username: state.userReducer.user.username,
-        followers: state.userReducer.user.followers,
-        following: state.userReducer.user.following,
-        id: state.userReducer.user._id,
-        date: state.userReducer.user.updatedAt
-    }
+    return { user: state.userReducer.user }
 }
 
 const mapDispatchToProps = dispatch => {
-    return {
-        verifyUser: user => dispatch(verifyUser(user)),
-        logout: () => dispatch(logout())
-    }
+    return { verifyUser: () => dispatch(verifyUser()) }
 }
 
-const MyProfile = ({username, id, followers, following, date, verifyUser, logout}) => {
+const MyProfile = ({user, verifyUser}) => {
     const [inputImg, setInputImg] = useState("")
+    const [followType, setFollowType] = useState("")
 
     const inputRef = useRef(null)
 
     const history = useHistory()
 
     useEffect(() => {
-        axios.get("http://localhost:4000/api/authenticate", {
-            withCredentials: true
-        })
-        .then(res => {
-            verifyUser({
-              ...res.data,
-              verified: true
-            })
-        })
-        .catch(err => history.push("/"))
-
+        if(user.verified == false) {
+            history.push("/")
+        }
     }, [])
 
     const inputOnChange = ((e) => {
@@ -69,17 +54,10 @@ const MyProfile = ({username, id, followers, following, date, verifyUser, logout
         setInputImg("")
         const data = new FormData()
         data.set("user-img", blob)
-        axios.put(`http://localhost:4000/api/upload-user-image/${id}`, data)
+        axios.put(`http://localhost:4000/api/upload-user-image/${user._id}`, data)
         .then(async res => {
             if(res.data.succes) {
-                const res = await axios.get("http://localhost:4000/api/authenticate", {
-                    withCredentials: true
-                })
-
-                verifyUser({
-                    ...res.data,
-                    verified: true
-                })
+                verifyUser()
             }
         })
     }
@@ -90,13 +68,8 @@ const MyProfile = ({username, id, followers, following, date, verifyUser, logout
         })
 
         if(res.data.success) {
-            axios.get("http://localhost:4000/api/authenticate", {
-                withCredentials: true
-            })
-            .catch(err => {
-                logout()
-                history.push("/")
-            })
+            verifyUser()
+            history.push("/")
         }
     }
 
@@ -107,15 +80,19 @@ const MyProfile = ({username, id, followers, following, date, verifyUser, logout
             <div className="d-flex justify-content-center" style={{marginTop: 50 + 'px'}}>
                 <div className="w-50" style={{transform: "translateX(5%)"}}>
                     <div className="profile-pic-back">
-                        <img src={id ? `http://localhost:4000/api/user-image/${id}?${date}` : "/img/profile-pic.png"} alt="profile-image" className="rounded " id="my-profile-pic"/>
+                        <img src={user._id ? `http://localhost:4000/api/user-image/${user._id}?${user.updatedAt}` : "/img/profile-pic.png"} alt="profile-image" className="rounded " id="my-profile-pic"/>
                         <input type="file" accept="image/*" ref={inputRef} className="d-none" onChange={inputOnChange}/>
                     </div>
                     <div className="my-profile-back">
                         <p>
-                            <span className="profile-username">{username}</span>
+                            <span className="profile-username">{user.username}</span>
                             <br/>
-                            <span className="profile-followers">{`Following(${following.length})`}</span>
-                            <span className="profile-followers ml-4">{`Followers(${followers.length})`}</span>
+                            <span className="profile-followers" onClick={() => setFollowType("following")}>
+                                {`Following(${user.following.length})`}
+                            </span>
+                            <span className="profile-followers ml-4" onClick={() => setFollowType("followers")}>
+                                {`Followers(${user.followers.length})`}
+                            </span>
                         </p>
                         <div >
                             <button className="profile-btn" onClick={inputOnClick}>Change profile picture</button>
@@ -135,7 +112,9 @@ const MyProfile = ({username, id, followers, following, date, verifyUser, logout
                     }
             </div>
 
-            <Activity id={id} username={username} />
+            <ViewFollowers followType={followType} id={user._id} setFollowType={setFollowType}/>
+
+            <Activity id={user._id} username={user.username} />
         </>
     )
 }

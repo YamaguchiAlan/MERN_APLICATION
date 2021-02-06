@@ -2,13 +2,13 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const MostViewed = () => (
-    <div className="card bg-dark text-white most-viewed">
+    <div className="card bg-dark text-white most-viewed" id="most-viewed">
         <div className="card-header text-center most-viewed-header">
             <h3>Lo más visto</h3>
         </div>
         <div className="card-body most-viewed-body">
             <div className="row">
-            <div className="col-xl-3 col-md-6">
+                <div className="col-xl-3 col-md-6">
                 <div className="card most-viewed-card border-0">
                     <img src="/img/Dishonored-2.jpg" alt="most-viewed" className="card-img most-viewed-img"/>
 

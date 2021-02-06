@@ -58,4 +58,13 @@ newsCtrl.deleteNews = async (req, res) => {
     res.json(news)
 }
 
+newsCtrl.searchBar = async (req, res) => {
+    const news = await News.find(
+        {"$text": {"$search": `\"${req.params.title}\"`} },
+        {"score": {"$meta": "textScore"} , image: 0}
+    ).sort({"score": {"$meta": "textScore"}})
+
+    res.send(news)
+}
+
 module.exports = newsCtrl;

@@ -33,7 +33,11 @@ const CreateArticle = ({bodyCard, article, user, setBodyCardAuthor, deleteBodyCa
     useEffect(() => {
         document.getElementById('article-form').style.display="none"
         document.getElementById('preview').style.display="none"
-        setBodyCardAuthor(user)
+        if(user._id){
+            setBodyCardAuthor(user)
+        } else{
+            history.push("/")
+        }
 
         return() => {
             deleteBodyCardData()
@@ -75,7 +79,7 @@ const CreateArticle = ({bodyCard, article, user, setBodyCardAuthor, deleteBodyCa
             <div className="w-100 text-white new-article">
                 <BodyForm />
 
-                <ArticleForm articleSubmit={articleSubmit} />
+                <ArticleForm articleSubmit={articleSubmit} userId={bodyCard.bodyCard[0].author._id}/>
 
                 <Preview/>
             </div>

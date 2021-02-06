@@ -34,7 +34,7 @@ const ImageCropper = ({callback, inputImg, aspect, width, height}) => {
                     onCropComplete={onCropComplete}
                     onZoomChange={setZoom}
                 />
-                <button type="submit">Submit</button>
+                <button type="submit">Select</button>
             </div>
         </form>
 

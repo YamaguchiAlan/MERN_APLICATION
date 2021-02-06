@@ -1,12 +1,13 @@
 export default  function () {
 
   const header = document.getElementById("header");
+  const editorTop = document.getElementsByClassName("ck-sticky-panel__content")[0]
 
   window.onscroll = () => {
-    if(header) {
-      const currentPos = window.pageYOffset;
-      const headerPos = header.offsetHeight;
-
+    if(editorTop){
+      if(getComputedStyle(editorTop).top.slice(0, -2) != header.offsetHeight){
+        editorTop.style.top=`${header.offsetHeight}px`
+      }
     }
 
 /*------------------------------Positioning the Nav according to the position on the page----------------------- */

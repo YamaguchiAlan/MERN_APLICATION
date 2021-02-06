@@ -2,8 +2,6 @@ const usersCtrl = {}
 const passport = require('passport');
 
 const Users = require('../models/Users');
-const Activity = require('../models/Activity');
-const router = require('../routes/news.routes');
 
 usersCtrl.signup = async (req, res) => {
     const {username, email, password} = req.body;
@@ -45,7 +43,10 @@ usersCtrl.signin = function(req, res, next) {
 
 usersCtrl.authenticate = async (req, res) => {
     const user = await Users.findById(req.session.passport.user, {password: 0, image: 0, email:0, activity:0})
-    res.send(user)
+    res.send({
+        ...user._doc,
+        verified: true
+    })
 }
 
 usersCtrl.logout = (req, res) => {

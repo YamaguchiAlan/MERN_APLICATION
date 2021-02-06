@@ -3,7 +3,6 @@ import {SET_ARTICLE_DATA, SET_ARTICLE_BLOB, DELETE_ALL_ARTICLE_DATA} from '../co
 const initialState = {
     articleData: {
         img:"/img/default-image.jpg",
-        title:"",
         content: "",
         imagesName: [],
         imgInput: false

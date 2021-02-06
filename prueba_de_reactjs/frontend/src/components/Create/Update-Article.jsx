@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import axios from "axios";
 import {useHistory} from 'react-router-dom'
+import {format} from 'timeago.js'
 
 import BodyForm from './Body-form/Body-Form';
 import ArticleForm from './Article-form/Article-form';
@@ -8,7 +9,7 @@ import Preview from './Preview/Preview';
 import Header from '../Header/Header';
 
 import {connect} from 'react-redux'
-import {setBodyCard, deleteBodyCardData} from '../../Redux/actions/bodyCardActions'
+import {setFirstBodyCard, deleteBodyCardData} from '../../Redux/actions/bodyCardActions'
 import {setArticleData, deleteAllArticleData} from '../../Redux/actions/articleActions'
 
 const mapStateToPops = state => {
@@ -20,25 +21,25 @@ const mapStateToPops = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        setBodyCard: (data) => dispatch(setBodyCard(data)),
+        setFirstBodyCard: (data) => dispatch(setFirstBodyCard(data)),
         deleteBodyCardData: () => dispatch(deleteBodyCardData()),
         setArticleData: (data) => dispatch(setArticleData(data)),
         deleteAllArticleData: () => dispatch(deleteAllArticleData())
     }
 }
 
-const UpdateArticle = ({match, bodyCard, article, setBodyCard, setArticleData, deleteBodyCardData, deleteAllArticleData}) => {
+const UpdateArticle = ({match, bodyCard, article, setFirstBodyCard, setArticleData, deleteBodyCardData, deleteAllArticleData}) => {
     const history = useHistory()
 
     useEffect(() => {
-
         document.getElementById('preview').style.display="none"
 
         axios.get(`http://localhost:4000/api/article/${match.params.id}`)
         .then(res => {
-            setBodyCard([{
+            setFirstBodyCard([{
                 ...res.data,
-                imgInput: true
+                imgInput: true,
+                formatedDate: format(res.data.createdAt)
             }])
             document.getElementById('preview-body-img').src = document.getElementById('card-body-img').src
 
@@ -57,6 +58,7 @@ const UpdateArticle = ({match, bodyCard, article, setBodyCard, setArticleData, d
                 content: newContent,
                 imgInput: true
             })
+            document.getElementById('article-form').style.display="none"
         })
         return(() => {
             deleteBodyCardData()
@@ -97,7 +99,7 @@ const UpdateArticle = ({match, bodyCard, article, setBodyCard, setArticleData, d
                 <BodyForm/>
 
                 {article.articleData.content &&
-                    <ArticleForm articleSubmit={articleSubmit}/>
+                    <ArticleForm articleSubmit={articleSubmit} userId={bodyCard.bodyCard[0].author._id}/>
                 }
 
                 <Preview/>

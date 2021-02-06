@@ -15,7 +15,7 @@ const Footer = () =>{
     })
 
     return(
-        <div className="footer">
+        <div className="footer" id="footer">
             <p className="about-us text-center"><strong><i>Astro-Gaming</i></strong><br/>
             All the news about the world of gaming
             </p>

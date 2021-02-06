@@ -1,5 +1,13 @@
 $bg-color: #181717da;
 
+.body-header{
+
+    font-size: 3rem ;
+    text-align: center;
+    text-shadow: 2px 3px 3px rgb(133, 133, 133);
+    font-family: 'Anton', sans-serif;
+}
+
 .body-card{
     background: $bg-color !important;
     min-height: 200px;

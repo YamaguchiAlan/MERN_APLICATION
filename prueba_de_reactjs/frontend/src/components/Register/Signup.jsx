@@ -3,7 +3,7 @@ import {Link, useHistory} from 'react-router-dom'
 import axios from 'axios'
 import defaultImage from '../../img/default-profile-pic.jpg'
 import {getCroppedImg} from '../Image-cropper/Crop-image'
-
+//maximo 12 letras username
 const Signup = () => {
     const history = useHistory()
 

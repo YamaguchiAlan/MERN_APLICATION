@@ -2,28 +2,47 @@ import React, {useEffect, useState, useRef} from 'react'
 import axios from 'axios'
 import Header from '../Header/Header'
 import Activity from './Ativity'
-import {connect} from 'react-redux'
 import ViewFollowers from './View-followers'
+
+import {useHistory} from 'react-router-dom'
+import {connect} from 'react-redux'
+import {followUser, unfollowUser} from '../../Redux/actions/UserActions'
 
 const mapStateToProps = state => {
     return {id: state.userReducer.user._id}
 }
 
-const UserProfile = ({ match, id}) => {
-    const [user, setUser] = useState({following: [], followers: []})
+const mapDispatchToProps = dispatch => {
+    return {
+        followUser: id => dispatch(followUser(id)),
+        unfollowUser: id => dispatch(unfollowUser(id))
+    }
+}
 
-    const followRef = useRef()
-    const unfollowRef = useRef()
+const UserProfile = ({ match, id, followUser, unfollowUser}) => {
+    const [user, setUser] = useState({following: [], followers: []})
+    const [followType, setFollowType] = useState("")
+
+    const followRef = useRef(null)
+    const unfollowRef = useRef(null)
+
+    const history = useHistory()
 
     useEffect(() => {
-        axios.get(`http://localhost:4000/api/user/${match.params.id}`)
-        .then(res => setUser(res.data))
+        if(match.params.id === id){
+            history.push("/my-profile")
+        } else{
+            axios.get(`http://localhost:4000/api/user/${match.params.id}`)
+            .then(res => setUser(res.data))
+        }
     },[])
 
-    const follow = () => {
+    const follow = (e) => {
         axios.put(`http://localhost:4000/api/follow-user/${id}`, {user:  user._id})
         .then(res => {
             if(res.data.success){
+                followUser(user._id)
+
                 const newUser = user
                 newUser.followers.push(id)
                 setUser({...newUser})
@@ -36,6 +55,8 @@ const UserProfile = ({ match, id}) => {
         axios.put(`http://localhost:4000/api/unfollow-user/${id}`, {user:  user._id})
         .then(res => {
             if(res.data.success){
+                unfollowUser(user._id)
+
                 const newUser = user
                 newUser.followers = newUser.followers.filter(e => e != id)
                 setUser({...newUser})
@@ -43,8 +64,6 @@ const UserProfile = ({ match, id}) => {
             }
         })
     }
-
-    const [followType, setFollowType] = useState("")
 
     return(
         <>
@@ -71,7 +90,7 @@ const UserProfile = ({ match, id}) => {
                         <div>
                         {   user.followers &&
                             user.followers.includes(id) ?
-                                <button className="profile-btn" onClick={unfollow} ref={unfollowRef}>Unfollow</button>
+                                <button className="profile-btn-disabled" onClick={unfollow} ref={unfollowRef}>Unfollow</button>
                             :
                                 <button className="profile-btn" onClick={follow} ref={followRef}>Follow</button>
                         }
@@ -83,11 +102,11 @@ const UserProfile = ({ match, id}) => {
                 </div>
             </div>
 
-            <ViewFollowers followType={followType} id={user._id}/>
+            <ViewFollowers followType={followType} id={user._id} setFollowType={setFollowType}/>
 
             <Activity id={match.params.id}/>
         </>
     )
 }
 
-export default connect(mapStateToProps)(UserProfile)
+export default connect(mapStateToProps, mapDispatchToProps)(UserProfile)

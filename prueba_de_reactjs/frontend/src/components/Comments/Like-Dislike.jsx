@@ -34,13 +34,19 @@ const LikeDislike = ({ Comment, userId, comments, setComments}) =>{
         checkMenuBtn()
         if(!verifyLike(Comment.dislike)){
             if(!verifyLike(Comment.like)) {
-                const res = await axios.put(`http://localhost:4000/api/like-comment/${Comment._id}/increment`, {userId: userId})
+                const res = await axios.put(`http://localhost:4000/api/like-comment/${Comment._id}/increment`, {
+                    userId: userId,
+                    formatedDate: Comment.formatedDate
+                })
 
                 if(res.data.success) {
                     mapComments(res.data.comment)
                 }
             } else{
-                const res = await axios.put(`http://localhost:4000/api/like-comment/${Comment._id}/decrement`, {userId: userId})
+                const res = await axios.put(`http://localhost:4000/api/like-comment/${Comment._id}/decrement`, {
+                    userId: userId,
+                    formatedDate: Comment.formatedDate
+                })
 
                 if(res.data.success) {
                     mapComments(res.data.comment)
@@ -53,13 +59,19 @@ const LikeDislike = ({ Comment, userId, comments, setComments}) =>{
         checkMenuBtn()
         if(!verifyLike(Comment.like)){
             if(!verifyLike(Comment.dislike)) {
-                    const res = await axios.put(`http://localhost:4000/api/dislike-comment/${Comment._id}/increment`, {userId: userId})
+                    const res = await axios.put(`http://localhost:4000/api/dislike-comment/${Comment._id}/increment`, {
+                        userId: userId,
+                        formatedDate: Comment.formatedDate
+                    })
 
                     if(res.data.success) {
                         mapComments(res.data.comment)
                     }
                 } else{
-                    const res = await axios.put(`http://localhost:4000/api/dislike-comment/${Comment._id}/decrement`, {userId: userId})
+                    const res = await axios.put(`http://localhost:4000/api/dislike-comment/${Comment._id}/decrement`, {
+                        userId: userId,
+                        formatedDate: Comment.formatedDate
+                    })
 
                     if(res.data.success) {
                         mapComments(res.data.comment)

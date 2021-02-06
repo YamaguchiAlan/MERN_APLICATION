@@ -1,21 +1,24 @@
 import React, {useState, useRef} from 'react'
 import Body from '../../Body/Body'
 import ImageCropper from '../../Image-cropper/Image-cropper'
-import {setBodyCard, setBodyCardBlob} from '../../../Redux/actions/bodyCardActions'
+import {setFirstBodyCard, setBodyCardBlob} from '../../../Redux/actions/bodyCardActions'
 import {connect} from 'react-redux'
 
 const mapStateToPops = state => {
-    return{ bodyCard: state.bodyCardReducer.bodyCard }
+    return{
+        bodyCard: state.bodyCardReducer.bodyCard,
+        requestState: state.bodyCardReducer.requestState
+    }
 }
 
 const mapDispatchToProps = dispatch => {
     return{
-        setBodyCard: bodyCard => dispatch(setBodyCard(bodyCard)),
+        setFirstBodyCard: bodyCard => dispatch(setFirstBodyCard(bodyCard)),
         setBodyCardImgBlob: blob => dispatch(setBodyCardBlob(blob))
     }
 }
 
-const BodyForm = ({ bodyCard, setBodyCard, setBodyCardImgBlob}) => {
+const BodyForm = ({ requestState, bodyCard, setFirstBodyCard, setBodyCardImgBlob}) => {
     const [inputImg, setInputImg] = useState("")
 
     const inputRef = useRef(null)
@@ -36,7 +39,7 @@ const BodyForm = ({ bodyCard, setBodyCard, setBodyCardImgBlob}) => {
     const cropperCallback = (blob) => {
         setInputImg("")
         const url = window.URL.createObjectURL(blob);
-        setBodyCard([{
+        setFirstBodyCard([{
             ...bodyCard[0],
             defaultImg: url,
             imgInput: false
@@ -48,7 +51,7 @@ const BodyForm = ({ bodyCard, setBodyCard, setBodyCardImgBlob}) => {
     const bodyCardTextForm = (e) => {
         e.preventDefault()
         if(e.target.name !== "body-img") {
-            setBodyCard([{
+            setFirstBodyCard([{
                 ...bodyCard[0],
                 [e.target.name]: e.target.value
             }])
@@ -72,6 +75,11 @@ const BodyForm = ({ bodyCard, setBodyCard, setBodyCardImgBlob}) => {
       }
     }
 
+    const textAreaAdjust = (e) => {
+        e.target.style.height = "1px";
+        e.target.style.height = e.target.scrollHeight +"px";
+      }
+
     return(
         bodyCard[0] &&
         <div className="row" id="body-card-form">
@@ -79,19 +87,19 @@ const BodyForm = ({ bodyCard, setBodyCard, setBodyCardImgBlob}) => {
                 <div className="card mt-3 body-card-form">
                     <div className="card-header border-bottom">
                         <div className="btn-group w-100 ">
-                            <button className="btn btn-outline-info active article-type py-2">Noticia</button>
-                            <button className="btn btn-outline-info article-type py-2">Destacado</button>
+                            <button className="btn btn-outline-info active article-type py-2">Article</button>
+                            <button className="btn btn-outline-info article-type py-2">Highlight</button>
                         </div>
                     </div>
                     <div className="card-body">
                         <form className="form-group d-flex flex-column" onChange={bodyCardTextForm} onSubmit={bodyCardNextBtn} noValidate>
                             <div className="form-group mb-4">
-                                <label for="body-img" className="form-label">Imagen</label>
+                                <label for="body-img" className="form-label">Image</label>
                                 <div className="article-form-img">
                                     <img src="/img/default-image.jpg" alt="preview-body" className="preview-body-img" id="preview-body-img" />
                                     <div className="choose-body-img  d-flex align-items-center justify-content-center">
                                         <button className="btn btn-outline-light card-form-img-btn" onClick={bodyImgClick}>
-                                            Elegir Imagen
+                                            Choose Image
                                         </button>
                                     </div>
                                 </div>
@@ -118,30 +126,38 @@ const BodyForm = ({ bodyCard, setBodyCard, setBodyCardImgBlob}) => {
                                     />
                                 }
                                 <div className="invalid-feedback">
-                                    Por favor seleccione una imagen
+                                    Please choose an image
                                 </div>
                             </div>
                             <div className="form-group mb-4">
-                                <label for="title"  className="form-label">Titulo</label>
-                                <textarea className="body-form-title text-white form-control" id="body-input-title" name="title" maxLength="105" value={bodyCard[0].title} required></textarea>
+                                <label for="title"  className="form-label">Title</label>
+                                <textarea
+                                    className="body-form-title text-white form-control"
+                                    id="body-input-title" name="title" maxLength="105"
+                                    value={bodyCard[0].title} required onChange={textAreaAdjust}>
+                                </textarea>
                                 <div className="invalid-feedback">
-                                    La noticia debe tener un titulo
+                                    The article must have a title
                                 </div>
                             </div>
                             <div className="form-group  mb-5">
-                                <label for="text" className="form-label">Subtitulo</label>
-                                <textarea name="text" id="body-input-text" className="body-form-text text-white form-control" maxLength="245" value={bodyCard[0].text} required></textarea>
+                                <label for="text" className="form-label">Text</label>
+                                <textarea
+                                    className="body-form-text text-white form-control"
+                                    maxLength="245" name="text" id="body-input-text"
+                                    value={bodyCard[0].text} required onChange={textAreaAdjust}>
+                                </textarea>
                                 <div className="invalid-feedback">
-                                    La noticia debe tener un subtitulo
+                                    The article must have a text
                                 </div>
                             </div>
-                            <button type="submit" className="btn-lg btn-info body-form-next" >Siguiente</button>
+                            <button type="submit" className="btn-lg btn-info body-form-next" >Next</button>
                         </form>
                     </div>
                 </div>
             </div>
             <div className="col-12 d-flex justify-content-center mt-3">
-                <Body news={bodyCard}/>
+                <Body editMode={true} requestState={requestState} fullWidth={true}/>
             </div>
             {
                 inputImg &&

@@ -60,11 +60,19 @@ html{
   width: 100vw;
   left: 0;
   top: 0;
-  z-index: 999;
+  z-index: 99999;
   & button{
+    @extend .profile-btn-disabled;
       position: absolute;
-      bottom: 0;
-      right: 0;
+      bottom: 40px;
+      right: 60px;
+      height: 35px;
+      font-size: 1.4rem;
+
+      &:active, &:focus{
+        top: initial;
+        bottom: 39px;
+      }
   }
 }
 

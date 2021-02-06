@@ -214,6 +214,12 @@
   color: #36cabe;
 }
 
+.search input:active + button, .search input:focus + button {
+  outline: none;
+  opacity: 1;
+  margin-left: -50px;
+}
+
 .search .icon {
   -webkit-border-top-right-radius: 5px;
   -webkit-border-bottom-right-radius: 5px;
@@ -232,7 +238,7 @@
   transition: all .55s ease;
 }
 
-.search:hover button.icon, .search:active button.icon, .search:focus button.icon- {
+.search:hover button.icon {
   outline: none;
   opacity: 1;
   margin-left: -50px;
@@ -241,12 +247,18 @@
 .search:hover .icon:hover {
   background: #18e0c6;
   cursor: pointer;
-  margin-top: 1px;
   color: #37534e;
   -webkit-transform: scale(1.05);
   /* Safari and Chrome */
   /* Firefox */
   transform: scale(1.05);
+}
+
+.body-header {
+  font-size: 3rem;
+  text-align: center;
+  text-shadow: 2px 3px 3px #858585;
+  font-family: 'Anton', sans-serif;
 }
 
 .body-card {
@@ -567,32 +579,58 @@
 .profile-followers {
   font-size: 1.3rem;
   color: #a5a5a5;
+  cursor: pointer;
 }
 
-.profile-btn {
-  height: 32px;
-  padding: 0 12px;
-  font-size: 1.3rem;
+.profile-btn, .profile-btn-disabled, .cropper button {
   position: relative;
   color: #0e0e0e;
   background: #1dc1d7;
   border: 0;
+  height: 32px;
+  padding: 0 12px;
+  font-size: 1.3rem;
   border-radius: 16px;
-  -webkit-box-shadow: -2px 3px #13808f;
-          box-shadow: -2px 3px #13808f;
+  -webkit-box-shadow: -2px 3px #13808f !important;
+          box-shadow: -2px 3px #13808f !important;
 }
 
-.profile-btn:hover {
-  -webkit-box-shadow: -2px 3px #0d5862 !important;
-          box-shadow: -2px 3px #0d5862 !important;
+.profile-btn:hover, .profile-btn-disabled:hover, .cropper button:hover {
   background: #19a9bc;
 }
 
-.profile-btn:active, .profile-btn:focus {
-  -webkit-box-shadow: -1px 2px #0d5862 !important;
-          box-shadow: -1px 2px #0d5862 !important;
+.profile-btn:active, .profile-btn-disabled:active, .cropper button:active, .profile-btn:focus, .profile-btn-disabled:focus, .cropper button:focus {
   background: #19a9bc;
   top: 1px;
+}
+
+.profile-btn:hover, .profile-btn-disabled:hover, .cropper button:hover {
+  -webkit-box-shadow: -2px 3px #0d5862 !important;
+          box-shadow: -2px 3px #0d5862 !important;
+}
+
+.profile-btn:active, .profile-btn-disabled:active, .cropper button:active, .profile-btn:focus, .profile-btn-disabled:focus, .cropper button:focus {
+  -webkit-box-shadow: -1px 2px #0d5862 !important;
+          box-shadow: -1px 2px #0d5862 !important;
+}
+
+.profile-btn-disabled, .cropper button {
+  background: #af0b0b;
+  color: #f1f1f1;
+  -webkit-box-shadow: -2px 3px #4f0505 !important;
+          box-shadow: -2px 3px #4f0505 !important;
+}
+
+.profile-btn-disabled:hover, .cropper button:hover {
+  background: #7f0808;
+  -webkit-box-shadow: -2px 3px #1f0202 !important;
+          box-shadow: -2px 3px #1f0202 !important;
+}
+
+.profile-btn-disabled:active, .cropper button:active, .profile-btn-disabled:focus, .cropper button:focus {
+  -webkit-box-shadow: -1px 2px #1f0202 !important;
+          box-shadow: -1px 2px #1f0202 !important;
+  background: #7f0808;
 }
 
 .profile-report {
@@ -605,6 +643,83 @@
 
 .profile-report:active, .profile-report:focus {
   top: 1px;
+}
+
+.view-followers {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background: #00000094;
+}
+
+.view-followers .close-followers {
+  position: absolute;
+  height: 30px;
+  top: -35px;
+  right: 2px;
+}
+
+.view-followers .close-followers:hover {
+  cursor: pointer;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.view-followers .followers-pic {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
+
+.view-followers .followers-username {
+  font-size: 1.4rem;
+  margin-left: 15px;
+}
+
+.view-followers .profile-followers-btn, .view-followers .profile-followers-btn-disabled {
+  position: relative;
+  color: #0e0e0e;
+  background: #1dc1d7;
+  border: 0;
+  float: right !important;
+  height: 25px;
+  padding: 0 10px;
+  font-size: 1.2rem;
+  border-radius: 12.5px;
+}
+
+.view-followers .profile-followers-btn:hover, .view-followers .profile-followers-btn-disabled:hover {
+  background: #19a9bc;
+}
+
+.view-followers .profile-followers-btn:active, .view-followers .profile-followers-btn-disabled:active, .view-followers .profile-followers-btn:focus, .view-followers .profile-followers-btn-disabled:focus {
+  background: #19a9bc;
+  top: 1px;
+}
+
+.view-followers .profile-followers-btn-disabled {
+  background: #af0b0b;
+  color: #f1f1f1;
+}
+
+.view-followers .profile-followers-btn-disabled:hover {
+  background: #7f0808;
+}
+
+.view-followers .profile-followers-btn-disabled:active, .view-followers .profile-followers-btn-disabled:focus {
+  background: #7f0808;
 }
 
 .activity {
@@ -757,8 +872,10 @@
 
 .body-card-form .body-form-title {
   min-height: 70px !important;
-  max-height: 90px;
+  max-height: 110px;
   margin-bottom: 10px;
+  resize: none;
+  overflow: hidden;
   font-size: 1.4rem !important;
   word-wrap: break-word !important;
   background: #353535f5 !important;
@@ -767,8 +884,10 @@
 
 .body-card-form .body-form-text {
   min-height: calc(5em + 2vw) !important;
-  max-height: calc(7em + 2vw) !important;
+  max-height: calc(9em + 2vw) !important;
   margin-bottom: 10px;
+  resize: none;
+  overflow: hidden;
   font-size: 1.4rem !important;
   background: #353535f5 !important;
   border: solid 1.7px #585858 !important;
@@ -1325,13 +1444,20 @@ code {
   width: 100vw;
   left: 0;
   top: 0;
-  z-index: 999;
+  z-index: 99999;
 }
 
 .cropper button {
   position: absolute;
-  bottom: 0;
-  right: 0;
+  bottom: 40px;
+  right: 60px;
+  height: 35px;
+  font-size: 1.4rem;
+}
+
+.cropper button:active, .cropper button:focus {
+  top: initial;
+  bottom: 39px;
 }
 
 .reactEasyCrop_Image {

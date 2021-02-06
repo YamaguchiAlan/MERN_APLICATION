@@ -4,6 +4,7 @@ const Comments = require('../models/Comments')
 const News = require('../models/News')
 const Users = require('../models/Users')
 const Activity = require("../models/Activity")
+const {format} = require('timeago.js')
 
 commentsCtrl.createComment = async (req, res) => {
     const {comment, userId} = req.body;
@@ -28,13 +29,17 @@ commentsCtrl.createComment = async (req, res) => {
     await news.save()
     await user.save()
     await activity.save()
-    newComment.populate( "user", {username: 1}, (err, comment) => {
+    newComment.populate( "user", {username: 1}, (err, cmt) => {
         if(err) {
             console.log(err)
         } else{
+            const comment = {
+                ...cmt._doc,
+                formatedDate: format(cmt.createdAt)
+            }
             res.send({
                 success: "Comment added",
-                comment: comment
+                comment
             })
         }
     })
@@ -63,13 +68,18 @@ commentsCtrl.getComments = async (req, res) => {
         if(err){
             console.log(err)
         } else{
-            res.send(news.comments)
+            const comments = news.comments.map(e => ({
+                ...e._doc,
+                formatedDate: format(e.createdAt)
+            }))
+
+            res.send(comments)
         }
     })
 }
 
 commentsCtrl.LikeComment = async (req, res) => {
-    const {userId} = req.body
+    const {userId, formatedDate} = req.body
 
     if(req.params.operator === "increment") {
         Comments.findByIdAndUpdate(req.params.id, {$push: {like: userId}}, async (err, doc) => {
@@ -84,7 +94,12 @@ commentsCtrl.LikeComment = async (req, res) => {
                 await activity.save()
                 await Users.findByIdAndUpdate(userId, {$push: {"activity": activity.id}})
 
-                const comment = await Comments.findById(req.params.id)
+                let comment = await Comments.findById(req.params.id).populate("user", {username: 1})
+                comment = {
+                    ...comment._doc,
+                    formatedDate
+                }
+
                 res.send({
                     success: "You like this comment",
                     comment
@@ -101,7 +116,12 @@ commentsCtrl.LikeComment = async (req, res) => {
                 await Users.findByIdAndUpdate(userId, {$pull: {"activity": activity.id}})
 
                 await activity.remove()
-                const comment = await Comments.findById(req.params.id)
+                let comment = await Comments.findById(req.params.id).populate("user", {username: 1})
+                comment = {
+                    ...comment._doc,
+                    formatedDate
+                }
+
                 res.send({
                     success: "This comment was removed from your liked comments",
                     comment
@@ -112,7 +132,7 @@ commentsCtrl.LikeComment = async (req, res) => {
 }
 
 commentsCtrl.disikeComment = async (req, res) => {
-    const {userId} = req.body
+    const {userId, formatedDate} = req.body
 
     if(req.params.operator === "increment") {
         Comments.findByIdAndUpdate(req.params.id, {$push: {dislike: userId}}, async (err, doc) => {
@@ -127,7 +147,12 @@ commentsCtrl.disikeComment = async (req, res) => {
                 await activity.save()
                 await Users.findByIdAndUpdate(userId, {$push: {"activity": activity.id}})
 
-                const comment = await Comments.findById(req.params.id)
+                let comment = await Comments.findById(req.params.id).populate("user", {username: 1})
+                comment = {
+                    ...comment._doc,
+                    formatedDate
+                }
+
                 res.send({
                     success: "You don't like this comment",
                     comment
@@ -144,7 +169,12 @@ commentsCtrl.disikeComment = async (req, res) => {
                 await Users.findByIdAndUpdate(userId, {$pull: {"activity": activity.id}})
 
                 await activity.remove()
-                const comment = await Comments.findById(req.params.id)
+                let comment = await Comments.findById(req.params.id).populate("user", {username: 1})
+                comment = {
+                    ...comment._doc,
+                    formatedDate
+                }
+
                 res.send({
                     success: "This comment was removed from your disliked comments",
                     comment

@@ -12,9 +12,14 @@ const newsSchema = new Schema({
     image: {
         type: Buffer
     },
-    author: String,
+    author: {
+        username: {type: String},
+        _id: {type: Schema.Types.ObjectId, ref: "Users"}
+    },
     article: [{type: Schema.Types.ObjectId, ref: 'Article'}],
     comments: [{type: Schema.Types.ObjectId, ref: "Comments"}]
 }, { timestamps: true });
+
+newsSchema.index({title: "text"})
 
 module.exports = model('News', newsSchema);

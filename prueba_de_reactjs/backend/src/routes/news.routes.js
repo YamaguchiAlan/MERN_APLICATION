@@ -11,7 +11,7 @@ const upload = multer({
     }
 })
 
-const { getNews, newsImage, updateNewsImage, getNewsImg, deleteNews} = require('../controllers/news.controllers');
+const { getNews, newsImage, updateNewsImage, getNewsImg, deleteNews, searchBar} = require('../controllers/news.controllers');
 
 router.get('/api/news', getNews);
 
@@ -27,5 +27,7 @@ router.put('/api/update-news-img/:id', upload.single("body-img"), updateNewsImag
 router.get('/api/news-img/:id', getNewsImg)
 
 router.delete('/api/news/delete/:id', deleteNews)
+
+router.get('/api/search-bar/:title', searchBar)
 
 module.exports = router

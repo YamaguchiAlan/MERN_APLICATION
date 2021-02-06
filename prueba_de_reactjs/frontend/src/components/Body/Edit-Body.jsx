@@ -1,24 +1,38 @@
-import React, { useState} from 'react';
+import React, { useEffect } from 'react';
 import withLoader from '../HOC-With-Loader/HOC-withLoader';
 import { Link } from 'react-router-dom';
 import {format} from 'timeago.js'
 import axios from 'axios'
+import {connect} from 'react-redux'
+import { deleteBodyCardData} from '../../Redux/actions/bodyCardActions'
 
 import instagram from '../../img/instagram.png';
 import twitter from '../../img/twitter.png';
 import edit from '../../img/edit.svg';
 import remove from '../../img/trash-2.svg'
 
-const EditBody = ({news}) => {
-    const [News, setNews] = useState(news)
+const mapStateToProps = state => {
+    return { news: state.bodyCardReducer.bodyCard }
+}
+
+const mapDispatchToProps = dispatch => {
+    return { deleteNews: () => dispatch(deleteBodyCardData()) }
+}
+
+const EditBody = ({news, deleteNews}) => {
+    useEffect(() => {
+        return(() => {
+            deleteNews()
+        })
+    },[])
 
     const onRemoveClick = (id) => {
         axios.delete(`http://localhost:4000/api/news/delete/${id}`)
-        .then(res => setNews(res.data))
+        .then(res => console.log(res.data))
     }
 
     return(
-        News.map(props =>
+        news.map(props =>
         <div className="row no-gutters w-75 h-auto mb-3 ml-md-3">
             <div className="col-md-4 body-img-back">
                 <img src={`http://localhost:4000/api/news-img/${props._id}`} alt="" className="card-img background-img"/>
@@ -31,7 +45,7 @@ const EditBody = ({news}) => {
                     <div className="card-body pb-0 body-card-text">
                         <div className="d-flex justify-content-between card-body-edit pb-2">
                             <div className="d-flex align-items-end">
-                                <Link to={`/update-article/${props._id}`} >
+                                <Link to={`/edit-articles/update/${props._id}`} >
                                     <img src={edit} alt="Editar"/>
                                 </Link>
                                 <div className="span-container">
@@ -53,7 +67,7 @@ const EditBody = ({news}) => {
                         <p className="card-text body-text">{props.text}</p>
                     </div>
                     <div className="card-footer pb-0">
-                        <p className="body-author float-left rounded font-weight-bold ">Por: {props.author}</p>
+                        <p className="body-author float-left rounded font-weight-bold ">Por: {props.author.username}</p>
                         <p className="body-date float-left rounded font-weight-bold">{format(props.createdAt, 'es_ES')}</p>
 
                         <div className="social">
@@ -68,4 +82,4 @@ const EditBody = ({news}) => {
     )
 }
 
-export default withLoader(EditBody, "news", "body-back");
+export default withLoader(connect(mapStateToProps, mapDispatchToProps)(EditBody), "news", "body-back");

@@ -1,8 +1,24 @@
-import { SET_BODY_CARD, SET_BODY_CARD_BLOB, DELETE_ALL_BODY_CARD_DATA, SET_BODY_CARD_AUTHOR } from '../constants/action-types'
+import { SET_BODY_CARD,
+         SET_BODY_CARD_FAILED,
+         SET_FIRST_BODY_CARD,
+         SET_BODY_CARD_BLOB,
+         DELETE_ALL_BODY_CARD_DATA,
+         SET_BODY_CARD_AUTHOR
+        } from '../constants/action-types'
 
 export const setBodyCard = (payload) => {
     return { type: SET_BODY_CARD,
              bodyCard: payload
+    }
+}
+
+export const setBodyCardFailed = () => {
+    return { type: SET_BODY_CARD_FAILED }
+}
+
+export const setFirstBodyCard = (payload) => {
+    return { type: SET_FIRST_BODY_CARD,
+        bodyCard: payload
     }
 }
 

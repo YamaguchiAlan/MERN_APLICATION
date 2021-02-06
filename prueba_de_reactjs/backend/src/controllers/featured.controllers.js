@@ -1,6 +1,6 @@
 const featuredCtrl = {};
 
-const Featured = require('../models/Featured');
+const Featured = require('../models/Highlight');
 
 featuredCtrl.createFeatured = async (req, res) => {
     const {title, image, className} = req.body;

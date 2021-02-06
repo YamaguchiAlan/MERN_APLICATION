@@ -1,8 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
-import {format} from 'timeago.js'
 import {connect} from 'react-redux'
-import checkMenuBtn from './checkMenuBtn'
 
 const mapStateToProps = state => {
     return {
@@ -69,7 +67,7 @@ const CommentUser = ({comment, userId, removeComment}) =>{
                         }
                     </div>
                     <div className="row date-row">
-                        <span className="comment-date">{format(comment.createdAt)}</span>
+                        <span className="comment-date">{comment.formatedDate}</span>
                     </div>
                 </div>
                 <img className="comment-menu-btn" src="/img/Menu.png" alt="menu" onClick={menu} clickFlag={false} active={false}/>

@@ -72,7 +72,7 @@ const User = ({ username, verified, id, date, editMode }) => (
                                             Home
                                         </Link>
                                     :
-                                        <Link to="/edit-news" className="sign-up">
+                                        <Link to="/edit-articles" className="sign-up">
                                             Editor Mode
                                         </Link>
                                 }
