@@ -1,7 +1,8 @@
-@import "components/colors";
+@import "./colors";
+@import "./font-sizes";
 
 @import "components/header";
-@import "components/body-head", "components/search-bar";
+@import "components/higlight", "components/search-bar";
 @import "components/body";
 @import "components/nav" ;
 @import "components/footer";
@@ -12,6 +13,7 @@
 @import "components/comments/comments";
 @import "components/most-viewed";
 @import "components/loader";
+@import "components/page-selector";
 
 html{
     font-size: 10pt;
@@ -51,7 +53,7 @@ html{
   }
 
 .form-control:invalid + .invalid-feedback{
-    font-size: 1.2rem !important;
+    font-size: $small-2 !important;
 }
 
 .cropper{
@@ -67,7 +69,7 @@ html{
       bottom: 40px;
       right: 60px;
       height: 35px;
-      font-size: 1.4rem;
+      font-size: $medium-1;
 
       &:active, &:focus{
         top: initial;
@@ -79,4 +81,50 @@ html{
 .reactEasyCrop_Image{
     max-width: 80vw !important;
     max-height: 80vh !important;
+}
+
+.error-404{
+  flex-direction: column;
+  height: 100vh;
+
+  & .display-1{
+    font-weight: 600;
+    color: $light-blue-2;
+  }
+}
+
+@media only screen and (max-width: 1199px){
+  html{
+    font-size: 9.5pt !important;
+  }
+}
+
+@media only screen and  (max-width: 991px){
+  html{
+    font-size: 9pt !important;
+  }
+}
+
+@media only screen and (max-width: 767px){
+  html{
+    font-size: 8pt!important;
+  }
+}
+
+@media only screen and (max-width: 575px){
+  html{
+    font-size: 7.5pt !important;
+  }
+}
+
+@media only screen and (max-width: 479px){
+  html{
+    font-size: 7pt !important;
+  }
+}
+
+@media only screen and (max-width: 319px){
+  html{
+    font-size: 6.5pt !important;
+  }
 }

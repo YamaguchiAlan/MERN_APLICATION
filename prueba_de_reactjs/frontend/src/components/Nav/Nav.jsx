@@ -1,28 +1,38 @@
 import React, { useEffect, useState } from 'react';
 import NavGrid from './Nav-Grid';
-import onScrollFunction from '../../onScroll'
+import {scrollFunc} from '../../onScroll'
+import {Queries} from '../../Media-Queries'
 import axios from 'axios'
 
 const Nav = () => {
   const [navArr, setNavArr] = useState([]);
 
   useEffect(()=>{
-    onScrollFunction()
-
-    axios.get("/JSON/Nav.json")
-    .then(res => setNavArr(res.data))
+    axios.get("/news?filter=trending")
+    .then(res => {
+        setNavArr(res.data)
+        scrollFunc()
+      }
+    )
+    scrollFunc()
+    Queries()
   },[]);
 
   return(
-    navArr[0] ?
       <>
         <div id="nav-pos"></div>
-        <nav id="app-nav" className="float-right border border-danger mr-1 nav-container">
-            <h3 className="text-white text-center py-1 font-weight-bold trending">Trending</h3>
-            <NavGrid navArr={navArr}/>
+        <nav id="app-nav" className={`${navArr[0] && "border border-danger mr-1 nav-container"}`}>
+            {
+              navArr[0] &&
+<>
+              <h3 className="text-white w-100 text-center py-1 font-weight-bold trending">Trending</h3>
+
+                  <NavGrid navArr={navArr}/>
+
+                </>
+            }
         </nav>
       </>
-    : null
   )
 }
 

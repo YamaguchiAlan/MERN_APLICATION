@@ -4,11 +4,11 @@ import 'yamaguchi_ckeditor-custom/sample/styles.css'
 import BodyForm from './Body-form/Body-Form';
 import ArticleForm from './Article-form/Article-form';
 import Preview from './Preview/Preview';
-import Header from '../Header/Header';
+import Header from '../../Header/Header';
 
 import {connect} from 'react-redux'
-import {deleteBodyCardData, setBodyCardAuthor} from '../../Redux/actions/bodyCardActions'
-import {deleteAllArticleData} from '../../Redux/actions/articleActions'
+import {deleteBodyCardData, setBodyCardAuthor} from '../../../Redux/actions/bodyCardActions'
+import {deleteAllArticleData} from '../../../Redux/actions/articleActions'
 import {useHistory} from 'react-router-dom'
 
 const mapStateToPops = state => {
@@ -34,10 +34,15 @@ const CreateArticle = ({bodyCard, article, user, setBodyCardAuthor, deleteBodyCa
         document.getElementById('article-form').style.display="none"
         document.getElementById('preview').style.display="none"
         if(user._id){
-            setBodyCardAuthor(user)
+            setBodyCardAuthor({
+                username: user.username
+            })
         } else{
             history.push("/")
         }
+        document.getElementById("article-author-top").innerHTML=user.username
+        document.getElementById("article-author-bottom").innerHTML=`- ${user.username}`
+        document.getElementById("article-date").innerHTML="just now"
 
         return() => {
             deleteBodyCardData()
@@ -52,7 +57,7 @@ const CreateArticle = ({bodyCard, article, user, setBodyCardAuthor, deleteBodyCa
         if (e.target.checkValidity() === false) {
             e.stopPropagation();
         } else{
-            axios.post('http://localhost:4000/api/create-article', {
+            axios.post('/article', {
                 BodyData: bodyCard.bodyCard[0],
                 ArticleData: article.articleData
             })
@@ -60,12 +65,12 @@ const CreateArticle = ({bodyCard, article, user, setBodyCardAuthor, deleteBodyCa
             .then( bodyId => {
                 let data = new FormData()
                 data.append('body-img', bodyCard.bodyCardImgBlob)
-                axios.post(`http://localhost:4000/api/news-img/${bodyId.data}`, data, {headers: {'Content-Type': 'multipart/form-data'}})
+                axios.post(`/news/${bodyId.data}/image`, data, {headers: {'Content-Type': 'multipart/form-data'}})
 
                 .then( articleId => {
                     let data = new FormData()
                     data.append('article-img', article.articleImgBlob)
-                    axios.put(`http://localhost:4000/api/update-article-img/${articleId.data}`, data, {headers: {'Content-Type': 'multipart/form-data'}})
+                    axios.put(`/article/${articleId.data}/image`, data, {headers: {'Content-Type': 'multipart/form-data'}})
                     .then(history.push("/"))
                 })
             })
@@ -79,7 +84,7 @@ const CreateArticle = ({bodyCard, article, user, setBodyCardAuthor, deleteBodyCa
             <div className="w-100 text-white new-article">
                 <BodyForm />
 
-                <ArticleForm articleSubmit={articleSubmit} userId={bodyCard.bodyCard[0].author._id}/>
+                <ArticleForm articleSubmit={articleSubmit} />
 
                 <Preview/>
             </div>

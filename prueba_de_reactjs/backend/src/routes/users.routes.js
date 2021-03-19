@@ -35,28 +35,28 @@ const { signup,
         getFollowers
     } = require('../controllers/users.controllers');
 
-router.post('/api/signup', signup)
+router.post('/api/users/signup', signup)
 
-router.post('/api/signin', signin)
+router.post('/api/users/signin', signin)
 
-router.get('/api/authenticate', isAuthenticated , authenticate)
+router.get('/api/users/authenticate', isAuthenticated , authenticate)
 
-router.get('/api/logout', logout)
+router.get('/api/users/logout', logout)
 
-router.get("/api/user/:id", getUser)
+router.get("/api/users/:id", getUser)
 
-router.put('/api/upload-user-image/:id', upload.single('user-img'), uploadImage)
+router.put('/api/users/image', isAuthenticated, upload.single('user-img'), uploadImage)
 
-router.get('/api/user-image/:id', getUserImage)
+router.get('/api/users/:id/image', getUserImage)
 
-router.get("/api/user-activity/:id", getActivity)
+router.get("/api/users/:id/activity", getActivity)
 
-router.put('/api/follow-user/:id', followUser)
+router.put('/api/users/follow/:userId', isAuthenticated, followUser)
 
-router.put('/api/unfollow-user/:id', unfollowUser)
+router.put('/api/users/unfollow/:userId', isAuthenticated, unfollowUser)
 
-router.get("/api/following/:id", getFollowing)
+router.get("/api/users/:id/following", getFollowing)
 
-router.get("/api/followers/:id", getFollowers)
+router.get("/api/users/:id/followers", getFollowers)
 
 module.exports = router;

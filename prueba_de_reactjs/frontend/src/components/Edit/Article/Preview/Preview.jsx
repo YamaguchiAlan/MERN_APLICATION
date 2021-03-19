@@ -1,7 +1,7 @@
 import React from 'react'
-import ArticleCover from '../../Article/Article-cover';
-import ArticleBody from '../../Article/Article-body';
-import Nav from '../../Nav/Nav'
+import ArticleCover from '../../../Article/Article-cover';
+import ArticleBody from '../../../Article/Article-body';
+import Nav from '../../../Nav/Nav'
 import {connect} from 'react-redux'
 
 const mapStateToPops = state => {
@@ -17,8 +17,8 @@ const Preview = ({articleData}) => {
 
     return(
         <div className="preview text-white mt-3 card" id="preview">
-            <div className="card-header ">
-                <div className="back-preview float-left d-flex align-items-center">
+            <div className="card-header">
+                <div className="back-preview d-flex align-items-center">
                     <i class="fas fa-chevron-left" id="preview-back-btn" onClick={backBtn}></i>
                     <div className="back-btn-text">
                         <span>Go Back</span>

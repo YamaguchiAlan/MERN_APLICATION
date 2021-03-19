@@ -6,7 +6,24 @@ const featuredScheam = new Schema({
         type: String,
         required: true
     },
-    className: String
+    imageBuffer: {
+        type: Buffer
+    },
+    className: String,
+    widthAspect: {
+        type: Number,
+        required: true
+    },
+    heightAspect: {
+        type: Number,
+        required: true
+    },
+    index: {
+        type:  Number,
+        required: true,
+        unique: true
+    },
+    news: {type: Schema.Types.ObjectId, ref:"News"}
 },{timestamps: true})
 
-module.exports = model('Featured', featuredScheam)
+module.exports = model('Higlight', featuredScheam)

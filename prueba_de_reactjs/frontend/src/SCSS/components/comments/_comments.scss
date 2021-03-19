@@ -1,14 +1,14 @@
 @import "./comment-user";
 
 .comments-back{
-    width: 70% !important;
+    width: 70%;
     margin: 0 0 10px 3%;
     background: #1b1b1bb6;
-    border-radius: 2%;
+    border-radius: 20px;
     overflow: hidden;
 
     & .coments-counter{
-        font-size: 1.6rem;
+        font-size: $medium-2;
         font-weight: bold;
         padding: 6px 0;
         text-align: center;
@@ -23,7 +23,7 @@
         color: rgb(255, 255, 255);
 
         & .comment-text{
-            font-size: 1.4rem;
+            font-size: $medium-1;
         }
     }
 }
@@ -42,13 +42,14 @@
     }
 
     & textarea, & textarea:focus, & textarea:hover, & textarea:active{
-        min-height: 80px;
+        min-height: 60px;
+        resize: none;
 
         overflow: hidden;
         background:#2b2b2b;
         border: 0;
         color: rgb(255, 255, 255);
-        font-size: 1.4rem;
+        font-size: $medium-1;
     }
 
     & textarea::placeholder{
@@ -56,13 +57,13 @@
     }
 
     & button {
-        font-size: 1.1rem;
+        font-size: $small-1;
     }
 }
 
 .like-dislike{
     margin-left: 35px;
-    font-size: 1.8rem;
+    font-size: $medium-3;
 
     & .fa-thumbs-up{
         cursor: pointer;
@@ -86,5 +87,12 @@
 
     & span{
         margin: 0 5px;
+    }
+}
+
+@media only screen and (max-width:991px){
+    .comments-back{
+        width: calc(100% - 20px);
+        margin: 0 0 10px 10px;
     }
 }

@@ -4,13 +4,93 @@ const News = require('../models/News');
 const Articles = require('../models/Article')
 
 newsCtrl.getNews = async (req, res) => {
-    const news = await News.find({}, {image:0}).sort({createdAt: -1});
-    res.json(news);
+    const {filter, limit, page} = req.query
+    if(filter){
+        if(filter === "most-viewed"){
+            const news = await News.find({}, {_id: 1, title: 1}).sort({views: -1}).limit(parseInt(limit))
+            res.send(news)
+        }
+        if(filter === "trending"){
+            News.aggregate([
+                {
+                    $match: {
+                        views: {
+                            $gt: 0
+                        }
+                    }
+                },
+                {
+                    $project: {
+                        _id: true,
+                        createdAt: true,
+                        updatedAt: true,
+                        title: true,
+                        views: true,
+                        trendScore: {
+                            $divide: [ "$views", {$subtract: [new Date(), "$createdAt"]} ]
+                        }
+                    }
+                },
+                {
+                    $sort: {
+                        trendScore: -1
+                    }
+                },
+                {
+                    $limit: 10
+                }
+            ]).exec((err, news) => {
+                if(err){
+                    console.log(err);
+                } else{
+                    res.send(news)
+                }
+            })
+        }
+    } else{
+        let options = {
+            page: page,
+            limit: 12,
+            select: "-image -article -comments -views",
+            sort: {createdAt: -1}
+        }
+        if(!page || isNaN(parseInt(page)) || page <= 0){
+            options.page = 1
+        }
+        News.paginate({}, options, (err, news) => {
+            if(err){
+                console.log(err);
+            } else{
+                res.send(news)
+            }
+        })
+    }
 };
+
+newsCtrl.getNewsOfType = async (req, res) => {
+    const {page} = req.query
+
+    let options = {
+        page: page,
+        limit: 12,
+        select: "-image -article -comments -views",
+        sort: {createdAt: -1}
+    }
+    if(!page || isNaN(parseInt(page)) || page <= 0){
+        options.page = 1
+    }
+
+    News.paginate({type: req.params.type}, options, (err, news) => {
+        if(err){
+            console.log(err);
+        } else{
+            res.send(news)
+        }
+    })
+}
 
 newsCtrl.newsImage = async (req, res) => {
     try {
-        console.log(req.params.id)
         const news = await News.findById(req.params.id);
         news.image = req.file.buffer
         await news.save();
@@ -22,7 +102,6 @@ newsCtrl.newsImage = async (req, res) => {
 
 newsCtrl.updateNewsImage = async (req, res) => {
     try {
-        console.log(req.params.id)
         const news = await News.findById(req.params.id);
         news.image = req.file.buffer
         await news.save();
@@ -47,24 +126,68 @@ newsCtrl.getNewsImg = async (req, res) => {
 }
 
 newsCtrl.deleteNews = async (req, res) => {
-    await News.findByIdAndDelete(req.params.id, async (err, news) => {
+    const newsId = req.params.id
+    const myId = req.session.passport.user
+
+    News.findOneAndDelete({_id: newsId, "author._id": myId}, async (err, news) => {
         if(err) {
             console.log(err)
         } else {
             await Articles.findByIdAndDelete(news.article[0])
+            res.send({success: "News Deleted"})
         }
     })
-    const news = await News.find({}, {image: 0})
-    res.json(news)
 }
 
 newsCtrl.searchBar = async (req, res) => {
-    const news = await News.find(
-        {"$text": {"$search": `\"${req.params.title}\"`} },
-        {"score": {"$meta": "textScore"} , image: 0}
-    ).sort({"score": {"$meta": "textScore"}})
+    const {page} = req.query
 
-    res.send(news)
+    let options = {
+        page: page,
+        limit: 12,
+        select: {
+            "image": 0,
+            "article": 0,
+            "comments": 0,
+            "views": 0,
+            "score": {"$meta": "textScore"}
+        },
+        sort: {"score": {"$meta": "textScore"}}
+    }
+    if(!page || isNaN(parseInt(page)) || page <= 0){
+        options.page = 1
+    }
+
+    News.paginate({"$text": {"$search": `\"${req.params.title}\"`} }, options, (err, news) => {
+        if(err){
+            console.log(err);
+        } else{
+            res.send(news)
+        }
+    })
+}
+
+newsCtrl.getMyNewsOfType = async (req, res) => {
+    const {page} = req.query
+    const userId = req.session.passport.user
+
+    let options = {
+        page: page,
+        limit: 12,
+        select: "-image -article -comments -views",
+        sort: {createdAt: -1}
+    }
+    if(!page || isNaN(parseInt(page)) || page <= 0){
+        options.page = 1
+    }
+
+    News.paginate({type: req.params.type, "author._id": userId }, options, (err, news) => {
+        if(err){
+            console.log(err);
+        } else{
+            res.send(news)
+        }
+    })
 }
 
 module.exports = newsCtrl;

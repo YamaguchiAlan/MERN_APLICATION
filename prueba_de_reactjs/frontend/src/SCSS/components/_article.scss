@@ -1,51 +1,62 @@
 $border: 1px solid $white;
 
-$tiny: 1.1rem;
-$small: 1.4rem;
-$default: 1.7rem;
-$big: 2.2rem;
-$huge: 2.5rem;
-$author: 1.5rem;
-
 .cover{
     background: rgb(0, 0, 0) !important;
     margin-bottom: 10px;
-}
 
-.atc-img{
-    filter: opacity(0.6);
-}
+    & .atc-img{
+        filter: opacity(0.6);
+    }
 
-.atc-title{
-    font-weight: 700;
-    font-size: 3rem;
-    text-shadow: rgb(20, 20, 20) 5px 4px 2px;
+    & .atc-title{
+        font-weight: 700;
+        font-size: calc(2.4rem + 0.5vw);
+        text-shadow: rgb(20, 20, 20) 5px 4px 2px;
+    }
 }
 
 .article-body{
-    max-width: 70% !important;
+    max-width: 70%;
     margin: 10px 0 0 3%;
     padding: 0 10px;
     word-wrap: break-word;
-}
 
-.article-author{
-    display: flex;
-    & img{
-        height: 32px;
-        width: 32px;
-        border-radius: 16px;
+    & .article-author{
+        display: flex;
+        & img{
+            height: 32px;
+            width: 32px;
+            border-radius: 50%;
+        }
+
+        & span {
+            font-size: $medium-1;
+            margin-left: 5px;
+        }
     }
 
-    & span {
-        font-size: $author;
-        margin-left: 5px;
+    & .article-author-bottom{
+        margin-top: 1rem !important;
+        text-align: right;
+        width: 100%;
+
+        & p{
+            color: $red;
+            font-size: $medium-1;
+            display: inline-block;
+        }
+
+        & img{
+            height: 30px;
+            display: inline-block ;
+            margin-left: 5px;
+            margin-bottom: 7px
+        }
     }
 }
-
 
 .article-body .atc-content{
-    font-size: 1.7rem;
+    font-size: $medium-2;
     margin-top: 10px;
 
     & p {
@@ -53,19 +64,19 @@ $author: 1.5rem;
     }
 
     & .text-tiny {
-        font-size: $tiny;
+        font-size: $small-1;
     }
 
     & .text-small{
-        font-size: $small;
+        font-size: $small-3 + 0.1rem;
     }
 
     & .text-big{
-        font-size: $big;
+        font-size: $big-2;
     }
 
     & .text-huge {
-        font-size: $huge;
+        font-size: $huge-1;
     }
 
     & blockquote {
@@ -97,7 +108,7 @@ $author: 1.5rem;
             margin: 25px auto;
 
             & figcaption {
-                font-size: 1.4rem;
+                font-size: $small-3 + 0.1rem;
                 word-wrap: break-word;
                 padding: 4px 10px;
             }
@@ -116,20 +127,85 @@ $author: 1.5rem;
     }
 }
 
-.article-author-bottom{
-    text-align: right;
-    width: 100%;
-
-    & p{
-        color: $red;
-        font-size: $author;
-        display: inline-block;
+@media only screen and(max-width:1199px){
+    .cover .atc-title{
+        font-size: $huge-1;
     }
 
-    & img{
-        height: 30px;
-        display: inline-block ;
-        margin-left: 5px;
-        margin-bottom: 7px
+    .article-body{
+        margin-left: 20px;
+    }
+}
+
+@media only screen and (max-width: 991px){
+    .cover .atc-title{
+        font-size: $big-3;
+    }
+
+    .article-body{
+        max-width: 100%;
+        margin: 10px 20px 0 10px;
+
+        & .article-author img{
+            height: 30px;
+            width: 30px;
+        }
+
+        & .article-author-bottom img{
+            height: 28px;
+        }
+    }
+}
+
+@media only screen and (max-width: 767px){
+    .cover {
+        .atc-title-container{
+            padding-top: 5px;
+        }
+        .atc-title{
+            font-size: $big-2;
+            line-height: 110%;
+        }
+    }
+
+    .article-body {
+        & .article-author img{
+            height: 27px;
+            width: 27px;
+        }
+
+        & .article-author-bottom img{
+            height: 25px;
+        }
+    }
+}
+
+@media only screen and (max-width: 575px){
+    .article-body {
+        & .article-author img{
+            height: 25px;
+            width: 25px;
+        }
+
+        & .article-author-bottom img{
+            height: 23px;
+        }
+    }
+}
+
+@media only screen and (max-width: 479px){
+    .cover .atc-title{
+        font-size: calc(1.5rem + 1.2vw);
+    }
+
+    .article-body {
+        & .article-author img{
+            height: 23px;
+            width: 23px;
+        }
+
+        & .article-author-bottom img{
+            height: 21px;
+        }
     }
 }

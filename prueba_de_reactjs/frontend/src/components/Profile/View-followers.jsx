@@ -25,7 +25,7 @@ const ViewFollowers = ({followType, id, setFollowType, myFollowing, myId, follow
 
     useEffect(() => {
          if(followType ){
-            axios.get(`http://localhost:4000/api/${followType}/${id}`)
+            axios.get(`/users/${id}/${followType}`)
             .then(res => setFollowers(res.data))
          }
          return(() => {
@@ -34,7 +34,7 @@ const ViewFollowers = ({followType, id, setFollowType, myFollowing, myId, follow
     }, [followType])
 
     const follow = (userId) => {
-        axios.put(`http://localhost:4000/api/follow-user/${myId}`, {user:  userId})
+        axios.put(`/users/follow/${userId}`)
         .then(res => {
             if(res.data.success){
                 followUser(userId)
@@ -44,7 +44,7 @@ const ViewFollowers = ({followType, id, setFollowType, myFollowing, myId, follow
     }
 
     const unfollow = (userId) => {
-        axios.put(`http://localhost:4000/api/unfollow-user/${myId}`, {user:  userId})
+        axios.put(`/users/unfollow/${userId}`)
         .then(res => {
             if(res.data.success){
                 unfollowUser(userId)
@@ -66,14 +66,16 @@ const ViewFollowers = ({followType, id, setFollowType, myFollowing, myId, follow
                         {
                             followers.map(e =>
                                 <div className="mb-3 d-flex align-items-center">
-                                    <img src={`http://localhost:4000/api/user-image/${e._id}`} alt="user-pic" className="followers-pic"/>
+                                    <img src={`${process.env.REACT_APP_API_URL}/api/users/${e._id}/image`} alt="user-pic" className="followers-pic"/>
                                     <span className="followers-username">{e.username}</span>
                                     <div className="w-100">
                                         {
-                                        myFollowing.includes(e._id) ?
-                                            <button className="profile-followers-btn-disabled" onClick={() => unfollow(e._id)} ref={unfollowRef}>Unfollow</button>
-                                        :
-                                            <button className="profile-followers-btn" onClick={() => follow(e._id)} ref={followRef}>Follow</button>
+                                        e._id !== myId ?
+                                            myFollowing.includes(e._id) ?
+                                                <button className="profile-followers-btn-disabled" onClick={() => unfollow(e._id)} ref={unfollowRef}>Unfollow</button>
+                                            :
+                                                <button className="profile-followers-btn" onClick={() => follow(e._id)} ref={followRef}>Follow</button>
+                                        :null
                                         }
                                     </div>
                                 </div>

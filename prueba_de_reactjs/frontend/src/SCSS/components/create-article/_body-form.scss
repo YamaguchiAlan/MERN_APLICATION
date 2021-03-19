@@ -2,7 +2,7 @@
     background: #232526 !important;
 
     & .article-type{
-        font-size: 1.2rem !important;
+        font-size: $small-2 !important;
     }
 
     & .preview-body-img{
@@ -17,7 +17,7 @@
         width: 100%;
 
         & .card-form-img-btn{
-            font-size: 1.2rem !important;
+            font-size: $small-2 !important;
         }
     }
 
@@ -28,7 +28,8 @@
         resize: none;
         overflow: hidden;
 
-        font-size: 1.4rem !important;
+        color: $text-color;
+        font-size: $medium-1 !important;
         word-wrap: break-word !important;
         background: #353535f5 !important;
         border: solid 1.7px rgb(88, 88, 88) !important;
@@ -41,7 +42,7 @@
         resize: none;
         overflow: hidden;
 
-        font-size: 1.4rem !important;
+        font-size: $medium-1 !important;
         background: #353535f5 !important;
         border: solid 1.7px rgb(88, 88, 88) !important;
     }

@@ -3,25 +3,25 @@
     background: rgb(43, 43, 43) !important;
 
     & .text-tiny{
-        font-size: 1.1rem;
+        font-size: $small-1;
     }
 
     & .text-small{
-        font-size: 1.4rem;
+        font-size: $small-3 + 0.1rem;
     }
 
-    font-size: 1.7rem !important;
+    font-size: $medium-2 !important;
 
     & .text-big {
-        font-size: 2.2rem;
+        font-size: $big-2;
     }
 
     & .text-huge{
-        font-size: 2.5rem;
+        font-size: $huge-1;
     }
 
     & figure figcaption {
-        font-size: 1.4rem !important;
+        font-size: $small-3 + 0.1rem !important;
         background: rgba(0, 0, 0, 0) !important;
         color: $text-color !important;
         padding: 0 5px !important;

@@ -1,32 +1,39 @@
 .activity{
     width: 45%;
+    max-height: 75vh;
     margin-bottom: 20px;
     border-radius: 20px;
-    overflow: hidden;
-    .activity-title{
+    overflow: scroll;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    & .activity-title{
         width: 100%;
         background: #323232;
         padding: 3px 0;
         text-align: center;
-        font-size: 1.6rem;
+        font-size: $medium-2;
         margin: 0;
     }
 
-    .activity-card-1{
+    & .activity-card-1{
         background: #626262;
         padding: 15px 0;
-        .date{
+
+        & .date{
             display: inline-block;
             text-align: right;
             width: 100%;
             padding-right: 25px;
-            font-size: 1.2rem;
+            font-size: $small-2;
             font-style: italic;
         }
 
-        .activity-text{
+        & .activity-text{
             text-align: center;
-            font-size: 1.5rem;
+            font-size: $medium-1;
             margin: 0;
             color: #dfdfdf;
 
@@ -43,7 +50,7 @@
         }
     }
 
-    .activity-card-2{
+    & .activity-card-2{
         @extend .activity-card-1;
         background: #4B4B4B;
     }

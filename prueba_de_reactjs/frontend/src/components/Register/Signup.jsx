@@ -3,15 +3,35 @@ import {Link, useHistory} from 'react-router-dom'
 import axios from 'axios'
 import defaultImage from '../../img/default-profile-pic.jpg'
 import {getCroppedImg} from '../Image-cropper/Crop-image'
-//maximo 12 letras username
+import Header from '../Header/Header'
+
 const Signup = () => {
     const history = useHistory()
 
     useEffect(()=> {
-        document.getElementById("username-alert").style.display="none"
-        document.getElementById("email-alert").style.display="none"
-        document.getElementById("password-alert").style.display="none"
         document.getElementById("confirmPassword-alert").style.display="none"
+
+        const signupForm = document.getElementById("signup-form")
+        const header = document.getElementById("header")
+
+        const inputs = document.querySelectorAll(".register .signin-input")
+        inputs.forEach(element => {
+            element.addEventListener("keypress", e => {
+                if (e.which == 32){
+                    e.returnValue = false
+                }
+            })
+        })
+
+        if(header){
+            signupForm.style.height=`${window.innerHeight - header.offsetHeight}px`
+        }
+
+        return(() => {
+            if(header){
+                signupForm.style.height="initial"
+            }
+        })
     }, [])
 
     const [User, setUser] = useState({
@@ -27,56 +47,51 @@ const Signup = () => {
             [e.target.id]: e.target.value
         })
 
-        if(e.target.id === "username") {document.getElementById("username-alert").style.display="none"}
-        if(e.target.id === "email") {document.getElementById("email-alert").style.display="none"}
-
-        if(e.target.id === "password" || e.target.id === "confirmPassword"){
-            confirmPassword(e)
+        switch (e.target.id) {
+            case "username":
+                document.getElementById("username-alert").innerHTML="You must enter a username"
+                e.target.classList.remove("is-invalid")
+                break;
+            case "email":
+                document.getElementById("email-alert").innerHTML="You must enter an email"
+                e.target.classList.remove("is-invalid")
+                break;
+            case "password":
+                if(e.target.value.length >= 4){
+                    document.getElementById("password-help").classList.remove("alert")
+                }
+                document.getElementById("confirmPassword-alert").style.display = "none"
+                break;
+            case "confirmPassword":
+                document.getElementById("confirmPassword-alert").style.display = "none"
+                break;
+            default:
+                break;
         }
-
     }
 
-    const confirmPassword = (e) => {
-        let confirmPassAlert = document.getElementById("confirmPassword-alert");
-        let submitBtn = document.getElementById('submit-btn');
-
-        if(e.target.id === "password") {
-            if(e.target.value.length < 4){
-                document.getElementById("passwordHelp").className="form text text-danger";
-                submitBtn.disabled = true;
-                confirmPassAlert.style.display = "none"
+    const confirmPassword = () => {
+        if(User.password.length < 4){
+            document.getElementById("password-help").classList.add("alert");
+            return false
+        } else {
+            if(User.password !== User.confirmPassword){
+                document.getElementById("confirmPassword-alert").style.display = "flex"
+                return false
             } else {
-                document.getElementById("passwordHelp").className="form text text-success";
-
-                if(e.target.value !== User.confirmPassword){
-                    confirmPassAlert.style.display = "flex"
-                    submitBtn.disabled = true;
-                } else {
-                    confirmPassAlert.style.display = "none"
-                    submitBtn.disabled = false;
-                }
-            }
-        }
-
-        if(e.target.id === "confirmPassword") {
-            if(User.password.length >= 4) {
-
-                if(User.password !== e.target.value){
-                    confirmPassAlert.style.display = "flex";
-                    submitBtn.disabled = true;
-                } else {
-                    confirmPassAlert.style.display = "none"
-                    submitBtn.disabled = false;
-                }
+                return true
             }
         }
     }
 
     const sendData = (e) => {
-        e.preventDefault();
-
-        if(validateForm(e.target)) {
-            axios.post('http://localhost:4000/api/signup', User)
+        e.preventDefault()
+        console.log(confirmPassword());
+        e.target.classList.add('was-validated');
+        if (e.target.checkValidity() === false) {
+             e.stopPropagation();
+         } else if(confirmPassword()){
+            axios.post('/users/signup', User)
             .then(async res => {
                 if(res.data.success){
                     const crop = {
@@ -89,7 +104,7 @@ const Signup = () => {
 
                     let data = new FormData()
                     data.append("user-img" , blob)
-                    axios.put(`http://localhost:4000/api/upload-user-image/${res.data.id}`, data)
+                    axios.put(`/users/image`, data)
                     .then(history.push("/"))
                 }
             })
@@ -97,89 +112,70 @@ const Signup = () => {
                 if(error.response){
                     let err = Object.assign({}, error.response.data.errors)
                     if(err.username) {
-                        let username = document.getElementById('username-alert');
-                        username.style.display = "flex";
-                        username.firstChild.innerHTML = err.username.message;
+                        document.getElementById('username-alert').innerHTML = err.username.message;
+                        document.getElementById("username").classList.add("is-invalid")
                     }
                     if(err.email) {
-                        let email = document.getElementById('email-alert');
-                        email.style.display = "flex";
-                        email.firstChild.innerHTML = err.email.message;
+                        document.getElementById('email-alert').innerHTML = err.email.message;
+                        document.getElementById("email").classList.add("is-invalid")
                     }
                 }
             })
-        }
-    }
-
-    const validateForm = (e) =>{
-        let username = document.getElementById("username-alert");
-        let email = document.getElementById("email-alert");
-        let validate = true;
-
-        if(e.email.value.length === 0) {
-            email.firstChild.innerHTML = "Introdusca un email";
-            email.style.display = "flex";
-            e.email.focus()
-            validate = false;
-        }
-        if(e.username.value.length === 0) {
-            username.firstChild.innerHTML = "Introdusca un nombre de usuario";
-            username.style.display = "flex";
-            e.username.focus();
-            validate = false;
-        }
-        return validate;
+         }
     }
 
     return (
-        <div className="row register-back">
-            <Link to="/"> <i class="fas fa-chevron-left "></i></Link>
+        <>
+        <Header/>
+
+        <div className="row register-back" id="signup-form">
             <div className="col-md-5 mx-auto">
                 <div className="card register">
                     <div className="card-header">
-                        <h3>Crea una cuenta</h3>
+                        <Link to="/"> <i class="fas fa-chevron-left " id="register-go-back-btn"></i></Link>
+                        <h3 className="text-center">Create an acount</h3>
                     </div>
                     <div className="card-body">
-                        <form onSubmit={sendData}>
-                            <div className="form-group">
-                                <label for="username">Nombre de usuario</label>
-                                <input type="text" className="form-control" id="username" maxLength="25" onChange={onChangeInput}/>
+                        <form onSubmit={sendData} noValidate autoComplete="off">
+                            <div className="form-group" >
+                                <label for="username">Username</label>
+                                <input type="text" className="form-control signin-input" id="username" maxLength="12" onChange={onChangeInput} required autoComplete="off"/>
 
-                                <div class="alert alert-danger" role="alert" id="username-alert">
-                                    <small></small>
+                                <div className="invalid-feedback alert alert-danger" role="alert" id="username-alert">
+                                    You must enter a username
                                 </div>
                             </div>
                             <div className="form-group ">
                                 <label for="email">Email</label>
-                                <input type="email" className="form-control" id="email" onChange={onChangeInput}/>
+                                <input type="email" className="form-control signin-input" id="email" onChange={onChangeInput} required autoComplete="off"/>
 
-                                <div class="alert alert-danger" role="alert" id="email-alert">
-                                    <small></small>
+                                <div className="invalid-feedback alert alert-danger" role="alert" id="email-alert">
+                                    You must enter an email
                                 </div>
                             </div>
                             <div className="form-group">
-                                <label for="password">Contraseña</label>
-                                <input type="password" className="form-control" id="password" maxLength="20" aria-describedby="passwordHelp" onChange={onChangeInput}/>
-                                <small id="passwordHelp" className="form-text text-muted">La contraseña debe tener al menos 4 caracteres</small>
+                                <label for="password">Password</label>
+                                <input type="password" className="form-control signin-input" id="password" maxLength="20" onChange={onChangeInput} required/>
 
-                                <div class="alert alert-danger" role="alert" id="password-alert">
-                                    <small></small>
+                                <div role="alert" id="password-help">
+                                    <small style={{color: "rgb(196, 196, 196)"}}>Password must contain at least 4 characters</small>
                                 </div>
                             </div>
                             <div className="form-group">
-                                <label for="confirmPassword">Confirma la contraseña</label>
-                                <input type="password" className="form-control" id="confirmPassword" onChange={onChangeInput}/>
+                                <label for="confirmPassword">Confirm the Password</label>
+                                <input type="password" className="form-control signin-input" id="confirmPassword" onChange={onChangeInput} maxLength="20" required/>
 
-                                <div class="alert alert-danger" role="alert" id="confirmPassword-alert">
-                                    <small>Las contraseñas no coinciden</small>
+                                <div className="alert alert-danger" role="alert" id="confirmPassword-alert">
+                                    Passwords don't match
                                 </div>
                             </div>
-                            <button type="submit" className="btn btn-info btn-lg" id="submit-btn" disabled="true">Registrarse</button>
+                            <button type="submit" className="btn btn-info btn-lg w-100 mt-2" id="submit-btn" >Register</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
+        </>
     )
 }
 

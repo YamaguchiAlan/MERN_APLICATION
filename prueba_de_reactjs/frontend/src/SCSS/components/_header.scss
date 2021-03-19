@@ -9,98 +9,211 @@
 
   position: sticky;
   top: 0;
-}
 
-.logo{
-  @include header-element;
-  justify-content: center;
+  & .logo{
+    @include header-element;
+    justify-content: center;
 
-  color: rgb(255, 0, 0);
-  text-decoration: none;
-  font-size: 3.5rem;
-  letter-spacing: 2px;
-  text-shadow: 4px 2px 2px $dark-red;
-  font-family: 'Fjalla One', sans-serif;
-
-  &:hover{
+    color: rgb(255, 0, 0);
     text-decoration: none;
-    color: $red;
-  }
-  }
-
-.navbar hr{
-  height: 3px;
-  width: 100%;
-  background: rgb(128, 128, 128);
-  margin-bottom: 0;
-}
-
-.user-profile{
-  @include header-element;
-  justify-content: flex-end;
-  padding-right: 3%;
-
-  & img{
-    height: 55px;
-  }
-}
-
-.user-profile .user-text{
-  & a{
-    text-decoration: none;
-    padding-left: 6px;
-  }
-
-  & .user-name{
-    color: $text-color;
-    font-size: 1.4rem;
-    font-weight: 600;
-  }
-
-  & .sign a{
-    color: $red;
-    font-size: 1.2rem;
-    opacity: 0.6;
+    font-size: $logo-1;
+    letter-spacing: 2px;
+    text-shadow: 4px 2px 2px $dark-red;
+    font-family: 'Fjalla One', sans-serif;
 
     &:hover{
-      opacity: 1;
+      text-decoration: none;
+      color: $red;
+    }
+    }
+
+  & hr{
+    height: 3px;
+    width: 100%;
+    background: rgb(128, 128, 128);
+    margin: 10px 0 0 0;
+  }
+
+  & .user-profile{
+    @include header-element;
+    justify-content: flex-end;
+    padding-right: 3%;
+
+    & img{
+      height: 55px;
+      width: 55px;
+    }
+
+    & .user-text{
+      & a{
+        text-decoration: none;
+        padding-left: 6px;
+      }
+
+      & .user-name{
+        color: $text-color;
+        font-size: $medium-1;
+        font-weight: 600;
+      }
+
+      & .sign a{
+        color: $red;
+        font-size: $small-2;
+        opacity: 0.6;
+
+        &:hover{
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  & .selector {
+    @include header-element;
+
+    & .dropdown-toggle{
+      padding: 0 10px;
+    }
+
+    & .dropdown-divider{
+      border-color: rgb(172, 172, 172);
+    }
+
+    & .dropdown-menu{
+      background: rgb(36, 36, 36) ;
+
+      & a{
+        color: $text-color;
+        font-size: $medium-2 ;
+        font-weight: 600;
+
+        &:hover{
+          background: rgb(36, 36, 36);
+          transition: all 0.3s;
+          color: $light-blue;
+        }
+      }
+
+      & .actual{
+        transition: all 0.3s;
+        color: $light-blue;
+
+        &:hover{
+          color: $text-color;
+        }
+      }
     }
   }
 }
 
-.selector {
-  @include header-element;
+//--------------------------Media-Queries----------------------------------
+@media only screen and (max-width: 319px){
+  .navbar{
+    & .selector .dropdown-toggle{
+      height: 20px !important;
+    }
 
-  & .dropdown-toggle{
-    padding: 0 10px;
+    & .logo{
+      font-size: 2.8rem !important;
+    }
+
+    & .user-profile img{
+      height: 33px !important;
+      width: 33px !important;
+    }
+
+    & hr{
+      height: 1px;
+    }
   }
+}
 
-  & .dropdown-divider{
-    border-color: rgb(172, 172, 172);
+@media only screen and (min-width: 320px) and (max-width: 479px){
+  .navbar{
+    & .selector .dropdown-toggle{
+      height: 23px !important;
+    }
+
+    & .logo{
+      font-size: calc(2.6rem + 1.2vw) !important;
+    }
+
+    & .user-profile img{
+      height: 35px !important;
+      width: 35px !important;
+    }
+
+    & hr{
+      height: 2px;
+    }
   }
+}
 
-  & .dropdown-menu{
-    background: rgb(36, 36, 36);
+@media only screen and (min-width: 480px) and (max-width: 575px){
+  .navbar{
+    & .selector .dropdown-toggle{
+      padding-right: 3px;
+    }
 
-    & a{
-      color: $text-color;
-      font-size: 1.6rem ;
-      font-weight: 600;
+    & img{
+      height: 40px !important;
+      width: 40px !important ;
+    }
 
-      &:hover{
-        background: rgb(36, 36, 36);
-        transition: all 0.3s;
-        color: $light-blue;
+    & hr{
+      height: 2px;
+    }
+  }
+}
+
+@media only screen and (max-width: 991px){
+  .navbar{
+    & .selector{
+      width: initial;
+
+      & .dropdown-toggle{
+        height: 28px ;
+      }
+
+      & .dropdown-item{
+        background: rgb(36, 36, 36) ;
       }
     }
 
-    & .actual{
-      transition: all 0.3s;
-      color: $light-blue;
+    & .logo{
+      width: initial;
+      font-size: 3.3rem;
+    }
 
-      &:hover{
-        color: $text-color;
+    & .user-profile{
+      width: initial;
+
+      & img{
+        height: 45px;
+        width: 45px;
+        border-radius: 50%;
       }
+
+      & .user-text{
+        display: none;
+      }
+    }
+
+    & hr{
+      margin-top: 5px ;
+    }
+  }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px){
+  .navbar{
+    & .user-profile img{
+      height: 50px;
+      width: 50px;
+    }
+
+    & hr{
+      height: 2px;
     }
   }
 }

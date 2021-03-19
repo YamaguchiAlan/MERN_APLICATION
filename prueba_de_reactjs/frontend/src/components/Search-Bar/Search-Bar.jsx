@@ -15,8 +15,8 @@ const SearchBar =  () => {
     }
 
     return(
-        <form className="search" onSubmit={submitSearch}>
-                <input placeholder="Buscar" spellCheck="false" type="search" onChange={inputOnChange}/>
+        <form className="search" onSubmit={submitSearch} id="search-bar">
+                <input placeholder="Search" spellCheck="false" type="search" onChange={inputOnChange}/>
                 <button className="icon" type={'submit'}><i className="fas fa-search"></i></button>
         </form>
     )

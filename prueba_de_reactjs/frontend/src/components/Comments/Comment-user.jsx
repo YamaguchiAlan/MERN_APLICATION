@@ -43,7 +43,7 @@ const CommentUser = ({comment, userId, removeComment}) =>{
 
     return(
         <div className="comment-profile-back">
-            <img src={`http://localhost:4000/api/user-image/${comment.user[0]._id}`} alt="user-pic" className="comment-user-pic" />
+            <img src={`${process.env.REACT_APP_API_URL}/api/users/${comment.user[0]._id}/image`} alt="user-pic" className="comment-user-pic" />
             <span className="comment-username"> {comment.user[0].username}</span>
 
             <div className="date-and-menu">

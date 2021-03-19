@@ -1,25 +1,46 @@
 .register-back{
-    height: 100%;
-    background: #0F2027;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #2C5364, #203A43, #0F2027); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-}
+    align-items: center;
 
-.fa-chevron-left{
-    position: absolute;
-    top: 50px;
-    left: 60px;
-    font-size: 2.5rem;
-    color: rgb(238, 20, 20);
-}
+    & .register{
+        font-size: $medium-1;
+        background: #232526;
 
-.register{
-    font-size: 1.5rem;
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-}
+        & input{
+            color: $text-color;
+            font-size: $medium-1 !important;
+            background: #353535f5 !important;
+            border: solid 1.7px rgb(88, 88, 88) !important;
 
-.transition-0{
-    transition: all 0s !important;
+            &:hover, &:focus, &:active{
+                border: solid 1.7px rgb(105, 105, 105) !important;
+                color: $text-color;
+            }
+        }
+
+        & input:-webkit-autofill {
+            -webkit-text-fill-color: $text-color !important;
+            box-shadow: 0 0 0px 1000px #353535f5 inset !important;
+            -webkit-box-shadow: 0 0 0px 1000px #353535f5 inset !important;
+        }
+
+        & #confirmPassword-alert{
+            font-size: $small-2;
+        }
+
+        .alert{
+            background: rgb(75, 32, 32);
+            color: rgb(255, 31, 31);
+            border: 1px solid rgb(104, 42, 42);
+
+            & small{
+                color: rgb(255, 31, 31) !important;
+            }
+        }
+    }
+
+    & #register-go-back-btn{
+        position: absolute;
+        font-size: $huge-1;
+        color: rgb(238, 20, 20);
+    }
 }

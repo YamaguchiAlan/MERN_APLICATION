@@ -2,12 +2,13 @@ import React, {useState, useRef} from "react";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import customEditor from 'yamaguchi_ckeditor-custom/build/ckeditor'
 import {connect} from 'react-redux'
-import {setArticleData, setArticleBlob} from '../../../Redux/actions/articleActions'
-import ImageCropper from "../../Image-cropper/Image-cropper";
+import {setArticleData, setArticleBlob} from '../../../../Redux/actions/articleActions'
+import ImageCropper from "../../../Image-cropper/Image-cropper";
 
 const mapStateToPops = state => {
     return {
-        articleData: state.articleReducer.articleData
+        articleData: state.articleReducer.articleData,
+        userId: state.userReducer.user._id
     }
 }
 
@@ -18,7 +19,7 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-const ArticleForm = ({articleSubmit, articleData, setArticleData, setArticleBlob, userId}) => {
+const ArticleForm = ({userId, articleSubmit, articleData, setArticleData, setArticleBlob}) => {
     const [inputImg, setInputImg] = useState("")
 
     const inputRef = useRef(null)
@@ -58,55 +59,58 @@ const ArticleForm = ({articleSubmit, articleData, setArticleData, setArticleBlob
         setTimeout(() => {
             const data = editor.getData()
             const content = document.getElementById("content")
-            const editorTextArea = document.getElementById('editorTextArea')
-            content.innerHTML=data;
-            editorTextArea.value=content.textContent
+            editorFocus()
+            if(content){
+                const editorTextArea = document.getElementById('editorTextArea')
+                content.innerHTML=data;
+                editorTextArea.value=content.textContent
 
-            const imgSrc = document.querySelectorAll('.editor .ck figure img')
-            const img =  document.querySelectorAll('.preview #content img')
-            let imgNames = []
+                const imgSrc = document.querySelectorAll('.editor .ck figure img')
+                const img =  document.querySelectorAll('.preview #content img')
+                let imgNames = []
 
-            if(imgSrc[0]) {
-                img.forEach( (e, i) => {
+                if(imgSrc[0]) {
+                    img.forEach( (e, i) => {
 
-                    if(imgSrc[i].offsetWidth !== 0) {
-                        e.style.width = `${imgSrc[i].offsetWidth}px`
-                        if(img[i].parentElement.getElementsByTagName('figcaption')[0]) {
-                            img[i].parentElement.getElementsByTagName('figcaption')[0].style.width = `${imgSrc[i].offsetWidth}px`
+                        if(imgSrc[i].offsetWidth !== 0) {
+                            e.style.width = `${imgSrc[i].offsetWidth}px`
+                            if(img[i].parentElement.getElementsByTagName('figcaption')[0]) {
+                                img[i].parentElement.getElementsByTagName('figcaption')[0].style.width = `${imgSrc[i].offsetWidth}px`
+                            }
                         }
-                    }
 
-                    if(imgSrc[i].src.startsWith('form', 26)) {
-                        let filename = imgSrc[i].src.slice(60)
-                        imgNames.push(filename)
-                    } else{
-                        if(imgSrc[i].src.slice(-2).startsWith('/')){
-                            imgNames.push( parseInt(imgSrc[i].src.slice(-1)) )
-                        } else {
-                            imgNames.push( parseInt(imgSrc[i].src.slice(-2)) )
+                        if(imgSrc[i].src.startsWith('form', 34)) {
+                            let filename = imgSrc[i].src.slice(45)
+                            imgNames.push(filename)
+                        } else{
+                            if(imgSrc[i].src.slice(-2).startsWith('/')){
+                                imgNames.push( parseInt(imgSrc[i].src.slice(-1)) )
+                            } else {
+                                imgNames.push( parseInt(imgSrc[i].src.slice(-2)) )
+                            }
                         }
-                    }
+                    })
+                    editorTextArea.value="img"
+                }
+
+                const editIframe = document.querySelectorAll('.editor .media');
+                const prevIframe = document.querySelectorAll('.preview .media')
+
+                if (editIframe[0]) {
+                    editIframe.forEach( (e, i) => {
+                        let iframe = e.firstElementChild.firstElementChild
+                        let cloneIframe = iframe.cloneNode(true)
+
+                        content.replaceChild(cloneIframe, prevIframe[i])
+                    } )
+                    editorTextArea.value="media"
+                }
+                setArticleData({
+                    ...articleData,
+                    content: content.innerHTML,
+                    imagesName: imgNames
                 })
-                editorTextArea.value="img"
             }
-
-            const editIframe = document.querySelectorAll('.editor .media');
-            const prevIframe = document.querySelectorAll('.preview .media')
-
-            if (editIframe[0]) {
-                editIframe.forEach( (e, i) => {
-                    let iframe = e.firstElementChild.firstElementChild
-                    let cloneIframe = iframe.cloneNode(true)
-
-                    content.replaceChild(cloneIframe, prevIframe[i])
-                } )
-                editorTextArea.value="media"
-            }
-            setArticleData({
-                ...articleData,
-                content: content.innerHTML,
-                imagesName: imgNames
-            })
         },1)
     }
 
@@ -122,10 +126,18 @@ const ArticleForm = ({articleSubmit, articleData, setArticleData, setArticleBlob
         document.getElementById('body-card-form').style.display="block"
     }
 
+    const editorFocus = () => {
+        const header = document.getElementById("header")
+        const stickyPanel = document.getElementsByClassName("ck-sticky-panel__content_sticky")[0]
+        if(stickyPanel){
+            stickyPanel.style.top=`${header.offsetHeight}px`
+        }
+    }
+
     return(
         <div className="row mt-3" id="article-form">
             <div className="card article-form-back">
-                <div className="card-header d-flex flex-row justify-content-between">
+                <div className="card-header article-form-header d-flex justify-content-center">
                     <h2>Article Content</h2>
                     <button className="btn btn-outline-info preview-btn" onClick={previewBtn}>Article Preview</button>
                 </div>
@@ -215,11 +227,14 @@ const ArticleForm = ({articleSubmit, articleData, setArticleData, setArticleBlob
                                         ]
                                     },
                                     ckfinder: {
-                                        uploadUrl: `http://localhost:4000/api/form-img/${userId}`
+                                        uploadUrl: `${process.env.REACT_APP_API_URL}/api/article/form/${userId}/image`,
+                                        authentication: true
                                     }
                                 }}
 
                             onChange={editorChange}
+
+                            onFocus={editorFocus}
 
                             onReady={(editor) => {
                                 if(editor){
@@ -235,7 +250,7 @@ const ArticleForm = ({articleSubmit, articleData, setArticleData, setArticleBlob
 
                         <div className="btn-group mt-5">
                             <button className="btn btn-outline-secondary btn-lg" onClick={backBtn}>Back</button>
-                            <button type="submit" className="btn btn-info btn-lg">Create Article</button>
+                            <button type="submit" className="btn btn-info btn-lg" id="article-submit-btn">Create Article</button>
                         </div>
                     </form>
                 </div>

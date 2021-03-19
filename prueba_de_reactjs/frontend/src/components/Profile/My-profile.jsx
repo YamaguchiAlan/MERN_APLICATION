@@ -54,7 +54,7 @@ const MyProfile = ({user, verifyUser}) => {
         setInputImg("")
         const data = new FormData()
         data.set("user-img", blob)
-        axios.put(`http://localhost:4000/api/upload-user-image/${user._id}`, data)
+        axios.put(`/users/image`, data)
         .then(async res => {
             if(res.data.succes) {
                 verifyUser()
@@ -63,9 +63,7 @@ const MyProfile = ({user, verifyUser}) => {
     }
 
     const logoutUser = async () => {
-        const res = await axios.get("http://localhost:4000/api/logout", {
-            withCredentials: true
-        })
+        const res = await axios.get("/users/logout")
 
         if(res.data.success) {
             verifyUser()
@@ -80,7 +78,7 @@ const MyProfile = ({user, verifyUser}) => {
             <div className="d-flex justify-content-center" style={{marginTop: 50 + 'px'}}>
                 <div className="w-50" style={{transform: "translateX(5%)"}}>
                     <div className="profile-pic-back">
-                        <img src={user._id ? `http://localhost:4000/api/user-image/${user._id}?${user.updatedAt}` : "/img/profile-pic.png"} alt="profile-image" className="rounded " id="my-profile-pic"/>
+                        <img src={user._id ? `${process.env.REACT_APP_API_URL}/api/users/${user._id}/image?${user.updatedAt}` : "/img/profile-pic.png"} alt="profile-image" className="rounded " id="my-profile-pic"/>
                         <input type="file" accept="image/*" ref={inputRef} className="d-none" onChange={inputOnChange}/>
                     </div>
                     <div className="my-profile-back">

@@ -1,13 +1,19 @@
 import React, { useEffect } from 'react';
+import {format} from 'timeago.js'
+import {connect} from 'react-redux'
 
-const ArticleBody =({article}) =>{
+const mapStateToProps = state => {
+    return { userId: state.userReducer.user._id }
+}
+
+const ArticleBody =({article, userId}) =>{
     useEffect(() => {
-        /* Imprimiendo el subtitulo y el contenido */
         if(article) {
             document.getElementById("content").innerHTML = article.content;
             const images = document.querySelectorAll('#content img')
+
             images.forEach((e, i) => {
-                e.src = article.imagesUrl[i]
+                e.src = `${article.imagesUrl[i]}?date=${article.updatedAt}`
             })
         }
     });
@@ -15,8 +21,9 @@ const ArticleBody =({article}) =>{
     return(
     <div className="article-body" id="article-body">
         <div className="article-author">
-            <img src="/img/katana_zero.jpg" alt="Profile-pic"/>
-            <span>Por: <strong>Alan Yamaguchi</strong> 14/11/20</span>
+            <img src={article ? `${process.env.REACT_APP_API_URL}/api/users/${article.author._id}/image` : `${process.env.REACT_APP_API_URL}/api/users/${userId}/image`}alt="Profile-pic"/>
+            <span>By: <strong id="article-author-top">{article && article.author.username}</strong>
+             <span id="article-date">{article && format(article.createdAt)}</span></span>
         </div>
 
         <div className="atc-content" id="content">
@@ -24,8 +31,8 @@ const ArticleBody =({article}) =>{
 
         <div className="row">
             <div className="article-author-bottom text-right">
-                <p >
-                    - Alan Yamaguchi
+                <p id="article-author-bottom">
+                    - {article && article.author.username}
                 </p>
                 <img src="/img/instagram.png" alt="Instagram"/>
                 <img src="/img/twitter.png" alt="Twitter"/>
@@ -35,4 +42,4 @@ const ArticleBody =({article}) =>{
 )
 }
 
-export default ArticleBody;
+export default connect(mapStateToProps)(ArticleBody);

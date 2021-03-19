@@ -21,7 +21,7 @@
         align-items: center;
         margin-left: 70px;
 
-        font-size: 1.3rem;
+        font-size: $small-3;
     }
 }
 
@@ -34,7 +34,7 @@
     align-items: center;
 
     margin-right: 20px;
-    font-size: 1.1rem;
+    font-size: $small-1;
 
     & .comment-menu{
         transition: all 0.5s;

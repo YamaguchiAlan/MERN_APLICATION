@@ -32,13 +32,13 @@ const UserProfile = ({ match, id, followUser, unfollowUser}) => {
         if(match.params.id === id){
             history.push("/my-profile")
         } else{
-            axios.get(`http://localhost:4000/api/user/${match.params.id}`)
+            axios.get(`/users/${match.params.id}`)
             .then(res => setUser(res.data))
         }
     },[])
 
     const follow = (e) => {
-        axios.put(`http://localhost:4000/api/follow-user/${id}`, {user:  user._id})
+        axios.put(`/users/follow/${user._id}`)
         .then(res => {
             if(res.data.success){
                 followUser(user._id)
@@ -52,7 +52,7 @@ const UserProfile = ({ match, id, followUser, unfollowUser}) => {
     }
 
     const unfollow = (e) => {
-        axios.put(`http://localhost:4000/api/unfollow-user/${id}`, {user:  user._id})
+        axios.put(`/users/unfollow/${user._id}`)
         .then(res => {
             if(res.data.success){
                 unfollowUser(user._id)
@@ -72,7 +72,7 @@ const UserProfile = ({ match, id, followUser, unfollowUser}) => {
             <div className="d-flex justify-content-center" style={{marginTop: 50 + 'px'}}>
                 <div className="w-50" style={{transform: "translateX(5%)"}}>
                     <div className="profile-pic-back">
-                        <img src={`http://localhost:4000/api/user-image/${user._id}`} alt="profile-image" className="rounded "/>
+                        <img src={`${process.env.REACT_APP_API_URL}/api/users/${user._id}/image`} alt="profile-image" className="rounded "/>
 
                     </div>
                     <div className="profile-user-back">
@@ -104,7 +104,7 @@ const UserProfile = ({ match, id, followUser, unfollowUser}) => {
 
             <ViewFollowers followType={followType} id={user._id} setFollowType={setFollowType}/>
 
-            <Activity id={match.params.id}/>
+            <Activity id={match.params.id} username={user.username}/>
         </>
     )
 }

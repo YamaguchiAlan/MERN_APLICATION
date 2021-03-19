@@ -1,13 +1,12 @@
 import React, {useState, useRef} from 'react'
-import Body from '../../Body/Body'
-import ImageCropper from '../../Image-cropper/Image-cropper'
-import {setFirstBodyCard, setBodyCardBlob} from '../../../Redux/actions/bodyCardActions'
+import Body from '../../../Body/Body'
+import ImageCropper from '../../../Image-cropper/Image-cropper'
+import {setFirstBodyCard, setBodyCardBlob} from '../../../../Redux/actions/bodyCardActions'
 import {connect} from 'react-redux'
 
 const mapStateToPops = state => {
     return{
-        bodyCard: state.bodyCardReducer.bodyCard,
-        requestState: state.bodyCardReducer.requestState
+        bodyCard: state.bodyCardReducer.bodyCard
     }
 }
 
@@ -80,6 +79,20 @@ const BodyForm = ({ requestState, bodyCard, setFirstBodyCard, setBodyCardImgBlob
         e.target.style.height = e.target.scrollHeight +"px";
       }
 
+    const typeBtnClick = (e) => {
+        setFirstBodyCard([{
+            ...bodyCard[0],
+            type: e.target.innerHTML
+        }])
+
+        const actives = document.querySelectorAll("#body-card-form .card-header button.active")
+        actives.forEach(btn => {
+            btn.classList.remove("active")
+        })
+
+        e.target.classList.add("active")
+    }
+
     return(
         bodyCard[0] &&
         <div className="row" id="body-card-form">
@@ -87,8 +100,15 @@ const BodyForm = ({ requestState, bodyCard, setFirstBodyCard, setBodyCardImgBlob
                 <div className="card mt-3 body-card-form">
                     <div className="card-header border-bottom">
                         <div className="btn-group w-100 ">
-                            <button className="btn btn-outline-info active article-type py-2">Article</button>
-                            <button className="btn btn-outline-info article-type py-2">Highlight</button>
+                            <button className="btn btn-outline-info active article-type py-2" onClick={typeBtnClick} id="body-type-Article">
+                                Article
+                            </button>
+                            <button className="btn btn-outline-info article-type py-2" onClick={typeBtnClick} id="body-type-News">
+                                News
+                            </button>
+                            <button className="btn btn-outline-info article-type py-2" onClick={typeBtnClick} id="body-type-Review">
+                                Review
+                            </button>
                         </div>
                     </div>
                     <div className="card-body">
@@ -132,7 +152,7 @@ const BodyForm = ({ requestState, bodyCard, setFirstBodyCard, setBodyCardImgBlob
                             <div className="form-group mb-4">
                                 <label for="title"  className="form-label">Title</label>
                                 <textarea
-                                    className="body-form-title text-white form-control"
+                                    className="body-form-title form-control"
                                     id="body-input-title" name="title" maxLength="105"
                                     value={bodyCard[0].title} required onChange={textAreaAdjust}>
                                 </textarea>
@@ -156,8 +176,8 @@ const BodyForm = ({ requestState, bodyCard, setFirstBodyCard, setBodyCardImgBlob
                     </div>
                 </div>
             </div>
-            <div className="col-12 d-flex justify-content-center mt-3">
-                <Body editMode={true} requestState={requestState} fullWidth={true}/>
+            <div className="col-12">
+                <Body editMode={true} requestState={"Success"} header={true}/>
             </div>
             {
                 inputImg &&

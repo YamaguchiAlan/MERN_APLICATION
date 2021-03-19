@@ -8,7 +8,7 @@
     background: linear-gradient(to top, #414345, #232526);
 
     & .form-label{
-        font-size: 1.6rem;
+        font-size: $medium-2;
     }
 
     & .body-form-title:hover, & .body-form-title:active, & .body-form-title:focus,
@@ -37,13 +37,13 @@
     background: rgba(0, 0, 0, 0.267) !important;
 
     & .back-preview{
-        position: relative;
-        top: 8px;
-        left: 20px;
+        position: absolute;
+        margin-top: 5px;
+        left: 30px;
 
         & #preview-back-btn {
             color: darken($color: $red, $amount: 6);
-            font-size: 2.5rem;
+            font-size: $huge-1;
             position: relative;
             top: 0;
             left: 0;
@@ -62,7 +62,7 @@
                 transform: translateX(-100%);
                 transition: all 0.6s;
 
-                font-size: 1.3rem;
+                font-size: $small-3;
                 color: darken($color: $red, $amount: 6);
             }
         }

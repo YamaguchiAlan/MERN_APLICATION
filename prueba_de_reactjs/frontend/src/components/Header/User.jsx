@@ -16,7 +16,10 @@ const User = ({ username, verified, id, date, editMode }) => (
         {
             verified === false ?
                 <>
-                    <img src="/img/profile-pic.png" alt="imagen de usuario" />
+
+                    <Link to="/signin">
+                        <img src="/img/default-profile-pic.jpg" alt="imagen de usuario" />
+                    </Link>
 
                     <table className="user-text">
                         <tbody>
@@ -47,7 +50,9 @@ const User = ({ username, verified, id, date, editMode }) => (
                 </>
                 :
                 <>
-                    <img src={`http://localhost:4000/api/user-image/${id}?${date}`} alt="imagen de usuario" />
+                    <Link to="/my-profile">
+                        <img src={`${process.env.REACT_APP_API_URL}/api/users/${id}/image?${date}`} alt="imagen de usuario" />
+                    </Link>
 
                     <table className="user-text">
                         <tbody>
@@ -72,7 +77,7 @@ const User = ({ username, verified, id, date, editMode }) => (
                                             Home
                                         </Link>
                                     :
-                                        <Link to="/edit-articles" className="sign-up">
+                                        <Link to="/edit-articles/Article" className="sign-up">
                                             Editor Mode
                                         </Link>
                                 }

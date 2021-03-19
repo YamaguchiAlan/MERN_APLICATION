@@ -14,6 +14,7 @@ const initialState = {
             username:"",
             _id: ""
         },
+        type: "Article",
         createdAt: Date.now() ,
         defaultImg: "/img/preview.png",
         imgInput: false
@@ -27,7 +28,7 @@ function bodyCardReducer(state = initialState, action) {
         case SET_BODY_CARD:
             return Object.assign({}, state, {
                 bodyCard: action.bodyCard,
-                requestState: "Sucess"
+                requestState: "Success"
             })
         case SET_BODY_CARD_FAILED:
             return Object.assign({}, state, {

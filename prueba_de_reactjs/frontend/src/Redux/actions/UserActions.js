@@ -4,14 +4,11 @@ import axios from 'axios'
 export function verifyUser() {
     return dispatch => {
         dispatch(verifyStarted())
-
-        axios.get("http://localhost:4000/api/authenticate", {
-            withCredentials: true
-        })
-        .then(res => {
+        axios.get("/users/authenticate")
+        .then((res) => {
             dispatch(verifySuccess(res.data))
         })
-        .catch(err => {
+        .catch((err) => {
             dispatch(verifiedFailed())
         })
     }

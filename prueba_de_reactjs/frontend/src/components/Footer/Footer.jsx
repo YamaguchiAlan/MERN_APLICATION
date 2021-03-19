@@ -5,7 +5,6 @@ import FollowUs from './Follow-us';
 const Footer = () =>{
 
     useEffect( () =>{
-        /* Al hacer click en el boton del footer te lleva hasta el principio de la pagina */
         let goUp = document.getElementById("go-up");
 
         goUp.addEventListener('click', () =>{
@@ -20,11 +19,11 @@ const Footer = () =>{
             All the news about the world of gaming
             </p>
 
-            <Legal/>
+            <div className="d-flex footer-container">
+                <FollowUs/>
+                <Legal/>
+            </div>
 
-            <FollowUs/>
-
-            {/* Boton para ir al inicio de la pagina */}
             <i id="go-up" className="fas fa-angle-double-up"></i>
         </div>
     )

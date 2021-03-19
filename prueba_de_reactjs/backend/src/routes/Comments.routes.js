@@ -1,16 +1,26 @@
 const {Router} = require('express')
 const router = Router();
 
+const isAuthenticated = (req, res, next) => {
+    if(req.isAuthenticated()){
+        return next();
+    } else {
+        res.status(401).json({
+            error: {message: "Not Authorized"}
+        })
+    }
+}
+
 const { createComment, deleteComment, getComments, LikeComment, disikeComment } = require('../controllers/comments.controllers')
 
-router.post('/api/create-comment/:newsId', createComment)
+router.post('/api/comment/:newsId', isAuthenticated, createComment)
 
-router.delete('/api/delete-comment/:newsId', deleteComment)
+router.delete('/api/comment/:newsId', isAuthenticated, deleteComment)
 
-router.get('/api/:newsId/comments', getComments)
+router.get('/api/comments/:newsId', getComments)
 
-router.put('/api/like-comment/:id/:operator', LikeComment)
+router.put('/api/comment/:id/like/:operator', isAuthenticated, LikeComment)
 
-router.put('/api/dislike-comment/:id/:operator', disikeComment)
+router.put('/api/comment/:id/dislike/:operator', isAuthenticated, disikeComment)
 
 module.exports = router;

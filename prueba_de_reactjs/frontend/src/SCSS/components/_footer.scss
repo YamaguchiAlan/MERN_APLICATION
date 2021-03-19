@@ -4,14 +4,14 @@
 }
 
 .about-us{
-    padding-top: 30px;
+    padding: 30px 5px 0 5px;
     color: $white;
-    font-size: 4.5rem;
+    font-size: calc(3rem + 1vw);
     font-family: 'Fjalla One', sans-serif;
 
     & strong{
         color: $red;
-        font-size: 5.5rem;
+        font-size: calc(4rem + 1vw);
         letter-spacing: 3px;
         text-shadow: 5px 3px 2px $dark-red;
     }
@@ -32,8 +32,6 @@
 
 
 .legal{
-    margin-top: 40px;
-
     & tr .blue-line{
         border-right: 1px solid $light-blue-2;
     }
@@ -41,8 +39,7 @@
     & tr td a{
         text-decoration: none;
         color: $white;
-        font-size: 1.5rem;
-        padding-right: 7px;
+        font-size: calc(1rem + 0.4vw);
 
         &:hover{
             text-decoration: underline;
@@ -51,10 +48,12 @@
 }
 
 .follow-us{
+    padding-bottom: 40px;
+
     & p{
     margin-top: 10px;
     color: $red;
-    font-size: 3rem;
+    font-size: calc(2.4rem + 0.4vw);
     font-weight: bold;
     }
 
@@ -65,5 +64,146 @@
 
     & .social a img{
         padding-right: 5px;
+    }
+}
+
+//----------------Media Queries----------------------------
+
+@media only screen and(max-width: 1199px){
+    .about-us{
+        font-size: 3.684rem;
+        padding-top: 20px;
+
+        & strong{
+            font-size: 4.737rem
+        }
+    }
+
+    .fa-angle-double-up{
+        right: 40px;
+        top: 50px;
+    }
+
+    .legal-back .legal tr td a{
+        font-size: 1.579rem;
+    }
+
+    .follow-us{
+        & p{
+            margin-top: 0;
+            font-size: 2.526rem;
+        }
+    }
+}
+
+@media only screen and(max-width: 991px){
+    .about-us{
+        font-size: 3.333rem;
+        padding-top: 10px;
+
+        & strong{
+            font-size: 4.222rem
+        }
+    }
+
+    .fa-angle-double-up{
+        right: 35px;
+        top: 40px;
+    }
+
+    .legal-back .legal tr td a{
+        font-size: 1.444rem;
+    }
+
+    .follow-us{
+        & p{
+            font-size: 2.444rem;
+        }
+
+        & .social a img{
+            height: 20px !important;
+        }
+    }
+}
+
+@media only screen and (max-width: 767px){
+    .about-us{
+        font-size: $logo-1;
+        padding: 15px 5px 0 5px;
+
+        & strong{
+            font-size: 4.375rem
+        }
+    }
+
+    .fa-angle-double-up{
+        right: 30px;
+        font-size: 1.125rem;
+    }
+
+    .footer-container{
+        flex-direction: column;
+    }
+
+    .legal-back{
+        width: 100% !important;
+        padding-bottom: 20px;
+
+        & .legal tr td a{
+            font-size: 1.625rem;
+        }
+    }
+
+    .follow-us{
+        width: 100% !important;
+
+        & p{
+            font-size: $huge-3;
+        }
+
+        & .social a img{
+            height: 23px !important;
+            padding-right: 2px;
+        }
+    }
+}
+
+@media only screen and (max-width: 575px){
+    .about-us{
+        font-size: 3.2rem;
+        padding: 10px 5px 0 5px;
+
+        & strong{
+            font-size: 4rem
+        }
+    }
+
+    .fa-angle-double-up{
+        right: 20px;
+        top: 30px;
+    }
+}
+
+@media only screen and (max-width: 479px){
+    .about-us{
+        font-size: calc(0.714rem + 5.2vw);
+
+        & strong{
+            font-size: calc(1.428rem + 5.2vw)
+        }
+    }
+
+    .fa-angle-double-up{
+        right: 15px;
+        top: 25px;
+        font-size: 1.143rem;
+    }
+
+    .legal-back .legal tr td a{
+        font-size: 1.428rem;
+    }
+
+    .follow-us p{
+        font-size: 2.572rem;
     }
 }

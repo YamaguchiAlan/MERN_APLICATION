@@ -21,8 +21,8 @@ usersCtrl.signup = async (req, res) => {
     catch (err) {
         if(err.message.includes("duplicate key error collection")){
             err.keyValue.username ?
-            res.status(400).send({ errors: {username:{type:"error", name:"Database Error", message: 'Nombre de usuario no disponible'}} })
-            : res.status(400).send({ errors: {email:{type:"error", name:"Database Error", message: 'Este email ya esta en uso'}} })
+            res.status(400).send({ errors: {username:{type:"error", name:"Database Error", message: 'Username not available'}} })
+            : res.status(400).send({ errors: {email:{type:"error", name:"Database Error", message: 'This email is already in use'}} })
         }
         else{
             res.status(400).send(err)
@@ -33,10 +33,10 @@ usersCtrl.signup = async (req, res) => {
 usersCtrl.signin = function(req, res, next) {
     passport.authenticate('local', function(err, user, info) {
       if (err) { return next(err); }
-      if (!user) { return res.status(400).send({ error: { message: 'Nombre de usuario o contraseña incorrecta'} }); }
+      if (!user) { return res.status(400).send({ error: { message: 'Username or password is incorrect'} }); }
       req.logIn(user, function(err) {
         if (err) { return next(err); }
-        return res.send({ success: { message: 'Has iniciado sesión'} });
+        return res.send({ success: { message: 'Your loged-in'} });
       });
     })(req, res, next);
   }
@@ -65,7 +65,8 @@ usersCtrl.getUser = async (req, res) => {
 
 usersCtrl.uploadImage = async (req, res) => {
     try{
-        const user = await Users.findById(req.params.id)
+        const userId = req.session.passport.user
+        const user = await Users.findById(userId)
         user.image = req.file.buffer
         await user.save()
         res.status(201).send({succes: "image-updated"})
@@ -94,28 +95,30 @@ usersCtrl.getActivity = async (req, res) => {
 }
 
 usersCtrl.followUser = async (req, res) => {
-    const {user} = req.body;
+    const myId = req.session.passport.user
+    const userId = req.params.userId
 
-    await Users.findByIdAndUpdate(req.params.id, {
-        $push: {following: user}
+    await Users.findByIdAndUpdate(myId, {
+        $push: {following: userId}
     })
 
-    await Users.findByIdAndUpdate(user, {
-        $push: {followers: req.params.id}
+    await Users.findByIdAndUpdate(userId, {
+        $push: {followers: myId}
     })
 
     res.send({success: "Following User"})
 }
 
 usersCtrl.unfollowUser = async (req, res) => {
-    const {user} = req.body;
+    const myId = req.session.passport.user;
+    const userId = req.params.userId
 
-    await Users.findByIdAndUpdate(req.params.id, {
-        $pullAll: {following: [user]}
+    await Users.findByIdAndUpdate(myId, {
+        $pullAll: {following: [userId]}
     })
 
-    await Users.findByIdAndUpdate(user, {
-        $pullAll: {followers: [req.params.id]}
+    await Users.findByIdAndUpdate(userId, {
+        $pullAll: {followers: [myId]}
     })
 
     res.send({success: "Unfollow User"})

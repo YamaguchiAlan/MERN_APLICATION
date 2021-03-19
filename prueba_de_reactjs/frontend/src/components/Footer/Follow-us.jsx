@@ -1,7 +1,7 @@
 import React from 'react';
 
 const FollowUs = () =>(
-    <div className="follow-us w-50 pb-5">
+    <div className="follow-us w-50">
         <p className="siguenos text-center">Follow us</p>
         <hr className=""/>
         <div className="social text-center">

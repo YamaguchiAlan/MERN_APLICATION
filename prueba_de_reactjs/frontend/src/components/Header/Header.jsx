@@ -1,12 +1,15 @@
 import React, {useEffect} from 'react';
 import { Link } from 'react-router-dom'
-import onScrollFunction from '../../onScroll'
+import {scrollFunc} from '../../onScroll'
+import {Queries} from '../../Media-Queries'
+
 import User from './User';
 import MenuSelector from './Menu-Selector'
 
 const Header = ({editMode}) =>{
   useEffect(() => {
-    onScrollFunction()
+    Queries()
+    scrollFunc()
   }, [])
 
   return(

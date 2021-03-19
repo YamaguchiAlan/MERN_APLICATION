@@ -8,8 +8,8 @@ import 'bootstrap/dist/js/bootstrap.bundle';
 const MenuSelector = ({editMode}) => {
     return (
         editMode ? (
-        <div class="dropdown selector">
-            <img src={menu} class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" alt="menu"/>
+        <div className="dropdown selector" id="dropdown-menu">
+            <img src={menu} className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" alt="menu"/>
             <div class="dropdown-menu">
                 <NavLink className="dropdown-item" activeClassName="actual" exact to="/">
                     Home
@@ -17,14 +17,17 @@ const MenuSelector = ({editMode}) => {
                 <NavLink className="dropdown-item" activeClassName="actual" to="/create-article">
                     Create Article
                 </NavLink>
-                <div class="dropdown-divider"></div>
-                <NavLink className="dropdown-item" activeClassName="actual" to="/edit-articles">
+                <NavLink className="dropdown-item" activeClassName="actual" to="/update-higlights">
+                    Update Higlights
+                </NavLink>
+                <div className="dropdown-divider" ></div>
+                <NavLink className="dropdown-item" activeClassName="actual" to="/edit-articles/Article">
                     Edit Articles
                 </NavLink>
-                <NavLink className="dropdown-item" activeClassName="actual" to="/edit-news">
+                <NavLink className="dropdown-item" activeClassName="actual" to="/edit-articles/News">
                     Edit News
                 </NavLink>
-                <NavLink className="dropdown-item" activeClassName="actual" to="/edit-reviews">
+                <NavLink className="dropdown-item" activeClassName="actual" to="/edit-articles/Review">
                     Edit Reviews
                 </NavLink>
             </div>
@@ -33,24 +36,24 @@ const MenuSelector = ({editMode}) => {
         )
         :
         (
-        <div class="dropdown selector">
+        <div className="dropdown selector">
             <img src={menu} class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" alt="menu"/>
-            <div class="dropdown-menu">
+            <div class="dropdown-menu" id="dropdown-menu">
                 <NavLink className="dropdown-item" activeClassName="actual" exact to="/">
                     Home
                 </NavLink>
+                <NavLink className="dropdown-item" activeClassName="actual" to="/edit-articles/Article">
+                    Editor Mode
+                </NavLink>
                 <div class="dropdown-divider"></div>
-                <NavLink className="dropdown-item" activeClassName="actual" to="/create-article">
+                <NavLink className="dropdown-item" activeClassName="actual" to="/filter-news/News">
                     News
                 </NavLink>
-                <NavLink className="dropdown-item" activeClassName="actual" to="/create-article">
+                <NavLink className="dropdown-item" activeClassName="actual" to="/filter-news/Article">
                     Articles
                 </NavLink>
-                <NavLink className="dropdown-item" activeClassName="actual" to="/create-article">
+                <NavLink className="dropdown-item" activeClassName="actual" to="/filter-news/Review">
                     Reviews
-                </NavLink>
-                <NavLink className="dropdown-item" activeClassName="actual" to="/create-article">
-                    Most Viewed
                 </NavLink>
             </div>
             <SearchBar/>

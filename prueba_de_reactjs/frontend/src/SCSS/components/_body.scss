@@ -1,16 +1,18 @@
 $bg-color: #181717da;
 
-.body-header{
+.body-back{
+    width: 75%;
+}
 
-    font-size: 3rem ;
-    text-align: center;
-    text-shadow: 2px 3px 3px rgb(133, 133, 133);
+.body-header{
+    width: 75%;
+    font-size: $big-2 + 0.5rem ;
     font-family: 'Anton', sans-serif;
+    padding-left: 10px;
 }
 
 .body-card{
     background: $bg-color !important;
-    min-height: 200px;
 }
 
 .body-img-back{
@@ -44,10 +46,28 @@ $bg-color: #181717da;
     flex-direction: column;
     justify-content: space-evenly;
 
+    & .body-type{
+        text-align: right;
+        font-size: calc(0.4rem + 0.5vw);
+
+        &.Article{
+            color: darken($color: $red, $amount: 5);
+        }
+
+        &.News{
+            color: $light-blue-2
+        }
+
+        &.Review{
+            color: #0bc779;
+        }
+    }
+
     & .body-title a{
         text-decoration: none !important;
         color: $text-color;
-        font-size: calc(0.7em + 0.5vw);
+        font-size: calc(14.667px + 0.7vw);
+        line-height: 140%;
 
         &:hover{
             transition: 0.5s;
@@ -56,7 +76,8 @@ $bg-color: #181717da;
     }
 
     & .body-text{
-        font-size: calc(0.7em + 0.5vw);
+        font-size: calc(0.6rem + 0.6vw);
+        color: rgb(221, 221, 221);
     }
 }
 
@@ -64,7 +85,8 @@ $bg-color: #181717da;
     padding: 5px 8px;
 
     background: rgb(161, 39, 39);
-    font-size: 1.2rem;
+    font-size: calc(0.5rem + 0.5vw);
+    color: rgb(233, 233, 233)
 }
 
 .body-date{
@@ -73,8 +95,10 @@ $bg-color: #181717da;
     background: rgb(29, 129, 168);
 }
 
- .social a img{
-    height: 30px;
+.social a img{
+    height: calc(0.4rem + 0.6vw + 10px);
+    cursor: pointer;
+    margin-left: 5px;
 }
 
 //----------------- Edit mode ---------------------
@@ -87,7 +111,7 @@ $bg-color: #181717da;
     & span{
         position: relative;
         right: 100%;
-        font-size: 1.1rem;
+        font-size: $small-1;
         transition: all 0.5s;
     }
 
@@ -111,5 +135,118 @@ $bg-color: #181717da;
 
     & img:hover + .span-container span, & a:hover + .span-container span {
         right: 0;
+    }
+}
+
+//----------------------------Media Queruies--------------------------
+
+@media only screen and (max-width: 320px){
+    .body-card-text .body-type{
+        font-size: 1.077rem !important;
+    }
+
+    .body-author, & .body-date{
+        font-size: 1.077rem !important;
+        padding: 3px 5px !important;
+    }
+
+    .body-title a{
+        font-size: 1.692rem !important;
+    }
+
+    .body-img-back .body-img{
+        height: 135px !important;
+        width: 240px !important;
+    }
+
+    .social a img{
+        height: 21px !important;
+    }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 479px){
+    .body-card-text .body-type{
+        font-size: 1.072rem !important;
+    }
+
+    .body-author, & .body-date{
+        font-size: 1.072rem !important;
+        padding: 3px 5px !important;
+    }
+
+    .social a img{
+        height: 22px!important;
+    }
+
+    .body-img-back .body-img{
+        height: 160px !important;
+        width: 280px !important;
+    }
+}
+
+@media only screen and (min-width: 480px) and (max-width: 767px){
+    .social a img{
+        height: 22px !important;
+    }
+
+    .body-img-back .body-img{
+        height: 225px !important;
+        width: 400px !important;
+    }
+}
+
+@media only screen and (max-width: 991px){
+    .body-back{
+        width: 100% ;
+    }
+
+    .body-card-text {
+        & .body-text{
+            font-size: calc(8px + 0.7vw) !important;
+        }
+
+        & .body-type{
+            font-size: 1rem;
+            transform: translateY(-50%);
+        }
+}
+
+
+    .body-author, & .body-date{
+        font-size: 1rem;
+        padding: 4px 7px;
+    }
+
+    .social a img{
+        height: 25px;
+    }
+
+    .body-img-back .body-img{
+        height: 130px;
+        width: 230px;
+    }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px){
+    .body-card-text .body-type{
+        font-size: 0.95rem;
+    }
+
+    .body-title a{
+        font-size: 1.58rem !important;
+    }
+
+    .body-author, & .body-date{
+        font-size: 0.95rem;
+        padding: 4px 7px;
+    }
+
+    .social a img{
+        height: 25px;
+    }
+
+    .body-img-back .body-img{
+        height: 130px;
+        width: 230px;
     }
 }

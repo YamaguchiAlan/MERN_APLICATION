@@ -1,49 +1,46 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
+import {checkWindowSize} from '../../onResize'
 
 import Header from '../Header/Header'
-import Nav from '../Nav/Nav';
-import ArticleBody from './Article-body';
 import Footer from '../Footer/Footer';
-import Comments from '../Comments/Comments';
-import MostViewed from '../Most-Viewed/Most-Viewed';
-import ArticleCover from './Article-cover';
+import ArticleSuccess from './Article-Success';
 
 const Article = ({match}) =>{
     useEffect(() => {
-        axios.get(`http://localhost:4000/api/article/${match.params.id}`)
+        axios.get(`/articles/${match.params.id}`)
         .then(res => {
-            setArticle(res.data.article[0])
+            if(res.data.success){
+                setArticle({
+                    ...res.data.data.article[0],
+                    author: res.data.data.author,
+                    title: res.data.data.title
+                })
+                setRequestState("Success")
+
+                axios.put(`/articles/${match.params.id}/views`)
+            }else{
+                setRequestState("Failed")
+            }
         })
-    },[]);
+        .catch(err => {
+            setRequestState("Failed")
+        })
+        checkWindowSize()
+    },[match.params.id]);
 
 
-    const [Article, setArticle] = useState({});
+    const [Article, setArticle] = useState();
+    const [requestState, setRequestState] = useState("InProcess")
 
     return(
-        /* Verificando si existe */
-        Article ? (
         <>
             <Header />
 
-            <ArticleCover article={Article}/>
-
-            <Nav />
-
-            <ArticleBody article={Article} />
-
-            <Comments newsId={match.params.id}/>
-
-            <MostViewed/>
+            <ArticleSuccess Article={Article} newsId={match.params.id} articleLoader={true} requestState={requestState}/>
 
             <Footer />
         </>
-        )
-        : (<div>
-            no existe
-        </div>
-
-        )
     )
 }
 

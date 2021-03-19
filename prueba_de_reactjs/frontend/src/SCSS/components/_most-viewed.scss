@@ -1,44 +1,88 @@
 .most-viewed{
     border: 1.5px solid $light-blue-2 !important;
-}
+    margin: 0 0.6rem;
 
-.most-viewed-header{
-    background: #000000c9 !important;
+    & .most-viewed-header{
+        background: #000000c9 !important;
 
-    & h3{
-        color: $light-blue-2;
-        font-size: 1.8rem;
-    }
-}
-
-.most-viewed-body{
-    background: #00000086 !important;
-}
-
-.most-viewed-card{
-    background: rgb(0, 0, 0) !important;
-
-    & img{
-        filter: opacity(0.5);
-        transition: all 0.3s;
+        & h3{
+            color: $light-blue-2;
+            font-size: calc(17.333px + 0.5vw) ;
+        }
     }
 
-    &:hover{
-        cursor: pointer;
+    & .most-viewed-body{
+        background: #00000086 !important;
 
-        & img {
-            filter: opacity(0.2);
+        & .most-viewed-card{
+            background: rgb(0, 0, 0) !important;
+
+            & img{
+                filter: opacity(0.5);
+                transition: all 0.3s;
+            }
+
+            &:hover{
+                cursor: pointer;
+
+                & img {
+                    filter: opacity(0.2);
+                }
+            }
+
+            & a{
+                text-decoration: none !important;
+            }
+
+            & .most-viewed-title{
+                font-size: calc(12px + 0.5vw);
+                color: $text-color;
+                transition: 0.5s;
+
+                &:hover{
+                    color: $light-blue;
+                }
+            }
         }
     }
 }
 
-.most-viewed-title{
-    font-size: 1.5rem;
-    color: $text-color;
-    text-decoration: none !important;
-    transition: 0.5s;
+@media only screen and (max-width: 1199px) and (min-width: 992px){
+    .most-viewed .most-viewed-body{
+        & a{
+            padding-bottom: 10px;
+        }
 
-    &:hover{
-        color: $light-blue;
+        & .most-viewed-title{
+            font-size: 1.36rem !important;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 5;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        & .most-viewed-col.mt-3{
+            margin-top: 8px !important;
+        }
+    }
+}
+
+@media only screen and (max-width: 991px){
+    .most-viewed .most-viewed-body .most-viewed-col.margin-top{
+        margin-top: 8px !important;
+    }
+}
+
+@media only screen and (max-width: 575px){
+    .most-viewed .most-viewed-body{
+        & .most-viewed-col{
+            margin-top: 8px ;
+
+        }
+
+        & .most-viewed-col:first-child{
+            margin-top: 0;
+        }
     }
 }

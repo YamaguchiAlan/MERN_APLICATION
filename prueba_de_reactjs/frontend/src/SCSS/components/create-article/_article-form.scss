@@ -3,6 +3,11 @@
     margin: auto;
     background: #232526 !important;
 
+    & .article-form-header button{
+        position: absolute;
+        right: 20px;
+    }
+
     & .article-form-title{
         min-height: 95px !important;
 
@@ -13,7 +18,7 @@
         background: #353535f5 !important;
 
 
-        font-size: 1.4rem !important;
+        font-size: $medium-1 !important;
 
     }
 
@@ -30,10 +35,10 @@
     }
 
     & .article-img-btn{
-        font-size: 1.5rem !important;
+        font-size: $medium-1 !important;
     }
 
     & .preview-btn{
-        font-size: 1.3rem !important;
+        font-size: $small-3 !important;
     }
 }

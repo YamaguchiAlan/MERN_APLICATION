@@ -2,6 +2,16 @@ const { Router } = require('express');
 const router = Router();
 const multer = require('multer');
 
+const isAuthenticated = (req, res, next) => {
+    if(req.isAuthenticated()){
+        return next();
+    } else {
+        res.status(401).json({
+            error: {message: "Not Authorized"}
+        })
+    }
+}
+
 const upload = multer({
     fileFilter(req, file, cb) {
         if (!file.mimetype.match(/\/(png|jpg|jpeg)$/)){
@@ -14,6 +24,7 @@ const upload = multer({
 const {
     createArticle,
     getArticle,
+    increaseViews,
     formImg,
     getFormImg,
     getArticleImages,
@@ -22,20 +33,22 @@ const {
     updateArticleImg
 } = require('../controllers/article.controllers');
 
-router.post('/api/form-img/:id', multer({dest: './img'}).single('upload'), formImg);
+router.post('/api/article/form/:userId/image', upload.single('upload'), formImg);
 
-router.get('/api/form-img/:id/:path', getFormImg)
+router.get('/api/article/form/image/:id', getFormImg)
 
-router.post('/api/create-article', createArticle)
+router.post('/api/article', isAuthenticated, createArticle)
 
-router.put('/api/update-article/:id', updateArticle)
+router.put('/api/article/:id', isAuthenticated, updateArticle)
 
-router.put('/api/update-article-img/:id', upload.single('article-img'), updateArticleImg)
+router.put('/api/article/:id/image', isAuthenticated, upload.single('article-img'), updateArticleImg)
 
-router.get('/api/article/:id', getArticle);
+router.get('/api/articles/:id', getArticle);
 
-router.get('/api/article-cover-img/:id', getArticleCover)
+router.put('/api/articles/:id/views', increaseViews);
 
-router.get('/api/article/:id/img/:index', getArticleImages)
+router.get('/api/article/:id/cover-image', getArticleCover)
+
+router.get('/api/article/:id/image/:index', getArticleImages)
 
 module.exports = router;

@@ -1,0 +1,36 @@
+.page-selector{
+    & .page-link{
+      background: rgba(0, 0, 0, 0.308);
+      border-color: rgba(0, 0, 0, 0.466);
+      font-size: calc(1rem + 0.2vw);
+      color: $light-blue;
+      cursor: pointer;
+
+      &:hover{
+        background: rgba(0, 0, 0, 0.753);
+        color: $light-blue-2;
+      }
+
+      &:active, &:focus{
+        box-shadow: none !important;
+      }
+    }
+
+    & .page-item.active .page-link{
+      background: rgba(0, 0, 0, 0.753);
+      color: $light-blue-2;
+      border-color: rgba(0, 0, 0, 0.466);
+
+      &:hover{
+        background: rgba(0, 0, 0, 0.308);
+        color: $light-blue;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 1199px) {
+    .page-selector .page-link{
+      font-size: calc(10.667px + 0.4vw) !important;
+      padding: calc(4px + 0.4vw) calc(14px + 0.4vw);
+    }
+  }

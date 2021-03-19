@@ -7,7 +7,9 @@ const Activity = require("../models/Activity")
 const {format} = require('timeago.js')
 
 commentsCtrl.createComment = async (req, res) => {
-    const {comment, userId} = req.body;
+    const {comment} = req.body;
+    const userId = req.session.passport.user
+
     const newComment = new Comments({
         news: req.params.newsId,
         user: userId,
@@ -46,7 +48,8 @@ commentsCtrl.createComment = async (req, res) => {
 }
 
 commentsCtrl.deleteComment = async (req, res) => {
-    const {commentId, userId} = req.body;
+    const {commentId} = req.body;
+    const userId = req.session.passport.user
 
     const activity = await Activity.findOne({comment: commentId, news: req.params.newsId, action: "Comment"})
 
@@ -79,7 +82,8 @@ commentsCtrl.getComments = async (req, res) => {
 }
 
 commentsCtrl.LikeComment = async (req, res) => {
-    const {userId, formatedDate} = req.body
+    const {formatedDate} = req.body
+    const userId = req.session.passport.user
 
     if(req.params.operator === "increment") {
         Comments.findByIdAndUpdate(req.params.id, {$push: {like: userId}}, async (err, doc) => {
@@ -132,7 +136,8 @@ commentsCtrl.LikeComment = async (req, res) => {
 }
 
 commentsCtrl.disikeComment = async (req, res) => {
-    const {userId, formatedDate} = req.body
+    const {formatedDate} = req.body
+    const userId = req.session.passport.user
 
     if(req.params.operator === "increment") {
         Comments.findByIdAndUpdate(req.params.id, {$push: {dislike: userId}}, async (err, doc) => {

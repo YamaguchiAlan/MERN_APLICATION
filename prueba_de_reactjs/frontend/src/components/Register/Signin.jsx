@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {verifyUser} from '../../Redux/actions/UserActions'
 import {Link, useHistory} from 'react-router-dom'
 import axios from 'axios'
+import Header from '../Header/Header'
 
 function mapDispatchToProps(dispatch) {
     return {
@@ -15,7 +16,29 @@ const Signin = ({verifyUser}) => {
 
     useEffect(()=> {
         document.getElementById('form-alert').style.display = "none"
-    })
+
+        const signupForm = document.getElementById("signup-form")
+        const header = document.getElementById("header")
+
+        const inputs = document.querySelectorAll(".register .signin-input")
+        inputs.forEach(element => {
+            element.addEventListener("keypress", e => {
+                if (e.which == 32){
+                    e.returnValue = false
+                }
+            })
+        })
+
+        if(header){
+            signupForm.style.height=`${window.innerHeight - header.offsetHeight}px`
+        }
+
+        return(() => {
+            if(header){
+                signupForm.style.height="initial"
+            }
+        })
+    },[])
 
     const [User, setUser] = useState({
         username: "",
@@ -23,31 +46,42 @@ const Signin = ({verifyUser}) => {
     });
 
     const sendData = (e) => {
-        e.preventDefault();
-        axios({
-            method: 'POST',
-            data: User,
-            withCredentials: true,
-            url: 'http://localhost:4000/api/signin'
-        })
-        .then(res => {
-            if(res.data.success) {
-                verifyUser()
-                history.push("/")
-            }
-        })
-        .catch(err => {
-            const error = Object.assign({}, err)
-            if(error.response.data.error) {
-                document.getElementById('form-alert').firstChild.innerHTML = error.response.data.error.message
-                document.getElementById('form-alert').style.display = "flex"
-            } else{
-                console.log(error)
-            }
-        })
+        e.preventDefault()
+
+        e.target.classList.add('was-validated');
+        if (e.target.checkValidity() === false) {
+             e.stopPropagation();
+         } else{
+            axios({
+                method: 'POST',
+                data: User,
+                url: '/users/signin'
+            })
+            .then(res => {
+                if(res.data.success) {
+                    verifyUser()
+                    history.push("/")
+                }
+            })
+            .catch(err => {
+                const error = Object.assign({}, err)
+                if(error.response.data.error) {
+                    document.getElementById('form-alert').firstChild.innerHTML = error.response.data.error.message
+                    document.getElementById('form-alert').style.display = "flex"
+                    document.getElementById('form-alert').visible = true
+                } else{
+                    console.log(error)
+                }
+            })
+         }
     }
 
     const onChangeInput = (e) => {
+        const alert = document.getElementById("form-alert")
+        if(alert.visible){
+            alert.style.display="none"
+        }
+
         setUser({
             ...User,
             [e.target.name]: e.target.value
@@ -55,34 +89,45 @@ const Signin = ({verifyUser}) => {
     }
 
     return (
-        <div className="row register-back">
-            <Link to="/"> <i class="fas fa-chevron-left "></i></Link>
-            <div className="col-md-5 mx-auto">
+        <>
+        <Header/>
+
+        <div className="row register-back" id="signup-form">
+
+            <div className="col-md-5 mx-auto ">
                 <div className="card register">
                     <div className="card-header">
-                        <h3>Bienvenido</h3>
+                        <Link to="/"> <i class="fas fa-chevron-left " id="register-go-back-btn"></i></Link>
+                        <h3 className="text-center">Welcome</h3>
                     </div>
                     <div className="card-body">
-                        <form onSubmit={sendData}>
-                            <div class="alert alert-danger" role="alert" id="form-alert">
+                        <form onSubmit={sendData} noValidate>
+                            <div class="alert alert-danger" role="alert" id="form-alert" visible={false}>
                                 <small></small>
                             </div>
 
                             <div className="form-group">
-                                <label for="username">Nombre de usuario</label>
-                                <input type="text" className="form-control" id="username" name="username" onChange={onChangeInput}/>
+                                <label for="username">Username</label>
+                                <input type="text" className="form-control signin-input" id="username" name="username" maxLength="12" onChange={onChangeInput} required/>
+                                <div className="invalid-feedback alert alert-danger" role="alert">
+                                    You must enter your Username
+                                </div>
                             </div>
                             <div className="form-group">
-                                <label for="password">Contraseña</label>
-                                <input type="password" className="form-control" id="password" name="password" onChange={onChangeInput}/>
+                                <label for="password">Password</label>
+                                <input type="password" className="form-control signin-input" id="password" maxLength="20" name="password" onChange={onChangeInput} required/>
+                                <div className="invalid-feedback alert alert-danger" role="alert">
+                                    You must enter your Password
+                                </div>
                             </div>
-                            <button type="submit" className="btn btn-info btn-lg">Iniciar Seción</button>
+                            <button type="submit" className="btn btn-info btn-lg w-100 mt-2">Login</button>
                         </form>
                     </div>
 
                 </div>
             </div>
         </div>
+        </>
     )
 }
 

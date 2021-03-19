@@ -22,7 +22,7 @@ const mapDispatchToProps = dispatch => {
 
 const Comments = ({newsId, userId, comments, setComments}) =>{
     useEffect( ()=>{
-        axios.get(`http://localhost:4000/api/${newsId}/comments`)
+        axios.get(`/comments/${newsId}`)
         .then(res => {
             setComments(res.data.reverse())
         })
@@ -40,10 +40,7 @@ const Comments = ({newsId, userId, comments, setComments}) =>{
 
     const commentSubmit = (e) => {
         e.preventDefault()
-        axios.post(`http://localhost:4000/api/create-comment/${newsId}`, {
-            userId: userId,
-            comment: textareaRef.current.value
-        })
+        axios.post(`/comment/${newsId}`, { comment: textareaRef.current.value })
         .then(res => {
             if(res.data.success){
                 checkMenuBtn()
@@ -53,10 +50,9 @@ const Comments = ({newsId, userId, comments, setComments}) =>{
     }
 
     const removeComment = (commentId) => {
-        axios.delete(`http://localhost:4000/api/delete-comment/${newsId}`, {
+        axios.delete(`/comment/${newsId}`, {
             data: {
-                commentId: commentId,
-                userId: userId
+                commentId: commentId
             }
         })
         .then(res => {
@@ -72,12 +68,12 @@ const Comments = ({newsId, userId, comments, setComments}) =>{
         <div className="comments-back" id="comments">
             {comments.length > 0 ?(
                 <>
-                    <p className="coments-counter"> Comentarios({comments.length}) </p>
+                    <p className="coments-counter"> Comments({comments.length}) </p>
                     <div className="comments">
 
                         <form className=" make-comment" onSubmit={commentSubmit}>
                             <div className="d-flex">
-                            <img className="make-comment-user" src={`http://localhost:4000/api/user-image/${userId}`} alt="user-pic"/>
+                            <img className="make-comment-user" src={userId ? `${process.env.REACT_APP_API_URL}/api/users/${userId}/image` : "/img/default-profile-pic.jpg"} alt="user-pic"/>
                             <textarea className="form-control px-4" placeholder="Add a comment..." ref={textareaRef} onChange={textAreaAdjust}></textarea>
                             </div>
                             <button type="submit" className="btn btn-primary float-right mt-2">Comment</button>
@@ -86,7 +82,7 @@ const Comments = ({newsId, userId, comments, setComments}) =>{
                         {comments.map((c, i) => {
 
                         return<div key={i}>
-                            <CommentUser comment={c} index={i} removeComment={removeComment}/>
+                            <CommentUser comment={c} removeComment={removeComment}/>
 
                             <p className="comment-text px-5 py-4" >{c.comment}</p>
 
@@ -102,7 +98,7 @@ const Comments = ({newsId, userId, comments, setComments}) =>{
                     <div className="comments">
                         <form className=" make-comment" onSubmit={commentSubmit}>
                             <div className="d-flex">
-                            <img className="make-comment-user" src={`http://localhost:4000/api/user-image/${userId}`} alt="user-pic"/>
+                            <img className="make-comment-user" src={userId ? `${process.env.REACT_APP_API_URL}/api/users/${userId}/image` : "/img/default-profile-pic.jpg"} alt="user-pic"/>
                             <textarea className="form-control px-4" placeholder="Add a comment..." ref={textareaRef} onChange={textAreaAdjust}></textarea>
                             </div>
                             <button type="submit" className="btn btn-primary float-right mt-2">Comment</button>

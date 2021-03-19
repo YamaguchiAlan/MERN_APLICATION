@@ -1,17 +1,23 @@
 articleCtrl = {};
-const fs = require('fs');
-const del = require('del')
 
 const News = require('../models/News')
 const Article = require('../models/Article');
+const ImageFile = require("../models/Image-File")
 
 articleCtrl.createArticle = async (req, res) => {
     const {BodyData, ArticleData} = req.body
 
+    const author = {
+        ...BodyData.author,
+        _id: req.session.passport.user
+    }
+
     const news = await new News({
         title: BodyData.title,
         text: BodyData.text,
-        author: BodyData.author
+        author: author,
+        type: BodyData.type,
+        views: 0
     })
 
     const article = await new Article({
@@ -20,43 +26,39 @@ articleCtrl.createArticle = async (req, res) => {
 
     news.article = article._id
     if(ArticleData.imagesName[0]){
-        ArticleData.imagesName.forEach((e, i) => {
-            let file = Buffer.from(fs.readFileSync(`img/${BodyData.author._id}/${e}`))
-            article.contentImages.push(file);
-            article.imagesUrl.push(`http://localhost:4000/api/article/${article.id}/img/${i}`)
+        ArticleData.imagesName.forEach(async (e, i) => {
+            let file = await ImageFile.findById(e)
+            article.contentImages.push(file.image);
+            article.imagesUrl.push(`${process.env.API_URL}/api/article/${article.id}/image/${i}`)
         })
     }
 
     await news.save()
     await article.save()
 
-    if(fs.existsSync(`img/${BodyData.author._id}`)){
-        del.sync(`./img/${BodyData.author._id}`)
-    }
+    await ImageFile.deleteMany({user: req.session.passport.user})
 
     res.send(news.id)
 }
 
-articleCtrl.formImg = (req, res) => {
-    if(!fs.existsSync(`img/${req.params.id}`)){
-        fs.mkdirSync(`img/${req.params.id}`)
-    }
-    fs.rename(req.file.path, `img/${req.params.id}/${req.file.filename}`, (err) => {
-        if(err){
-            console.log(err);
-        }
+articleCtrl.formImg = async (req, res) => {
+    const image = await new ImageFile({
+        user: req.params.userId,
+        image: req.file.buffer
     })
+
+    await image.save()
+
     res.json({
         uploaded: true,
-        url: `http://localhost:4000/api/form-img/${req.params.id}/${req.file.filename}`
+        url: `${process.env.API_URL}/api/article/form/image/${image._id}`
     })
-
 }
 
-articleCtrl.getFormImg = (req, res) => {
-    const file = fs.readFileSync(`img/${req.params.id}/${req.params.path}`)
+articleCtrl.getFormImg = async (req, res) => {
+    const file = await ImageFile.findById(req.params.id)
     res.set('Content-Type', 'image/png')
-    res.send(file)
+    res.send(file.image)
 }
 
 articleCtrl.getArticleImages = async (req, res) => {
@@ -69,9 +71,19 @@ articleCtrl.getArticleImages = async (req, res) => {
 articleCtrl.getArticle = (req, res) => {
     News.findById(req.params.id, {image:0}).populate('article', {coverImg: 0, contentImages:0}).exec( (err, article) => {
         if(err){
-            console.log(err)
+            res.status(404).send({error: "Not Found"})
         } else{
-            res.json(article)
+            res.json({success: "Article find", data: article})
+        }
+    })
+}
+
+articleCtrl.increaseViews = (req, res) => {
+    News.findByIdAndUpdate(req.params.id, { $inc: {views: 1} }, (err, doc) => {
+        if(err){
+            console.log(err);
+        } else{
+            res.send({success: "views increased"})
         }
     })
 }
@@ -84,44 +96,46 @@ articleCtrl.getArticleCover = async (req, res) => {
 
 articleCtrl.updateArticle = async (req, res) => {
     const {BodyData, ArticleData} = req.body
-
+    console.log(process.env.API_URL);
     const news = await News.findByIdAndUpdate(req.params.id,{
         title: BodyData.title,
         text: BodyData.text,
-        author: BodyData.author
+        type: BodyData.type
     })
 
     const article = await Article.findByIdAndUpdate(news.article,{
         content: ArticleData.content
     })
 
-    let newContentImage = []
-    let newImagesUrl = []
-    ArticleData.imagesName.forEach((e, i) => {
+    const oldContentImages = article.contentImages
+    const oldImagesUrl = article.imagesUrl
+
+    await Article.findByIdAndUpdate(news.article,{
+        $set: {contentImages: [], imagesUrl: []}
+    })
+
+    ArticleData.imagesName.forEach(async (e, i) => {
         if(typeof(e) == "number") {
-            newContentImage.push(article.contentImages[e])
-            let url = article.imagesUrl[e].slice(0, -1)
+            article.contentImages.push(oldContentImages[e])
+            let url = oldImagesUrl[e].slice(0, -1)
             if(url.endsWith('/')) {
-                newImagesUrl.push(url + i)
+                article.imagesUrl.push(url + i)
             } else {
-                url.slice(0,-2)
-                newImagesUrl.push(url + i)
+                url.slice(0,-1)
+                article.imagesUrl.push(url + i)
             }
         } else {
-            let file = Buffer.from(fs.readFileSync(`img/${BodyData.author._id}/${e}`))
-            newContentImage.push(file);
-            newImagesUrl.push(`http://localhost:4000/api/article/${article.id}/img/${i}`)
+            let file = await ImageFile.findById(e)
+
+            article.contentImages.push(file.image);
+            article.imagesUrl.push(`${process.env.API_URL}/api/article/${article.id}/image/${i}`)
         }
     })
-    article.contentImages = newContentImage
-    article.imagesUrl = newImagesUrl
 
     await news.save()
     await article.save()
 
-    if(fs.existsSync(`img/${BodyData.author._id}`)){
-        del.sync(`./img/${BodyData.author._id}`)
-    }
+    await ImageFile.deleteMany({user: req.session.passport.user})
 
     res.send(news.id)
 }

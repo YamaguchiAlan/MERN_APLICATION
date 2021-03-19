@@ -7,7 +7,7 @@ const Activity = ({id, username}) => {
     const [activity, setActivity] = useState([])
 
     useEffect(() => {
-        axios.get(`http://localhost:4000/api/user-activity/${id}`)
+        axios.get(`/users/${id}/activity`)
         .then(res => setActivity(res.data.reverse()))
         .catch(err => setActivity([]))
     }, [id])

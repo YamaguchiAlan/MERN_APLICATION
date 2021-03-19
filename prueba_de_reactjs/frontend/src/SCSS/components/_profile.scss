@@ -38,20 +38,19 @@
 }
 
 .profile-username{
-    font-size: 1.7rem;
+    font-size: $medium-3;
 }
 
 .profile-followers{
-    font-size: 1.3rem;
+    font-size: $small-3;
     color: rgb(165, 165, 165);
     cursor: pointer;
 }
 
 .profile-btn{
     @include follow-btn;
-    height: 32px;
-    padding: 0 12px;
-    font-size: 1.3rem;
+    padding: 4px 12px;
+    font-size: $small-3;
     border-radius: 16px;
     box-shadow: -2px 3px darken($color: $light-blue, $amount: 20) !important;
     &:hover{
@@ -81,7 +80,7 @@
 
 .profile-report{
     margin-left: 40px;
-    font-size: 1.5rem;
+    font-size: $medium-1;
     font-weight: 700;
     position: relative;
     cursor: pointer;
@@ -123,7 +122,7 @@
     }
 
     & .followers-username{
-        font-size: 1.4rem;
+        font-size: $small-3;
         margin-left: 15px;
     }
 
@@ -133,7 +132,7 @@
         float: right !important;
         height: 25px;
         padding: 0 10px;
-        font-size: 1.2rem;
+        font-size: $small-2;
         border-radius: 12.5px;
     }
 

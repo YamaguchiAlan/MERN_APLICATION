@@ -3,17 +3,21 @@ import { Link } from 'react-router-dom';
 
 
 const NavGrid = ({navArr}) =>(
-    navArr.map( (element, i) =>(
-        <div className="card border-0 px-2 nav-card" key={i}>
-            <img src={ element.img } alt="Default img" className="card-img nav-img"/>
+    <div className="nav-card-container">
+    {
+        navArr.map( (element, i) =>(
+            <div className="card border-0 px-2 nav-card" key={i}>
+                <img src={`${process.env.REACT_APP_API_URL}/api/news/${element._id}/image`} alt="Default img" className="card-img nav-img"/>
 
-            <div className="card-img-overlay d-flex align-items-center nav-text">
-                <Link to={ `/article/${ element.title }` } className="card-text font-weight-bold text-center">
-                { element.title }
+                <Link to={ `/article/${ element._id }` } className="card-img-overlay d-flex align-items-center nav-text">
+                    <span  className="card-text font-weight-bold text-center w-100">
+                    { element.title }
+                    </span>
                 </Link>
             </div>
-        </div>
-    ))
+        ))
+    }
+    </div>
 )
 
 export default NavGrid;
