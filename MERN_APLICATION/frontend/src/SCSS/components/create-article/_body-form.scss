@@ -1,0 +1,111 @@
+.body-form-back{
+    min-width: 800px;
+}
+
+.body-card-form{
+    background: #232526 !important;
+
+    & .article-type{
+        font-size: $small-2 !important;
+    }
+
+    & .preview-body-img{
+        height: 115px !important;
+    }
+
+    & .choose-body-img{
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 115px !important;
+        width: 100%;
+
+        & .card-form-img-btn{
+            font-size: $small-2 !important;
+        }
+    }
+
+    & .body-form-title{
+        min-height: 70px !important;
+        margin-bottom: 10px;
+        resize: none;
+        overflow: hidden;
+
+        color: $text-color;
+        font-size: $medium-1 !important;
+        word-wrap: break-word !important;
+        background: #353535f5 !important;
+        border: solid 1.7px rgb(88, 88, 88) !important;
+    }
+
+    & .body-form-text{
+        min-height: 130px !important;
+        margin-bottom: 10px;
+        resize: none;
+        overflow: hidden;
+
+        font-size: $medium-1 !important;
+        background: #353535f5 !important;
+        border: solid 1.7px rgb(88, 88, 88) !important;
+    }
+}
+
+@media only screen and (max-width: 1199px){
+    .body-form-back{
+        min-width: initial;
+    }
+
+    .body-card-form .body-form-text{
+        min-height: 120px !important;
+    }
+}
+
+@media only screen and (max-width: 991px){
+    .body-card-form{
+        & .preview-body-img, .choose-body-img{
+            height: 110px !important;
+        }
+    }
+}
+
+@media only screen and (max-width: 767px){
+    .body-card-form{
+        & .article-type{
+            font-size: $small-3 !important;
+        }
+
+        & .preview-body-img, .choose-body-img{
+            height: 105px !important;
+        }
+
+        & .choose-body-img .card-form-img-btn{
+            font-size: $small-3 !important;
+        }
+
+        & .body-form-title{
+            min-height: 60px !important;
+            font-size: 1.6rem !important;
+        }
+
+        & .body-form-text{
+            min-height: 110px !important;
+            font-size: 1.6rem !important;
+        }
+
+        & .body-form-next{
+            font-size: 1.35rem;
+        }
+    }
+}
+
+@media only screen and (max-width: 575px){
+    .body-card-form {
+        & .preview-body-img, .choose-body-img{
+            height: 100px !important;
+        }
+
+        & .body-form-title{
+            min-height: 55px !important;
+        }
+    }
+}

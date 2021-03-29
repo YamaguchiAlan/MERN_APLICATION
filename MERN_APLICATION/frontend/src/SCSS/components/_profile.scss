@@ -1,0 +1,331 @@
+@mixin follow-btn {
+    position: relative;
+    color: #0e0e0e;
+    background: darken($color: $light-blue, $amount: 4);
+    border: 0;
+
+    &:hover{
+        background: darken($color: $light-blue, $amount: 10);
+    }
+    &:active, &:focus{
+        background: darken($color: $light-blue, $amount: 10);
+        top: 1px;
+    }
+}
+
+.profile-back{
+    width: 50%;
+    position: relative;
+    left: 2.5%;
+
+    & .profile-pic-back {
+        float: left;
+        & img{
+            height: 150px;
+            width: 150px;
+        }
+    }
+
+    & .profile-user-back{
+        height: 150px;
+        display: flex !important;
+        flex-direction: column;
+        justify-content: space-around;
+        padding-left: 1.125rem;
+    }
+
+    & .profile-username{
+        font-size: $medium-3;
+    }
+
+    & .profile-followers{
+        font-size: $small-3;
+        color: rgb(165, 165, 165);
+        cursor: pointer;
+    }
+
+    & .profile-btn{
+        @include follow-btn;
+        padding: 0.3rem 0.9rem;
+        font-size: $small-3;
+        border-radius: 16px;
+        box-shadow: -0.15rem 0.225rem darken($color: $light-blue, $amount: 20) !important;
+        &:hover{
+            box-shadow: -0.15rem 0.225rem darken($color: $light-blue, $amount: 30) !important;
+        }
+        &:active, &:focus{
+            box-shadow: -0.075rem 0.15rem darken($color: $light-blue, $amount: 30) !important;
+        }
+    }
+
+    & .profile-btn-disabled{
+        @extend .profile-btn;
+        background: rgb(175, 11, 11);
+        color: $text-color;
+        box-shadow: -0.15rem 0.225rem darken($color: rgb(175, 11, 11), $amount: 20) !important;
+
+        &:hover{
+            background: darken($color: rgb(175, 11, 11), $amount: 10) ;
+            box-shadow: -0.15rem 0.225rem darken($color: rgb(175, 11, 11), $amount: 30) !important;
+        }
+
+        &:active, &:focus{
+            box-shadow: -0.075rem 0.15rem darken($color: rgb(175, 11, 11), $amount: 30) !important;
+            background: darken($color: rgb(175, 11, 11), $amount: 10);
+        }
+    }
+
+    & .profile-report{
+        margin-left: 3rem;
+        font-size: $medium-1;
+        font-weight: 700;
+        position: relative;
+        cursor: pointer;
+
+        &:active, &:focus{
+            top: 1px;
+        }
+    }
+}
+
+.view-followers{
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    position: fixed;
+
+    background: #00000094;
+
+    & .view-followers-card{
+        width: 25%;
+        min-width: 400px;
+        max-height: 70%;
+
+        & .card-body{
+            overflow-y: scroll;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
+    }
+
+    & .close-followers{
+        position: absolute;
+        height: 30px;
+        top: -35px;
+        right: 2px;
+
+        &:hover{
+            cursor: pointer;
+            transform: scale(1.1);
+        }
+    }
+
+    & .followers-pic{
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+    }
+
+    & .followers-username{
+        font-size: $small-3;
+        margin-left: 1.125rem;
+    }
+
+    & .profile-followers-btn{
+        @include follow-btn;
+
+        float: right !important;
+        padding: 0.075rem 0.75rem;
+        font-size: $small-2;
+        border-radius: 12.5px;
+    }
+
+    & .profile-followers-btn-disabled{
+        @extend .profile-followers-btn;
+
+        background: rgb(175, 11, 11);
+        color: $text-color;
+
+        &:hover{
+            background: darken($color: rgb(175, 11, 11), $amount: 10) ;
+        }
+
+        &:active, &:focus{
+            background: darken($color: rgb(175, 11, 11), $amount: 10);
+        }
+    }
+}
+
+@media only screen and (max-width: 1199px){
+    .profile-back{
+        width: 60%;
+        left: 0;
+
+        & .profile-pic-back img{
+            height: 140px;
+            width: 140px;
+        }
+
+        & .profile-user-back{
+            height: 140px;
+        }
+    }
+
+    .view-followers .followers-pic{
+        height: 38px;
+        width: 38px;
+    }
+}
+
+@media only screen and (max-width: 991px){
+    .profile-back{
+        width: 65%;
+
+        & .profile-pic-back img{
+            height: 130px;
+            width: 130px;
+        }
+
+        & .profile-user-back{
+            height: 130px;
+        }
+    }
+
+    .view-followers .followers-pic{
+        height: 37px;
+        width: 37px;
+    }
+}
+
+@media only screen and (max-width: 767px){
+    .profile-back{
+        width: 73%;
+
+        & .profile-pic-back img{
+            height: 115px;
+            width: 115px;
+        }
+
+        & .profile-username{
+            font-size: 1.9rem;
+        }
+
+        & .profile-user-back{
+            height: 115px;
+        }
+
+        & .profile-btn{
+            font-size: 1.4rem;
+            padding: 0.35rem 0.95rem;
+        }
+
+        & .profile-report{
+            margin-left: 2.5rem;
+        }
+    }
+
+    .view-followers {
+        & .view-followers-card{
+            min-width: 350px;
+        }
+
+        & .followers-pic{
+            height: 35px;
+            width: 35px;
+        }
+
+        & .profile-followers-btn{
+            font-size: $small-3;
+            padding: 0.09rem 0.8rem;
+        }
+    }
+}
+
+@media only screen and (max-width: 575px){
+    .profile-back{
+        width: 85%;
+
+        & .profile-pic-back img{
+            height: 100px;
+            width: 100px;
+        }
+
+        & .profile-user-back{
+            height: 100px;
+        }
+    }
+
+    .view-followers {
+        & .view-followers-card{
+            min-width: 330px;
+            width: 70%;
+        }
+
+        & .followers-pic{
+            height: 33px;
+            width: 33px;
+        }
+    }
+}
+
+@media only screen and (max-width: 479px){
+    .profile-back{
+        width: 95%;
+
+        & .profile-pic-back img{
+            height: 90px;
+            width: 90px;
+        }
+
+        & .profile-user-back{
+            height: 90px;
+        }
+    }
+
+    .view-followers {
+        & .view-followers-card{
+            min-width: 300px;
+            width: 90%;
+        }
+
+        & .followers-pic{
+            height: 31px;
+            width: 31px;
+        }
+    }
+}
+
+@media only screen and (max-width: 319px){
+    .profile-back{
+        width: 98%;
+
+        & .profile-pic-back img{
+            height: 75px;
+            width: 75px;
+        }
+
+        & .profile-user-back{
+            height: 75px;
+        }
+    }
+
+    .view-followers {
+        & .view-followers-card{
+            min-width: initial;
+            width: 97%;
+        }
+
+        & .followers-pic{
+            height: 28px;
+            width: 28px;
+        }
+    }
+}

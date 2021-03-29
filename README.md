@@ -1,2 +1,2 @@
-# React_training
-Reactjs training
+# MERN_APLICATION
+Mern Aplication
