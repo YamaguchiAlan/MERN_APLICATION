@@ -3,7 +3,7 @@ export const scrollFunc = () => {
   const editorTop = document.getElementsByClassName("ck-sticky-panel__content")[0]
 
   if(editorTop){
-    if(getComputedStyle(editorTop).top.slice(0, -2) != header.offsetHeight){
+    if(getComputedStyle(editorTop).top.slice(0, -2) !== header.offsetHeight){
       editorTop.style.top=`${header.offsetHeight}px`
     }
   }

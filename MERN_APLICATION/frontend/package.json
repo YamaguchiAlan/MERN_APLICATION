@@ -1,6 +1,7 @@
 {
   "name": "frontend_mern_aplication",
   "version": "1.0.0",
+  "proxy": "https://my-mern-aplication.herokuapp.com",
   "private": true,
   "dependencies": {
     "@ckeditor/ckeditor5-react": "^3.0.0",

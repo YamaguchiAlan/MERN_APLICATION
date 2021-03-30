@@ -65,7 +65,7 @@ usersCtrl.getUser = async (req, res) => {
 
 usersCtrl.uploadImage = async (req, res) => {
     try{
-        const userId = req.session.passport.user
+        const userId = req.session.passport.user || req.params.id
         const user = await Users.findById(userId)
         user.image = req.file.buffer
         await user.save()

@@ -65,7 +65,7 @@ const UserProfile = ({ match, id, followUser, unfollowUser, verified}) => {
                 unfollowUser(user._id)
 
                 const newUser = user
-                newUser.followers = newUser.followers.filter(e => e != id)
+                newUser.followers = newUser.followers.filter(e => e !== id)
                 setUser({...newUser})
                 followRef.current.blur()
             }

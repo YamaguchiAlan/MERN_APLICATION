@@ -15,7 +15,7 @@ const MenuSelector = ({editMode, verified}) => {
         editMode ? (
         <div className="dropdown selector">
             <img src={menu} className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" alt="menu"/>
-            <div class="dropdown-menu" id="dropdown-menu">
+            <div className="dropdown-menu" id="dropdown-menu">
                 <NavLink className="dropdown-item" activeClassName="actual" exact to="/">
                     Home
                 </NavLink>
@@ -42,8 +42,8 @@ const MenuSelector = ({editMode, verified}) => {
         :
         (
         <div className="dropdown selector" >
-            <img src={menu} class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" alt="menu"/>
-            <div class="dropdown-menu" id="dropdown-menu">
+            <img src={menu} className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" alt="menu"/>
+            <div className="dropdown-menu" id="dropdown-menu">
                 <NavLink className="dropdown-item" activeClassName="actual" exact to="/">
                     Home
                 </NavLink>
@@ -63,7 +63,7 @@ const MenuSelector = ({editMode, verified}) => {
                     </div>
                 }
 
-                <div class="dropdown-divider"></div>
+                <div className="dropdown-divider"></div>
                 <NavLink className="dropdown-item" activeClassName="actual" to="/filter-news/News">
                     News
                 </NavLink>

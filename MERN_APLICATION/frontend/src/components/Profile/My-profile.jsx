@@ -26,7 +26,7 @@ const MyProfile = ({user, verifyUser}) => {
     const history = useHistory()
 
     useEffect(() => {
-        if(user.verified == false) {
+        if(user.verified === false) {
             history.push("/")
         }
     }, [])

@@ -6,9 +6,11 @@ export function verifyUser() {
         dispatch(verifyStarted())
         axios.get("/users/authenticate")
         .then((res) => {
+            console.log(res);
             dispatch(verifySuccess(res.data))
         })
         .catch((err) => {
+            console.log(err);
             dispatch(verifiedFailed())
         })
     }

@@ -23,7 +23,7 @@ const Signin = ({verifyUser}) => {
         const inputs = document.querySelectorAll(".register .signin-input")
         inputs.forEach(element => {
             element.addEventListener("keypress", e => {
-                if (e.which == 32){
+                if (e.which === 32){
                     e.returnValue = false
                 }
             })

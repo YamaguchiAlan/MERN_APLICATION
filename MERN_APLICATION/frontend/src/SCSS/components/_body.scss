@@ -13,6 +13,7 @@ $bg-color: #181717da;
 
 .body-card{
     background: $bg-color !important;
+    min-height: 160px;
 }
 
 .body-img-back{
@@ -160,6 +161,10 @@ $bg-color: #181717da;
         width: 240px !important;
     }
 
+    .body-card{
+        min-height: initial !important;
+    }
+
     .social a img{
         height: 21px !important;
     }
@@ -194,6 +199,9 @@ $bg-color: #181717da;
         width: 280px !important;
     }
 
+    .body-card{
+        min-height: initial !important;
+    }
 
     .card-body-edit{
         & span{
@@ -214,6 +222,10 @@ $bg-color: #181717da;
     .body-img-back .body-img{
         height: 225px !important;
         width: 400px !important;
+    }
+
+    .body-card{
+        min-height: initial;
     }
 
     .card-body-edit img{
@@ -256,6 +268,10 @@ $bg-color: #181717da;
         width: 230px;
     }
 
+    .body-card{
+        min-height: 130px;
+    }
+
     .card-body-edit{
         & span{
             font-size: $small-2;
@@ -288,5 +304,9 @@ $bg-color: #181717da;
     .body-img-back .body-img{
         height: 130px;
         width: 230px;
+    }
+
+    .body-card{
+        min-height: 130px;
     }
 }

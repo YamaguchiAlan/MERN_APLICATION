@@ -14,7 +14,7 @@ import './Media-Queries'
 
 onScroll()
 
-axios.defaults.baseURL = `${process.env.REACT_APP_API_URL}/api`
+axios.defaults.baseURL = `/api`
 axios.defaults.withCredentials = true
 
 ReactDOM.render(

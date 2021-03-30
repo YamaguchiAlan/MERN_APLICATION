@@ -86,7 +86,7 @@ const Signup = () => {
 
     const sendData = (e) => {
         e.preventDefault()
-        console.log(confirmPassword());
+
         e.target.classList.add('was-validated');
         if (e.target.checkValidity() === false) {
              e.stopPropagation();
@@ -104,7 +104,7 @@ const Signup = () => {
 
                     let data = new FormData()
                     data.append("user-img" , blob)
-                    axios.put(`/users/image`, data)
+                    axios.post(`/users/${res.data.id}/image`, data)
                     .then(history.push("/"))
                 }
             })

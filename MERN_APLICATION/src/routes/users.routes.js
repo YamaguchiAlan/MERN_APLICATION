@@ -45,6 +45,8 @@ router.get('/api/users/logout', logout)
 
 router.get("/api/users/:id", getUser)
 
+router.post('/api/users/:id/image', upload.single('user-img'), uploadImage)
+
 router.put('/api/users/image', isAuthenticated, upload.single('user-img'), uploadImage)
 
 router.get('/api/users/:id/image', getUserImage)
