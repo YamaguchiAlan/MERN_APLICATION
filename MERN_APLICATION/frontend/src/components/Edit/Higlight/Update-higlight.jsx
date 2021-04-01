@@ -84,12 +84,16 @@ const UpdateHiglight = ({higlight, higlightBlob, setHiglight, setHiglightBlob, r
     const showNewsSelector = (e) => {
         e.preventDefault()
 
+        document.getElementById("higlight-form").classList.remove('was-validated');
+
         document.getElementById("update-higlight-form").style.display="none"
         document.getElementById("select-news").style.display="block"
     }
 
     const backBtn = () => {
         resetHiglightData()
+
+        document.getElementById("higlight-form").classList.remove('was-validated');
 
         document.getElementById("higlight-back").style.display="flex"
         document.getElementById("update-higlight-header").style.display="block"
@@ -146,7 +150,7 @@ const UpdateHiglight = ({higlight, higlightBlob, setHiglight, setHiglightBlob, r
                             <h2 className="text-center">Update Higlight</h2>
                         </div>
                         <div className="card-body">
-                            <form className="d-flex flex-column" onSubmit={higlightSubmit} noValidate>
+                            <form className="d-flex flex-column" onSubmit={higlightSubmit} id="higlight-form" noValidate>
                                 <div className="form-group  mb-4">
                                     <label for="higlight-img" style={{fontSize: "1.6rem"}}>Image</label>
                                     <div className="higlight-form-img">

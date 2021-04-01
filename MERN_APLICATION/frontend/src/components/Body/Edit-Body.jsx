@@ -43,20 +43,22 @@ const EditBody = ({news, deleteNews, setNews, setNewsFailed, header}) => {
     },[])
 
     const onRemoveClick = (id) => {
-        axios.delete(`/news/${id}`)
-        .then(res => {
-            if(res.data.success){
-                const filterNews = news.filter(e => e._id !== id)
-                if(filterNews[0]){
-                    setNews(filterNews)
-                    checkWindowSize()
-                }else{
-                    deleteNews()
-                    setNewsFailed()
-                    checkWindowSize()
+        if(window.confirm("Are you sure?")){
+            axios.delete(`/news/${id}`)
+            .then(res => {
+                if(res.data.success){
+                    const filterNews = news.filter(e => e._id !== id)
+                    if(filterNews[0]){
+                        setNews(filterNews)
+                        checkWindowSize()
+                    }else{
+                        deleteNews()
+                        setNewsFailed()
+                        checkWindowSize()
+                    }
                 }
-            }
-        })
+            })
+        }
     }
 
     return(
@@ -90,7 +92,7 @@ const EditBody = ({news, deleteNews, setNews, setNewsFailed, header}) => {
                                     </div>
                                 </div>
                                 <h2 className="card-title font-weight-bold body-title">
-                                    <Link to={`/article/${props._id}`}>
+                                    <Link to={`/edit-articles/update/${props._id}`}>
                                         {props.title}
                                     </Link>
                                 </h2>

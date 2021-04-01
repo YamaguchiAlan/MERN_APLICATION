@@ -64,7 +64,7 @@ const Body = ({news, deleteNews, editMode, header, selectHiglight, setHiglightNe
                 <div className="col-lg-4 col-md-4 body-img-back">
                     <img src={props.defaultImg ? props.defaultImg : `${process.env.REACT_APP_API_URL}/api/news/${props._id}/image`} alt="" className="card-img background-img"/>
                     {
-                    editMode ?
+                    editMode || selectHiglight ?
                         <a href="#">
                             <img src={props.defaultImg ? props.defaultImg : `${process.env.REACT_APP_API_URL}/api/news/${props._id}/image`} alt="" className="body-img" id="card-body-img"/>
                         </a>
@@ -80,7 +80,7 @@ const Body = ({news, deleteNews, editMode, header, selectHiglight, setHiglightNe
                             <span className={`body-type ${props.type}`}>{props.type}</span>
 
                             <span className="card-title font-weight-bold body-title">
-                                {editMode ?
+                                {editMode || selectHiglight ?
                                     <a href="#">{props.title}</a>
                                 :
                                     <Link to={`/article/${props._id}`}>

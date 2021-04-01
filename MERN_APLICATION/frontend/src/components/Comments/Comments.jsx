@@ -47,6 +47,7 @@ const Comments = ({newsId, userId, comments, setComments, verified}) =>{
                     if(res.data.success){
                         checkMenuBtn()
                         setComments([res.data.comment, ...comments])
+                        textareaRef.current.value = ""
                     }
                 })
             } else{

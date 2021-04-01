@@ -31,6 +31,7 @@ const CreateArticle = ({bodyCard, article, user, setBodyCardAuthor, deleteBodyCa
     const history = useHistory()
 
     useEffect(() => {
+        deleteBodyCardData()
         document.getElementById('article-form').style.display="none"
         document.getElementById('preview').style.display="none"
         if(user._id){
