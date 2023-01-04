@@ -1,2 +1,2 @@
 # MERN_APLICATION
-Mern Aplication
+Mern_Aplication
